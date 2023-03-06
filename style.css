@@ -62,9 +62,11 @@ html, body {
 
 body {
 	width: calc(100% - 200px);
-	height: calc(100% - 200px);
-	margin: 100px;
+	height: calc(100% - 100px);
+	margin: 50px 100px;
 	background-image: linear-gradient(var(--background-angle), #592262, #00267d);
+	background-attachment: fixed;
+	overflow: overlay;
 }
 
 #particles {
@@ -88,6 +90,9 @@ h1,h2,h3 {
 h1 {
 	font-family: kingthings;
 	animation: 2s fade-in;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
+	filter: opacity(0);
 }
 
 h2 {
@@ -102,9 +107,20 @@ h3 {
 	margin: 20px auto 10px auto;
 }
 
-div:has(h2) {
-	border-bottom: 3px solid #fff;
+p, a {
+	font-size: 20px;
+	color: #fff;
+}
+
+.slide {
 	animation: slide 2s;
+	animation-delay: 0.5s;
+	animation-fill-mode: forwards;
+	filter: opacity(0);
+}
+
+.slide:has(h2) {
+	border-bottom: 3px solid #fff;
 }
 
 section {
@@ -113,7 +129,7 @@ section {
 	justify-content: space-evenly;
 }
 
-a {
+.button {
 	display: flex;
 	contain: content;
 	transition-duration: 1s;
@@ -136,7 +152,7 @@ a {
 	width: 400px;
 }
 
-a:hover {
+.button:hover {
 	cursor: pointer;
 }
 
@@ -151,7 +167,7 @@ a:hover {
 	transition-duration: 0.5s;
 }
 
-a:hover > .over-left {
+.button:hover > .over-left {
 	right: 0;
 }
 
@@ -162,8 +178,18 @@ img {
 	margin: 10px 20px 10px 0;
 }
 
-p {
+.button p {
 	color: #ccc;
 	font-size: 14px;
 	margin: 2px 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }

@@ -7,12 +7,16 @@ let prevPos = [0, 0];
 let mouseMove = 0; // average movement over 100 frames
 
 let repos = [
-	[["finesse", "A modern Tetris, customizable finesse training webpage"],
+	[["hardest", "Hardest game ever. Truly."],
 	 ["maze", "Doom-like maze with randomly generated levels"],
-	 ["hardest", "Hardest game ever. Truly."],
+	 ["finesse", "A modern Tetris, customizable finesse training webpage"],
 	 ["mandelbrot", "Javascript Mandelbrot set visualization"]],
 	[["install-wizard", "Rudimentary tkinter installer"],
-	 ["jstris-plus", "Jstris+ storage for soundpacks I created"]]
+	 ["jstris-plus", "Jstris+ storage for soundpacks I created"],
+	 ["textbox", "A simple textbox, which can be used with pygame"],
+	 ["2048", "2048 game, created in 1 hour. Maybe some bugs."],
+	 ["smooth-movement", "A PyGame smooth x movement, which can be used to move a sprite with friction"],
+	 ["camera-scrolling", "The camera follows the player, to make it stay in an area in the center of the screen"]]
 	];
 
 class Vector2 {
@@ -48,8 +52,8 @@ class Particle {
 	constructor() {
 		this.x = Math.random()*W;
 		this.y = Math.random()*H;
-		this.size = Math.random()*3;
-		this.speed = Math.random()*20 + 5;
+		this.z = Math.random()*3;
+		this.speed = Math.random()*20 + (3-this.z)**2*3;
 		this.movement = new Vector2(1, 0);
 		this.movement.rotate(Math.random()*2*Math.PI);
 	}
@@ -66,7 +70,7 @@ class Particle {
 		this.y += (this.movement.y+y) * this.speed / FPS;
 
 		// prevent going out of the screen
-		let s = this.size/2;
+		let s = 1.5 - this.z/2;
 		if (this.x < -s) {
 			this.x = W+s;
 		} else if (this.x > W+s) {
@@ -79,9 +83,11 @@ class Particle {
 		}
 
 		// draw
+		x = (0.5 - (mousePos[0]+window.scrollX)/W) * 50;
+		y = (0.5 - (mousePos[1]+window.scrollY)/H) * 50;
 		ctx.fillStyle = "#fff";
 		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.size, 0, 2*Math.PI);
+		ctx.arc(this.x + x/this.z, this.y + y/this.z, 3-this.z, 0, 2*Math.PI);
 		ctx.fill();
 	}
 }
@@ -100,10 +106,11 @@ function addRepos() {
 	let count = 0;
 	for (let i = 0; i < 2; i++) {
 		let title = document.createElement("div");
+		title.className = "slide";
 		if (i == 0) {
 			title.innerHTML = "<h2>GitHub Pages repositories</h2>";
 		} else {
-			title.innerHTML = "<h2>Other repositories</h2>";
+			title.innerHTML = "<h2>Other notable repositories</h2>";
 		}
 		document.body.appendChild(title);
 
@@ -114,6 +121,7 @@ function addRepos() {
 
 			a = document.createElement("a");
 			a.href = "https://github.com/d-002/" + repo[0];
+			a.className = "button";
 			a.innerHTML = `
 			<img src="https://avatars.githubusercontent.com/u/69427207">
 			<div>
@@ -123,7 +131,7 @@ function addRepos() {
 			<div class="over-left"></div>`.replace("TITLE", repo[0]).replace("DESC", repo[1]);
 			section.appendChild(a);
 			
-			a.style.animationDelay = "" + (2 + count/10) + "s";
+			a.style.animationDelay = "" + (2 + count/5) + "s";
 			count++;
 		}
 	}
@@ -142,7 +150,7 @@ function animate() {
 	// set up particles
 	if (particles == undefined) {
 		particles = [];
-		for (let i = 0; i < 50; i++) {
+		for (let i = 0; i < 100; i++) {
 			particles.push(new Particle());
 		}
 	}
