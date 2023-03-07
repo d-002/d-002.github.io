@@ -2,9 +2,17 @@ let style, canvas, ctx;
 let particles, W, H;
 let FPS = 60;
 let start = Date.now() + Math.random()*8000;
+
 let mousePos = [0, 0];
-let prevPos = [0, 0];
-let mouseMove = 0; // average movement over 100 frames
+let prevPos = [0, 0]; // position of the mouse last frame
+let mouseMove = 0;
+let prevMove = []; // movement over last few frames
+for (let i = 0; i < FPS; i++) {
+	prevMove.push(0);
+}
+
+let stars = [];
+let lastParticle = start;
 
 let repos = [
 	[["hardest", "Hardest game ever. Truly."],
@@ -46,16 +54,24 @@ class Vector2 {
 		this.x = Math.cos(a)*l;
 		this.y = Math.sin(a)*l;
 	}
+
+	mult(a) {
+		this.x *= a;
+		this.y *= a;
+	}
 }
 
 class Particle {
 	constructor() {
 		this.x = Math.random()*W;
 		this.y = Math.random()*H;
-		this.z = Math.random()*3;
-		this.speed = Math.random()*20 + (3-this.z)**2*3;
+		this.z = Math.random()*5;
+		this.speed = Math.random()*10 + (3-this.z)**2;
 		this.movement = new Vector2(1, 0);
 		this.movement.rotate(Math.random()*2*Math.PI);
+
+		let r = Math.random()*50;
+		this.color = "rgb(" + (205 + r) + ", " + 205 + ", " + (255-r) + ")";
 	}
 	
 	update() {
@@ -70,7 +86,7 @@ class Particle {
 		this.y += (this.movement.y+y) * this.speed / FPS;
 
 		// prevent going out of the screen
-		let s = 1.5 - this.z/2;
+		let s = 2.5 - this.z/2;
 		if (this.x < -s) {
 			this.x = W+s;
 		} else if (this.x > W+s) {
@@ -83,12 +99,47 @@ class Particle {
 		}
 
 		// draw
-		x = (0.5 - (mousePos[0]+window.scrollX)/W) * 50;
-		y = (0.5 - (mousePos[1]+window.scrollY)/H) * 50;
-		ctx.fillStyle = "#fff";
+		x = (0.5 - (mousePos[0]+window.scrollX*3)/W) * 50;
+		y = (0.5 - (mousePos[1]+window.scrollY*3)/H) * 50;
+		/* ctx.fillStyle = this.color;
 		ctx.beginPath();
-		ctx.arc(this.x + x/this.z, this.y + y/this.z, 3-this.z, 0, 2*Math.PI);
-		ctx.fill();
+		ctx.arc(this.x + x/this.z, this.y + y/this.z, s, 0, 2*Math.PI);
+		ctx.fill(); */
+		s *= 5;
+		ctx.drawImage(stars[0], this.x + x/this.z - s, this.y + y/this.z - s, s*2, s*2);
+	}
+}
+
+class MouseParticle {
+	constructor() {
+		let offset = this.getOffset();
+		this.x = mousePos[0] - offset[0];
+		this.y = mousePos[1] - offset[1];
+		this.movement = new Vector2(mouseMove/10, 0);
+		this.movement.rotate(Math.random()*2*Math.PI);
+		this.z = Math.random()*3;
+		this.spawn = Date.now()
+	}
+
+	getOffset() {
+		let x = (0.5 - window.scrollX*3/W) * 50;
+		let y = (0.5 - window.scrollY*3/H) * 50;
+		return [x, y];
+	}
+
+	update() {
+		// move
+		this.movement.mult(0.99);
+		this.x += this.movement.x/FPS;
+		this.y += this.movement.y/FPS;
+
+		// draw
+		let offset = this.getOffset();
+		let s = 7.5 - this.z*2.5;
+		ctx.drawImage(stars[1], this.x + offset[0]/this.z - s, this.y + offset[1]/this.z - s, s*2, s*2);
+
+		// despawn
+		return (Date.now()-this.spawn > 3000);
 	}
 }
 
@@ -137,15 +188,30 @@ function addRepos() {
 	}
 }
 
+function sum(array) {
+	let sum = 0;
+	for (let i = 0; i < array.length; i++) {
+		sum += array[i];
+	}
+	return sum;
+}
+
 function animate() {
 	W = window.innerWidth;
 	H = window.innerHeight;
 	canvas.setAttribute("width", W);
 	canvas.setAttribute("height", H);
 
+	// get mouse pos and movement
 	let move = new Vector2(mousePos[0]-prevPos[0], mousePos[1]-prevPos[1]);
-	mouseMove = (1 - 1/FPS) * (mouseMove+move.length());
+	mouseMove = FPS * sum(prevMove) / prevMove.length;
+	prevMove.push(move.length());
+	prevMove.shift();
 	prevPos = [...mousePos];
+
+	// animate background
+	let angle = (Date.now()-start)/1000*45;
+	style.innerHTML = ":root{--background-angle: ANGLEdeg;}".replace("ANGLE", angle);
 
 	// set up particles
 	if (particles == undefined) {
@@ -155,14 +221,22 @@ function animate() {
 		}
 	}
 
-	// animate background
-	let angle = (Date.now()-start)/1000*45;
-	style.innerHTML = ":root{--background-angle: ANGLEdeg;}".replace("ANGLE", angle);
+	// add mouse particles (if mouseMove is 0, no particles will be created);
+	if (Date.now() - lastParticle > 10000/mouseMove) {
+		particles.push(new MouseParticle());
+		lastParticle = Date.now();
+	}
 
 	// animate particles canvas
 	ctx.clearRect(0, 0, W, H);
+	let toRemove = []; // despawning particles
 	for (let i = 0; i < particles.length; i++) {
-		particles[i].update();
+		if (particles[i].update()) {
+			toRemove.push(particles[i]);
+		}
+	}
+	for (let i = 0; i < toRemove.length; i++) {
+		particles.splice(particles.indexOf(toRemove[i]), 1);
 	}
 }
 
@@ -172,6 +246,9 @@ function init() {
 
 	canvas = document.getElementById("particles")
 	ctx = canvas.getContext("2d");
+
+	stars.push(document.getElementById("star"));
+	stars.push(document.getElementById("mouse-star"));
 
 	addRepos();
 
