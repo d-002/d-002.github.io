@@ -112,7 +112,7 @@ p, a {
 	color: #fff;
 }
 
-.slide {
+section, .slide {
 	animation: slide 2s;
 	animation-delay: 0.5s;
 	animation-fill-mode: forwards;
@@ -127,6 +127,10 @@ section {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    margin-bottom: 50px;
+	border-radius: 0 0 10px 10px;
 }
 
 .button {
@@ -145,7 +149,7 @@ section {
 
 	border: none;
 	border-radius: 10px;
-	box-shadow: 0 0 20px #222;
+	box-shadow: 0 0 20px black;
 
 	margin: 50px;
 	padding: 0 10px;
