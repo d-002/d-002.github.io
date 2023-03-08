@@ -1,7 +1,7 @@
 let style, canvas, ctx;
 let particles, W, H;
 let FPS = 60;
-let start = Date.now() + Math.random()*8000;
+let start = Date.now();
 
 let mousePos = [0, 0];
 let prevPos = [0, 0]; // position of the mouse last frame
@@ -61,85 +61,95 @@ class Vector2 {
 	}
 }
 
-class Particle {
+class ParticleBase {
+	getOffset() {
+		// returns offset that is only applied to the display position
+		let x = -(mousePos[0]/2 + window.scrollX*5) / W * 50;
+		let y = -(mousePos[1]/2 + window.scrollY*5) / H * 50;
+		return [x, y];
+	}
+
+	getDisplay() {
+		let space = 10; // room around the window
+		let offset = this.getOffset();
+
+		let x = this.x + offset[0]*2/this.z**2 + space;
+		let y = this.y + offset[1]*2/this.z**2 + space;
+		let w = W + 2*space;
+		let h = H + 2*space;
+
+		return [(x % w + w) % w - space, (y % h + h) % h - space];
+	}
+}
+
+class Particle extends ParticleBase {
 	constructor() {
+		super();
 		this.x = Math.random()*W;
 		this.y = Math.random()*H;
-		this.z = Math.random()*5;
-		this.speed = Math.random()*10 + (3-this.z)**2;
+		this.z = Math.random()*5 + 1;
+
+		this.speed = Math.random()*10 + (6-this.z)**2;
 		this.movement = new Vector2(1, 0);
 		this.movement.rotate(Math.random()*2*Math.PI);
-
-		let r = Math.random()*50;
-		this.color = "rgb(" + (205 + r) + ", " + 205 + ", " + (255-r) + ")";
 	}
 	
 	update() {
 		// move away from mouse the faster it gets
-		let toMouse = new Vector2(this.x-mousePos[0], this.y-mousePos[1]);
+		let pos = this.getDisplay();
+		let toMouse = new Vector2(pos[0]-mousePos[0], pos[1]-mousePos[1]);
 		let power = 0.5/toMouse.length(); // let's pretend the length will never be 0
 		toMouse.normalize();
+
 		let x = toMouse.x*mouseMove*power;
 		let y = toMouse.y*mouseMove*power;
 
 		this.x += (this.movement.x+x) * this.speed / FPS;
 		this.y += (this.movement.y+y) * this.speed / FPS;
 
-		// prevent going out of the screen
-		let s = 2.5 - this.z/2;
-		if (this.x < -s) {
-			this.x = W+s;
-		} else if (this.x > W+s) {
-			this.x = -s;
-		}
-		if (this.y < -s) {
-			this.y = H+s;
-		} else if (this.y > H+s) {
-			this.y = -s;
-		}
-
-		// draw
-		x = (0.5 - (mousePos[0]+window.scrollX*3)/W) * 50;
-		y = (0.5 - (mousePos[1]+window.scrollY*3)/H) * 50;
-		/* ctx.fillStyle = this.color;
-		ctx.beginPath();
-		ctx.arc(this.x + x/this.z, this.y + y/this.z, s, 0, 2*Math.PI);
-		ctx.fill(); */
-		s *= 5;
-		ctx.drawImage(stars[0], this.x + x/this.z - s, this.y + y/this.z - s, s*2, s*2);
+		let s = 15/this.z;
+		pos = this.getDisplay();
+		ctx.drawImage(stars[0], pos[0]-s, pos[1]-s, s*2, s*2);
 	}
 }
 
-class MouseParticle {
+class MouseParticle extends ParticleBase {
 	constructor() {
+		super();
+		this.x = mousePos[0];
+		this.y = mousePos[1];
+		this.z = Math.random()*5 + 1;
+
+		// substract the offset to spawn where the mouse is
 		let offset = this.getOffset();
-		this.x = mousePos[0] - offset[0];
-		this.y = mousePos[1] - offset[1];
+		this.x -= offset[0]/this.z;
+		this.y -= offset[1]/this.z;
+
 		this.movement = new Vector2(mouseMove/10, 0);
 		this.movement.rotate(Math.random()*2*Math.PI);
-		this.z = Math.random()*3;
-		this.spawn = Date.now()
-	}
 
-	getOffset() {
-		let x = (0.5 - window.scrollX*3/W) * 50;
-		let y = (0.5 - window.scrollY*3/H) * 50;
-		return [x, y];
+		this.spawn = Date.now()
 	}
 
 	update() {
 		// move
 		this.movement.mult(0.99);
+		this.movement.y += 10/FPS;
 		this.x += this.movement.x/FPS;
 		this.y += this.movement.y/FPS;
 
 		// draw
-		let offset = this.getOffset();
-		let s = 7.5 - this.z*2.5;
-		ctx.drawImage(stars[1], this.x + offset[0]/this.z - s, this.y + offset[1]/this.z - s, s*2, s*2);
+		let delay = Date.now()-this.spawn;
+		let s = 15/this.z;
+		if (delay > 2000) {
+			//shrink before despawning
+			s *= 1 - (delay-2000)/1000;
+		}
+		let pos = this.getDisplay();
+		ctx.drawImage(stars[1], pos[0] - s, pos[1] - s, s*2, s*2);
 
 		// despawn
-		return (Date.now()-this.spawn > 3000);
+		return (delay > 3000);
 	}
 }
 
@@ -219,12 +229,12 @@ function animate() {
 		for (let i = 0; i < 100; i++) {
 			particles.push(new Particle());
 		}
-	}
-
-	// add mouse particles (if mouseMove is 0, no particles will be created);
-	if (Date.now() - lastParticle > 10000/mouseMove) {
-		particles.push(new MouseParticle());
-		lastParticle = Date.now();
+	} else {
+		// add mouse particles (if mouseMove is 0, no particles will be created);
+		if (Date.now() - lastParticle > 10000/mouseMove) {
+			particles.push(new MouseParticle());
+			lastParticle = Date.now();
+		}
 	}
 
 	// animate particles canvas
@@ -238,6 +248,8 @@ function animate() {
 	for (let i = 0; i < toRemove.length; i++) {
 		particles.splice(particles.indexOf(toRemove[i]), 1);
 	}
+
+	//ctx.drawImage(stars[2], 0, 0);
 }
 
 function init() {
@@ -249,6 +261,7 @@ function init() {
 
 	stars.push(document.getElementById("star"));
 	stars.push(document.getElementById("mouse-star"));
+	stars.push(document.getElementById("cloud"));
 
 	addRepos();
 
