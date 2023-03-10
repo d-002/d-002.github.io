@@ -14,17 +14,18 @@ for (let i = 0; i < FPS; i++) {
 let stars = [];
 let lastParticle = start;
 
+// name, description, image (true / false)
 let repos = [
-	[["hardest", "Hardest game ever. Truly."],
-	 ["maze", "Doom-like maze with randomly generated levels"],
-	 ["finesse", "A modern Tetris, customizable finesse training webpage"],
-	 ["mandelbrot", "Javascript Mandelbrot set visualization"]],
-	[["install-wizard", "Rudimentary tkinter installer"],
-	 ["jstris-plus", "Jstris+ storage for soundpacks I created"],
-	 ["textbox", "A simple textbox, which can be used with pygame"],
-	 ["2048", "2048 game, created in 1 hour. Maybe some bugs."],
-	 ["smooth-movement", "A PyGame smooth x movement, which can be used to move a sprite with friction"],
-	 ["camera-scrolling", "The camera follows the player, to make it stay in an area in the center of the screen"]]
+	[["hardest", "Hardest game ever. Truly.", true],
+	 ["maze", "Doom-like maze with randomly generated levels", true],
+	 ["finesse", "A modern Tetris, customizable finesse training webpage", true],
+	 ["mandelbrot", "Javascript Mandelbrot set visualization", true]],
+	[["install-wizard", "Rudimentary tkinter installer", false],
+	 ["jstris-plus", "Jstris+ storage for soundpacks I created", true],
+	 ["textbox", "A simple textbox, which can be used with pygame", false],
+	 ["2048", "2048 game, created in 1 hour. Maybe some bugs.", true],
+	 ["smooth-movement", "A PyGame smooth x movement, which can be used to move a sprite with friction", false],
+	 ["camera-scrolling", "The camera follows the player, to make it stay in an area in the center of the screen", false]]
 	];
 
 class Vector2 {
@@ -61,7 +62,7 @@ class Vector2 {
 	}
 }
 
-class ParticleBase {
+class BaseParticle {
 	getOffset() {
 		// returns offset that is only applied to the display position
 		let x = -(mousePos[0]/2 + window.scrollX*5) / W * 50;
@@ -73,6 +74,12 @@ class ParticleBase {
 		let space = 10; // room around the window
 		let offset = this.getOffset();
 
+		// at the start, scroll down
+		let progress = (Date.now()-start) / 4000;
+		if (progress <= 1) {
+			offset[1] += 3000 * (1+Math.cos(progress*Math.PI))**2 / 4;
+		}
+
 		let x = this.x + offset[0]*2/this.z**2 + space;
 		let y = this.y + offset[1]*2/this.z**2 + space;
 		let w = W + 2*space;
@@ -82,7 +89,7 @@ class ParticleBase {
 	}
 }
 
-class Particle extends ParticleBase {
+class Particle extends BaseParticle {
 	constructor() {
 		super();
 		this.x = Math.random()*W;
@@ -113,7 +120,7 @@ class Particle extends ParticleBase {
 	}
 }
 
-class MouseParticle extends ParticleBase {
+class MouseParticle extends BaseParticle {
 	constructor() {
 		super();
 		this.x = mousePos[0];
@@ -122,8 +129,8 @@ class MouseParticle extends ParticleBase {
 
 		// substract the offset to spawn where the mouse is
 		let offset = this.getOffset();
-		this.x -= offset[0]/this.z;
-		this.y -= offset[1]/this.z;
+		this.x -= offset[0]*2/this.z**2;
+		this.y -= offset[1]*2/this.z**2;
 
 		this.movement = new Vector2(mouseMove/10, 0);
 		this.movement.rotate(Math.random()*2*Math.PI);
@@ -142,7 +149,7 @@ class MouseParticle extends ParticleBase {
 		let delay = Date.now()-this.spawn;
 		let s = 15/this.z;
 		if (delay > 2000) {
-			//shrink before despawning
+			// shrink before despawning
 			s *= 1 - (delay-2000)/1000;
 		}
 		let pos = this.getDisplay();
@@ -183,19 +190,29 @@ function addRepos() {
 			a = document.createElement("a");
 			a.href = "https://github.com/d-002/" + repo[0];
 			a.className = "button";
+			let src;
+			if (repo[2]) {
+				src = "images/repos/" + repo[0] + ".png";
+			} else {
+				src = "https://avatars.githubusercontent.com/u/69427207";
+			}
 			a.innerHTML = `
-			<img src="https://avatars.githubusercontent.com/u/69427207">
+			<img src="SRC">
 			<div>
-				<h3>TITLE</h3>
+				<h3>NAME</h3>
 				<p>DESC</p>
 			</div>
-			<div class="over-left"></div>`.replace("TITLE", repo[0]).replace("DESC", repo[1]);
+			<div class="over-left"></div>`.replace("SRC", src).replace("NAME", repo[0]).replace("DESC", repo[1]);
 			section.appendChild(a);
 			
 			a.style.animationDelay = "" + (2 + count/5) + "s";
 			count++;
 		}
 	}
+
+	let footer = document.createElement("div");
+	footer.id = "footer";
+	document.body.appendChild(footer);
 }
 
 function sum(array) {
@@ -248,8 +265,6 @@ function animate() {
 	for (let i = 0; i < toRemove.length; i++) {
 		particles.splice(particles.indexOf(toRemove[i]), 1);
 	}
-
-	//ctx.drawImage(stars[2], 0, 0);
 }
 
 function init() {
@@ -261,7 +276,6 @@ function init() {
 
 	stars.push(document.getElementById("star"));
 	stars.push(document.getElementById("mouse-star"));
-	stars.push(document.getElementById("cloud"));
 
 	addRepos();
 
