@@ -1,5 +1,5 @@
 @font-face {
-	font-family: "opensans";
+	font-family: "open sans";
 	src: url("opensans.ttf");
 }
 
@@ -57,7 +57,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	color: #fff;
-	font-family: hubot;
+	font-family: open sans;
 }
 
 body {
@@ -80,21 +80,25 @@ body {
 	z-index: -1;
 }
 
-h1,h2,h3 {
+h1, h2, h3 {
 	font-size: 50px;
 	text-decoration: underline;
 	text-underline-offset: 5px;
 	margin: 1em 0;
 }
 
+h2, h3 {
+	font-family: hubot;
+}
+
 h1 {
-	font-family: opensans;
 	animation: 2s fade-in;
 	animation-delay: 3s;
 	animation-fill-mode: forwards;
 	filter: opacity(0);
 	margin-bottom: 0;
 	text-align: center;
+	text-decoration: none;
 }
 
 h2 {
@@ -110,7 +114,7 @@ h3 {
 }
 
 p, a {
-	font-size: 14px;
+	font-size: 20px;
 	color: #fff;
 }
 
@@ -137,10 +141,11 @@ section {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-    background-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
     margin-bottom: 50px;
-	border-radius: 30px;
+
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+	border-radius: 0 0 30px 30px;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .button {
