@@ -118,6 +118,10 @@ p, a {
 	color: #fff;
 }
 
+#click {
+	text-align: center;
+}
+
 #info {
 	display: flex;
 	justify-content: center;

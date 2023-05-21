@@ -14,6 +14,10 @@ for (let i = 0; i < FPS; i++) {
 let stars = [];
 let lastParticle = start;
 
+let musics = [];
+let audioReady = 0; // number of audio files ready to be played
+let volumes = [0, 0, 0];
+
 // name, description, image (true / false)
 let repos = [
 	[["hardest", "Hardest game ever. Truly.", true],
@@ -223,6 +227,11 @@ function sum(array) {
 	return sum;
 }
 
+function update() {
+	animate();
+	handleMusic();
+}
+
 function animate() {
 	W = window.innerWidth;
 	H = window.innerHeight;
@@ -267,6 +276,45 @@ function animate() {
 	}
 }
 
+function handleMusic() {
+	if (audioReady != -1) {
+		return; // don't update sounds if not yet playing
+	}
+
+	let n;
+	if (mouseMove > 8000) {
+		n = 2;
+	} else if (mouseMove > 2000) {
+		n = 1;
+	} else {
+		n = 0;
+	}
+
+	// update volume
+	for (let i = 0; i < 3; i++) {
+		if (i > n) {
+			// slowly fade out
+			volumes[i] = Math.max(volumes[i] - 0.2/FPS, 0);
+		} else {
+			// fade in
+			volumes[i] = Math.min(volumes[i] + 1/FPS, 1);
+		}
+		musics[i].volume = volumes[i];
+	}
+}
+
+function startMusic() {
+	if (audioReady == 3) {
+		for (let i = 0; i < 3; i++) {
+			musics[i].play();
+		}
+
+		audioReady = -1;
+		document.getElementById("click").remove();
+		window.removeEventListener("click", startMusic);
+	}
+}
+
 function init() {
 	style = document.createElement("style");
 	document.head.appendChild(style);
@@ -279,6 +327,17 @@ function init() {
 
 	addRepos();
 
-	setInterval(animate, 1000/FPS);
+	for (let i = 0; i < 3; i++) {
+		let audio = document.createElement("audio");
+		audio.src = "music/" + (i+1) + ".mp3";
+		audio.loop = true;
+		document.body.appendChild(audio);
+
+		audio.addEventListener("canplaythrough", () => {if (audioReady != -1) {audioReady++}});
+		musics.push(audio);
+	}
+
+	setInterval(update, 1000/FPS);
 	document.addEventListener("mousemove", updateMousePos);
+	document.addEventListener("click", startMusic);
 }
