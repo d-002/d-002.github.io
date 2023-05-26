@@ -51,6 +51,20 @@
 	}
 }
 
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.1);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
 html, body {
 	width: 100%;
 	height: 100%;
@@ -118,11 +132,18 @@ p, a {
 	color: #fff;
 }
 
-#click {
-	text-align: center;
+div:has(>#info-music) {
+	display: flex;
+	justify-content: space-around;
 }
 
-#info {
+#info-music {
+	animation: pulse 1s infinite;
+	animation-delay: 4s;
+	display: inline-block;
+}
+
+#top-text {
 	display: flex;
 	justify-content: center;
 	gap: 50px;
@@ -130,7 +151,7 @@ p, a {
 	padding: 20px;
 }
 
-section, .slide, #info {
+section, .slide {
 	animation: slide 2s;
 	animation-delay: 2.5s;
 	animation-fill-mode: forwards;

@@ -311,7 +311,7 @@ function startMusic() {
 		}
 
 		audioReady = -1;
-		document.getElementById("click").remove();
+		document.getElementById("info-music").parentElement.remove();
 		window.removeEventListener("click", startMusic);
 	}
 }
