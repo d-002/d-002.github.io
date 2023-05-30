@@ -283,9 +283,9 @@ function handleMusic() {
 	}
 
 	let n;
-	if (mouseMove > 8000) {
+	if (mouseMove > 2000) {
 		n = 2;
-	} else if (mouseMove > 2000) {
+	} else if (mouseMove > 200) {
 		n = 1;
 	} else {
 		n = 0;
