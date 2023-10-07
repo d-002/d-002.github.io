@@ -24,13 +24,16 @@ let repos = [
 	 ["maze", "Doom-like maze with randomly generated levels", true],
 	 ["finesse", "A modern Tetris, customizable finesse training webpage", true],
 	 ["mandelbrot", "Javascript Mandelbrot set visualization", true],
-	 ["hanoi", "Hanoi towers game", true]],
-	[["install-wizard", "Rudimentary tkinter installer", false],
-	 ["jstris-plus", "Jstris+ storage for soundpacks I created", true],
-	 ["textbox", "A simple textbox, which can be used with pygame", false],
+	 ["cpp-renderer", "C++ 3D renderer, using SDL2", true]],
+	[["dikc-8", "Python utilities, DIKC-8 schematic and world download", true],
+	 ["jstolist", "Javascript Eisenhower Matrix", true],
+	 ["hanoi", "Hanoi towers game", true],
 	 ["2048", "2048 game, created in 1 hour. Maybe some bugs.", true],
+	 ["install-wizard", "Rudimentary tkinter installer", false],
 	 ["smooth-movement", "A PyGame smooth x movement, which can be used to move a sprite with friction", false],
-	 ["camera-scrolling", "The camera follows the player, to make it stay in an area in the center of the screen", false]]
+	 ["camera-scrolling", "The camera follows the player, to make it stay in an area in the center of the screen", false],
+	 ["textbox", "A simple textbox, which can be used with pygame", false],
+	 ["jstris-plus", "Jstris+ storage for soundpacks I created", true]]
 	];
 
 class Vector2 {
