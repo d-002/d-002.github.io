@@ -198,9 +198,16 @@ function addRepos() {
 			repo = repos[i][j];
 
 			a = document.createElement("a");
-			if (i == 0) a.href = "https://d-002.github.io/" + repo[0];
-			else a.href = "https://github.com/d-002/" + repo[0];
+			a.href = "https://github.com/d-002/" + repo[0];
 			a.className = "button";
+			
+			let name;
+			if (i == 0) {
+				name = '<a href="' + a.href + '">' + repo[0] + "</a>";
+				a.href = "https://d-002.github.io/" + repo[0];
+			}
+			else name = repo[0];
+
 			let src;
 			if (repo[2]) {
 				src = "images/repos/" + repo[0] + ".png";
@@ -213,7 +220,7 @@ function addRepos() {
 				<h3>NAME</h3>
 				<p>DESC</p>
 			</div>
-			<div class="over-left"></div>`.replace("SRC", src).replace("NAME", repo[0]).replace("DESC", repo[1]);
+			<div class="over-left"></div>`.replace("SRC", src).replace("NAME", name).replace("DESC", repo[1]);
 			section.appendChild(a);
 			
 			a.style.animationDelay = "" + (2 + count/5) + "s";
