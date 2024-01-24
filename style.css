@@ -117,8 +117,13 @@ h1 {
 
 h2 {
 	font-size: 20px;
+	font-weight: normal;
 	text-decoration: none;
 	margin: 80px auto 0 auto;
+}
+
+h2 strong {
+	font-size: 25px;
 }
 
 h3 {

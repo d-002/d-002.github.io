@@ -21,16 +21,18 @@ let volumes = [0, 0, 0];
 // name, description, image (true / false)
 let repos = [
 	[["hardest", "Hardest game ever. Truly.", true],
-	 ["maze", "Doom-like maze with randomly generated levels", true],
+	 ["dumb-questions", "Dumb questions, website with about 99% CSS.", false],
 	 ["finesse", "A modern Tetris, customizable finesse training webpage", true],
 	 ["mandelbrot", "Javascript Mandelbrot set visualization", true],
-	 ["cpp-renderer", "C++ 3D renderer, using SDL2", true]],
-	[["dikc-8", "Python utilities, DIKC-8 schematic and world download", true],
-	 ["jstolist", "Javascript Eisenhower Matrix", true],
 	 ["hanoi", "Hanoi towers game", true],
+	 ["jstolist", "Javascript Eisenhower Matrix", true]],
+	[["dikc-8", "DIKC-8 and DIKC-8 2 Minecraft CPUs utilities", true],
+	 ["python", "Random small python projects I made", true],
 	 ["2048", "2048 game, created in 1 hour. Maybe some bugs.", true],
+	 ["maze", "Doom-like maze with randomly generated levels", true],
+	 ["cpp-renderer", "C++ 3D renderer, using SDL2", true],
 	 ["install-wizard", "Rudimentary tkinter installer", false],
-	 ["smooth-movement", "A PyGame smooth x movement, which can be used to move a sprite with friction", false],
+	 ["smooth-movement", "A PyGame smooth movement, which can be used to move a sprite with friction", false],
 	 ["camera-scrolling", "The camera follows the player, to make it stay in an area in the center of the screen", false],
 	 ["textbox", "A simple textbox, which can be used with pygame", false],
 	 ["jstris-plus", "Jstris+ storage for soundpacks I created", true]]
@@ -184,9 +186,9 @@ function addRepos() {
 		let title = document.createElement("div");
 		title.className = "slide";
 		if (i == 0) {
-			title.innerHTML = "<h2>GitHub Pages repositories</h2>";
+			title.innerHTML = "<h2><strong>GitHub Pages repositories</strong> - go visit them now!</h2>";
 		} else {
-			title.innerHTML = "<h2>Other notable repositories</h2>";
+			title.innerHTML = "<h2><strong>Other repositories</strong></h2>";
 		}
 		document.body.appendChild(title);
 
@@ -196,7 +198,8 @@ function addRepos() {
 			repo = repos[i][j];
 
 			a = document.createElement("a");
-			a.href = "https://github.com/d-002/" + repo[0];
+			if (i == 0) a.href = "https://d-002.github.io/" + repo[0];
+			else a.href = "https://github.com/d-002/" + repo[0];
 			a.className = "button";
 			let src;
 			if (repo[2]) {
