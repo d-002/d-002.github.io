@@ -1,0 +1,49 @@
+@font-face {
+	font-family: "bake";
+	src: url("bakemono.ttf");
+}
+
+body, html {
+	margin: 0;
+	padding: 0;
+
+	background-color: #ddd;
+	color: #222;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20%;
+
+	font-family: bake;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+}
+
+p {
+	display: block;
+	font-size: 30px;
+}
+
+a {
+	transition: 0.5s;
+	display: block;
+	margin-top: 20px;
+
+	font-size: 25px;
+	font-weight: bold;
+
+	text-decoration: none;
+	color: #33c;
+}
+
+a:hover {
+	color: #33f;
+}

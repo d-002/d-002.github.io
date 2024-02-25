@@ -333,7 +333,7 @@ function init() {
 	style = document.createElement("style");
 	document.head.appendChild(style);
 
-	canvas = document.getElementById("particles")
+	canvas = document.getElementById("particles");
 	ctx = canvas.getContext("2d");
 
 	stars.push(document.getElementById("star"));
