@@ -37,7 +37,14 @@ function addRepos() {
 
 			let block = document.createElement("div");
 			block.className = "block";
-			block.innerHTML = "".replace("SRC", src).replace("TITLE", title).replace("DESC", desc).replace("COL", col);
+			block.style = "--color: "+col;
+			block.innerHTML = `
+<img src="SRC">
+<div>
+	<strong>TITLE</strong>
+	<span>DESC</span>
+</div>
+`.replace("SRC", src).replace("TITLE", title).replace("DESC", desc);
 			sections[i].appendChild(block);
 		}
 	}

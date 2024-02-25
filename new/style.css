@@ -1,24 +1,23 @@
 @font-face {
-	font-family: "bake";
-	src: url("bakemono.ttf");
+	font-family: "ubuntu";
+	src: url("Ubuntu-R.ttf");
+}
+
+@font-face {
+	font-family: "cascadia";
+	src: url("Cascadia.ttf");
 }
 
 body, html {
 	margin: 0;
 	padding: 0;
 
-	background-color: #ddd;
-	color: #222;
+	background-color: #e2e5e5;
+	color: #111;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20%;
-
-	font-family: bake;
+	font-family: ubuntu;
 }
 
 canvas {
@@ -27,23 +26,58 @@ canvas {
 	position: fixed;
 }
 
-p {
-	display: block;
-	font-size: 30px;
+h1 {
+	text-align: center;
 }
 
-a {
-	transition: 0.5s;
-	display: block;
-	margin-top: 20px;
+h2 {
+	text-align: center;
+}
 
-	font-size: 25px;
+section {
+	display: flex;
+	justify-content: center;
+	gap: 50px;
+
+	width: 100%;
+}
+
+.block {
+	position: relative;
+	display: flex;
+	justify-content: center;
+
+	width: 500px;
+	height: 80px;
+	padding: 20px;
+
+	border-radius: 20px;
+	border: 5px solid #656767;
+	background-color: var(--color);
+}
+
+.block>img {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translate(20px, -50%);
+
+	width: 80px;
+	height: 80px;
+
+	border-radius: 20px;
+}
+
+.block>div {
+
+}
+
+.block>div>strong {
+	display: block;
+	font-size: 24px;
 	font-weight: bold;
-
-	text-decoration: none;
-	color: #33c;
 }
 
-a:hover {
-	color: #33f;
+.block>div>span {
+	font-size: 16px;
 }
