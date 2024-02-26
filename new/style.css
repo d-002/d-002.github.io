@@ -8,6 +8,11 @@
 	src: url("Cascadia.ttf");
 }
 
+@font-face {
+	font-family: "proximab";
+	src: url("ProximaSoft-Bold.ttf");
+}
+
 body, html {
 	margin: 0;
 	padding: 0;
@@ -17,7 +22,7 @@ body, html {
 }
 
 body {
-	font-family: ubuntu;
+	font-family: cascadia;
 }
 
 canvas {
@@ -27,57 +32,80 @@ canvas {
 }
 
 h1 {
+	font-family: ubuntu;
 	text-align: center;
 }
 
 h2 {
+	font-family: ubuntu;
 	text-align: center;
 }
 
 section {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
-	gap: 50px;
+	gap: 25px;
 
 	width: 100%;
+	max-width: 1500px;
+	margin: 0 auto;
 }
 
 .block {
+	transition: transform 0.05s linear, box-shadow 0.1s ease-out;
+	cursor: pointer;
+
+	flex-shrink: 0;
+	overflow: hidden;
 	position: relative;
 	display: flex;
-	justify-content: center;
+	align-items: center;
 
-	width: 500px;
-	height: 80px;
+	width: 400px;
+	height: 100px;
 	padding: 20px;
 
-	border-radius: 20px;
-	border: 5px solid #656767;
-	background-color: var(--color);
+	border-radius: 18px;
+	border: 3px solid var(--border);
+	background-color: var(--bg1);
+
+	text-decoration: none;
+	color: black;
+}
+
+.block:hover {
+	transform: scale(1.02);
+	box-shadow: 0 0 10px var(--bg2);
 }
 
 .block>img {
 	position: absolute;
 	left: 0;
 	top: 50%;
-	transform: translate(20px, -50%);
+	transform: translateY(-50%);
 
-	width: 80px;
-	height: 80px;
-
-	border-radius: 20px;
+	width: 140px;
+	height: 140px;
+	
+	mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
 }
 
 .block>div {
-
+	margin-left: 140px;
+	z-index: 1;
 }
 
 .block>div>strong {
 	display: block;
+
+	font-family: proximab;
 	font-size: 24px;
 	font-weight: bold;
+	color: var(--text1);
 }
 
 .block>div>span {
 	font-size: 16px;
+	color: var(--text2);
 }
