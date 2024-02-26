@@ -1,7 +1,10 @@
 let style, canvas, ctx;
-let W, H;
+let W, H, scroll;
+let images, particles, prev, interval, sbwidth;
+let dt = 0, fps = 60;
+let mouse = [0, 0];
 
-// name, description, image (true / false)
+// name, description, image (true / false), base color, dark background
 let repos = [
 	[["dumb-questions", "Dumb questions, website with about 99% CSS.", false, [237, 177, 38], true],
 	 ["hardest", "Hardest game ever. Truly.", true, [217, 141, 141], false],
@@ -20,6 +23,99 @@ let repos = [
 	 ["camera-scrolling", "Smooth camera following script", false, [192, 192, 192], true],
 	 ["textbox", "A simple pygame textbox", false, [192, 192, 192], true]]
 	];
+
+// from SO/q/13382516
+function getScrollbarWidth() {
+
+  // Creating invisible container
+  const outer = document.createElement('div');
+  outer.style.visibility = 'hidden';
+  outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+  outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+  document.body.appendChild(outer);
+
+  // Creating inner element and placing it in the container
+  const inner = document.createElement('div');
+  outer.appendChild(inner);
+
+  // Calculating difference between container's full width and the child width
+  const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+  // Removing temporary elements from the DOM
+  outer.parentNode.removeChild(outer);
+
+  return scrollbarWidth;
+
+}
+
+class Particle {
+	constructor(node) {
+		let z = Math.random()*3+2;
+		this.z = z; // square to increase the fov idk
+		this.x = Math.random()*W*this.z;
+		this.y = Math.random()*H*this.z;
+		this.flatX = this.x, this.flatY = this.y; // once projected in 2D
+		if (z < 3) this.i = 0;
+		else if (z < 4) this.i = 1;
+		else this.i = 2;
+		this.size = 3 - this.i;
+
+		let a = Math.random()*Math.PI;
+		this.dx = Math.cos(a)*20;
+		this.dy = Math.sin(a)*20;
+
+		this.node = node;
+	}
+
+	update() {
+		this.x += this.dx*dt;
+		this.y += this.dy*dt;
+
+		let m = 1/this.z;
+		this.flatX = (this.x*m % W + W) % W;
+		this.flatY = ((this.y-scroll*2*m*m)*m % H + H) % H;
+
+		if (this.node) {
+			// line from neighboring particles to this
+			drawLines(this.flatX, this.flatY);
+		} else {
+			ctx.drawImage(images[this.i], this.flatX-this.size, this.flatY-this.size, this.size*2, this.size*2);
+		}
+	}
+}
+
+function drawLines(x, y) {
+	// draw lines from close enough particles to (x, y)
+	particles.forEach(p => {
+		let dx = p.flatX-x, dy = p.flatY-y;
+		let d = dx*dx+dy*dy;
+		if (d < 100000) {
+			let col = 1 - Math.sqrt(d/100000);
+			ctx.strokeStyle = "rgba(0, 0, 0, " + col*col*0.5 + ")";
+			ctx.beginPath();
+			ctx.moveTo(p.flatX, p.flatY);
+			ctx.lineTo(x, y);
+			ctx.stroke();
+		}
+	});
+}
+
+function update() {
+	scroll = window.scrollY;
+	ctx.fillStyle = "#eee";
+	ctx.fillRect(0, 0, W, H);
+
+	particles.forEach(p => p.update());
+
+	dt = (Date.now()-prev) / 1000;
+	prev = Date.now();
+
+	drawLines(mouse[0], mouse[1]);
+}
+
+function mouseEvt(e) {
+	mouse = [e.x * (W+sbwidth)/W, e.y];
+}
 
 function multColor(col, m) {
 	return "rgba(" + parseInt(col[0]*m) + ", " + parseInt(col[1]*m) + ", " + parseInt(col[2]*m) + ")";
@@ -62,12 +158,22 @@ function init() {
 	style = document.createElement("style");
 	document.head.appendChild(style);
 
-	let W = window.innerWidth;
-	let H = window.innerHeight;
+	W = window.innerWidth;
+	H = window.innerHeight;
 	canvas = document.getElementById("canvas");
 	canvas.setAttribute("width", W);
 	canvas.setAttribute("height", H);
 	ctx = canvas.getContext("2d");
 
 	addRepos();
+
+	images = document.getElementById("images").children;
+
+	particles = [];
+	for (let i = 0; i < 50; i++) particles.push(new Particle(i%10 == 0));
+	prev = Date.now();
+
+	sbwidth = getScrollbarWidth();
+	document.addEventListener("mousemove", mouseEvt);
+	interval = window.setInterval(update, 1000/fps);
 }

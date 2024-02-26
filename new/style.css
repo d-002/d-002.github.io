@@ -17,8 +17,11 @@ body, html {
 	margin: 0;
 	padding: 0;
 
-	background-color: #e2e5e5;
 	color: #111;
+}
+
+html {
+	overflow-y: scroll;
 }
 
 body {
@@ -26,9 +29,13 @@ body {
 }
 
 canvas {
+	position: fixed;
+	z-index: -1;
+	top: 0;
+	left: 0;
+
 	width: 100%;
 	height: 100%;
-	position: fixed;
 }
 
 h1 {
@@ -53,7 +60,7 @@ h2 {
 	align-items: center;
 	gap: 20px;
 
-	margin: 70px auto 30px auto;
+	margin: 120px auto 30px auto;
 	padding: 0 10px;
 
 	width: 100%;
