@@ -1,5 +1,5 @@
 let style, canvas, ctx;
-let W, H, scroll;
+let W, H;
 let images, particles, prev, interval, sbwidth;
 let dt = 0, fps = 60;
 let mouse = [0, 0];
@@ -26,26 +26,24 @@ let repos = [
 
 // from SO/q/13382516
 function getScrollbarWidth() {
+	// Creating invisible container
+	const outer = document.createElement('div');
+	outer.style.visibility = 'hidden';
+	outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+	outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+	document.body.appendChild(outer);
 
-  // Creating invisible container
-  const outer = document.createElement('div');
-  outer.style.visibility = 'hidden';
-  outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-  outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-  document.body.appendChild(outer);
+	// Creating inner element and placing it in the container
+	const inner = document.createElement('div');
+	outer.appendChild(inner);
 
-  // Creating inner element and placing it in the container
-  const inner = document.createElement('div');
-  outer.appendChild(inner);
+	// Calculating difference between container's full width and the child width
+	const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
 
-  // Calculating difference between container's full width and the child width
-  const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+	// Removing temporary elements from the DOM
+	outer.parentNode.removeChild(outer);
 
-  // Removing temporary elements from the DOM
-  outer.parentNode.removeChild(outer);
-
-  return scrollbarWidth;
-
+	return scrollbarWidth;
 }
 
 class Particle {
@@ -73,7 +71,7 @@ class Particle {
 
 		let m = 1/this.z;
 		this.flatX = (this.x*m % W + W) % W;
-		this.flatY = ((this.y-scroll*2*m*m)*m % H + H) % H;
+		this.flatY = ((this.y-window.scrollY*2*m*m)*m % H + H) % H;
 
 		if (this.node) {
 			// line from neighboring particles to this
@@ -101,16 +99,22 @@ function drawLines(x, y) {
 }
 
 function update() {
-	scroll = window.scrollY;
-	ctx.fillStyle = "#eee";
-	ctx.fillRect(0, 0, W, H);
+	ctx.clearRect(0, 0, W, H);
 
 	particles.forEach(p => p.update());
+	drawLines(mouse[0], mouse[1]);
 
 	dt = (Date.now()-prev) / 1000;
 	prev = Date.now();
+}
 
-	drawLines(mouse[0], mouse[1]);
+function styleBody() {
+	let t = window.scrollY/(document.body.parentNode.offsetHeight-window.innerHeight);
+	canvas.style = "--grad1: "+lerpCol(240, 250, 255, 91, 151, 176, t)+"; --grad2: "+lerpCol(199, 227, 237, 151, 156, 242, t);
+}
+
+function lerpCol(r1, g1, b1, r2, g2, b2, t) {
+	return "rgb(" + (r1+(r2-r1)*t) + ", " + (g1+(g2-g1)*t) + ", " + (b1+(b2-b1)*t) + ")";
 }
 
 function mouseEvt(e) {
@@ -175,5 +179,7 @@ function init() {
 
 	sbwidth = getScrollbarWidth();
 	document.addEventListener("mousemove", mouseEvt);
+	document.addEventListener("scroll", styleBody);
+	styleBody();
 	interval = window.setInterval(update, 1000/fps);
 }
