@@ -180,6 +180,6 @@ function init() {
 	sbwidth = getScrollbarWidth();
 	document.addEventListener("mousemove", mouseEvt);
 	document.addEventListener("scroll", styleBody);
-	styleBody();
 	interval = window.setInterval(update, 1000/fps);
+	styleBody();
 }
