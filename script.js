@@ -6,11 +6,14 @@ let mouse = [0, 0];
 
 // name, description, image (true / false), base color, dark background
 let repos = [
-	[["dumb-questions", "Dumb questions, website with about 99% CSS.", false, [237, 177, 38], true],
+	[["hanoi", "Hanoi towers game", true, [193, 253, 249], true],
 	 ["hardest", "Hardest game ever. Truly.", true, [217, 141, 141], false],
-	 ["finesse", "A customizable Tetris finesse trainer", true, [228, 119, 241], true],
+	 ["dumb-questions", "Dumb questions, website with about 99% CSS.", false, [237, 177, 38], true],
+	 ["tic-tac-doh", "Tic-tac-toe variants, but Homer themed... [upcoming]", false, [255, 200, 0], false]],
+	 //["minesweeper", "Minesweeper game [upcoming]", false, [200, 200, 200], false],
+	 //["lucky-numbers", "Play against a smart AI in this thinking-ahead game!", false, [0, 200, 50], false]],
+	[["finesse", "A customizable Tetris finesse trainer", true, [228, 119, 241], true],
 	 ["mandelbrot", "Javascript Mandelbrot set visualizer", true, [109, 163, 71], true],
-	 ["hanoi", "Hanoi towers game", true, [193, 253, 249], true],
 	 ["jstolist", "Javascript Eisenhower Matrix", true, [248, 248, 248], false]],
 	[["dikc-8", "DIKC-8 and DIKC-8 2 Minecraft CPUs utilities", true, [239, 242, 239], false],
 	 ["tetris-ai-2", "Python tetris AI. It can beat me.", true, [150, 150, 150], true],
@@ -128,7 +131,7 @@ function multColor(col, m) {
 
 function addRepos() {
 	let sections = document.getElementsByTagName("section");
-	for (let i = 0; i < 2; i++) {
+	for (let i = 0; i < 3; i++) {
 		let container = sections[i].children[1];
 		for (let j = 0; j < repos[i].length; j++) {
 			repo = repos[i][j];
