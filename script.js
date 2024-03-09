@@ -7,9 +7,9 @@ let mouse = [0, 0];
 // name, description, image (true / false), base color, dark background
 let repos = [
 	[["hanoi", "Hanoi towers game", true, [193, 253, 249], true],
-	 ["hardest", "Hardest game ever. Truly.", true, [217, 141, 141], false],
-	 ["dumb-questions", "Dumb questions, website with about 99% CSS.", false, [237, 177, 38], true],
-	 ["tic-tac-doh", "Tic-tac-toe variants, but Homer themed... [upcoming]", false, [255, 200, 0], false]],
+	 ["hardest", "Hardest game ever. Truly.", true, [217, 50, 50], false],
+	 ["dumb-questions", "Dumb questions, website with about 99% CSS.", false, [237, 177, 38], true, [35, 30, 20]],
+	 ["tic-tac-doh", "Tic-tac-toe variants, but Simpsons-themed... [BETA]", true, [255, 255, 255], true, [50, 50, 50]]],
 	 //["minesweeper", "Minesweeper game [upcoming]", false, [200, 200, 200], false],
 	 //["lucky-numbers", "Play against a smart AI in this thinking-ahead game!", false, [0, 200, 50], false]],
 	[["finesse", "A customizable Tetris finesse trainer", true, [228, 119, 241], true],
@@ -21,7 +21,7 @@ let repos = [
 	 ["python", "Random small python projects I made", true, [230, 242, 245], false],
 	 ["maze", "Doom-like maze with randomly generated levels", true, [95, 105, 80], false],
 	 ["cpp-renderer", "C++ 3D renderer, using SDL2", true, [187, 212, 255], false],
-	 ["jstris-plus", "Jstris+ storage for soundpacks I created", true, [229, 92, 191], true],
+	 ["jstris-plus", "Jstris+ storage for soundpacks I created", true, [229, 92, 191], true, [10, 10, 10]],
 	 ["install-wizard", "Rudimentary tkinter installer", false, [192, 192, 192], true],
 	 ["smooth-movement", "pygame smooth character movement with friction", false, [192, 192, 192], true],
 	 ["camera-scrolling", "Smooth camera following script", false, [192, 192, 192], true],
@@ -129,6 +129,19 @@ function multColor(col, m) {
 	return "rgba(" + parseInt(col[0]*m) + ", " + parseInt(col[1]*m) + ", " + parseInt(col[2]*m) + ")";
 }
 
+function toggleInterval() {
+	if (interval == null) interval = window.setInterval(update, 1000/fps);
+	else {
+		window.clearInterval(interval);
+		interval = null;
+		ctx.clearRect(0, 0, W, H);
+	}
+}
+
+function toggleMusic() {
+	alert("Upcoming feature, stay tuned for updates");
+}
+
 function addRepos() {
 	let sections = document.getElementsByTagName("section");
 	for (let i = 0; i < 3; i++) {
@@ -136,7 +149,7 @@ function addRepos() {
 		for (let j = 0; j < repos[i].length; j++) {
 			repo = repos[i][j];
 
-			let title = repo[0], desc = repo[1], col = repo[3], dark = repo[4];
+			let title = repo[0], desc = repo[1], col = repo[3], dark = repo[4], col2 = repo[5];
 			let src;
 			if (repo[2]) src = "images/repos/" + repo[0] + ".png";
 			else src = "https://avatars.githubusercontent.com/u/69427207";
@@ -147,7 +160,7 @@ function addRepos() {
 			block.className = "block";
 
 			let A, B, C, D, E;
-			if (dark) A = "#222", B = "#1a1a1a", C = "#000", D = multColor(col, 1), E = multColor(col, 0.8);
+			if (dark) A = col2 == null ? "#222" : multColor(col2, 1), B = "#1a1a1a", C = "#000", D = multColor(col, 1), E = multColor(col, 0.8);
 			else A = multColor(col, 1), B = multColor(col, 0.8), C = multColor(col, 0.5), D = "#000", E = multColor(col, 0.3);
 			block.style = "--bg1: "+A+"; --bg2: "+B+"; --border: "+C+"; --text1: "+D+"; --text2: "+E;
 			block.innerHTML = `
@@ -184,6 +197,6 @@ function init() {
 	sbwidth = getScrollbarWidth();
 	document.addEventListener("mousemove", mouseEvt);
 	document.addEventListener("scroll", styleBody);
-	interval = window.setInterval(update, 1000/fps);
+	toggleInterval();
 	styleBody();
 }
