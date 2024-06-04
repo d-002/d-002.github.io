@@ -19,7 +19,7 @@ let repos = [
 	 ["mandelbrot", "Javascript Mandelbrot set visualizer", true, [109, 163, 71], true],
 	 ["jstolist", "Javascript Eisenhower Matrix", true, [248, 248, 248], false]],
 	[["dikc-8", "DIKC-8 and DIKC-8 2 Minecraft CPUs utilities", true, [239, 242, 239], false],
-	 ["tetris-ai-2", "Python tetris AI. It can beat me.", true, [150, 150, 150], true],
+	 ["tetris-ai-2", "Python tetris AI. It can beat me.", true, [170, 170, 170], true, [30, 30, 30]],
 	 ["2048", "2048 game, created in 1 hour. Maybe some bugs.", true, [187, 173, 160], false],
 	 ["python", "Random small python projects I made", true, [230, 242, 245], false],
 	 ["maze", "Doom-like maze with randomly generated levels", true, [95, 105, 80], false],
@@ -139,8 +139,10 @@ function mouseEvt(e) {
 	mouse = [e.x * (W+sbwidth)/W, e.y];
 }
 
-function multColor(col, m) {
-	return "rgba(" + parseInt(col[0]*m) + ", " + parseInt(col[1]*m) + ", " + parseInt(col[2]*m) + ")";
+function multColor(col, m, a=1) {
+	let s = parseInt(col[0]*m) + ", " + parseInt(col[1]*m) + ", " + parseInt(col[2]*m);
+	if (a == 1) return "rgb("+s+")";
+	return "rgba("+s+", "+a+")";
 }
 
 function toggleInterval() {
@@ -175,10 +177,10 @@ function addRepos() {
 
 			let A, B, C, D, E;
 			if (dark) {
-				if (col2 == null) col2 = [50, 50, 50];
-				A = multColor(col2, 1), B = multColor(col, 0.8), C = multColor(col, 0.6), D = multColor(col, 1), E = multColor(col, 0.8);
+				if (col2 == null) col2 = [10, 0, 30];
+				A = multColor(col2, 1), B = multColor(col, 0.8, 0.5), C = multColor(col, 0.6), D = multColor(col, 1), E = multColor(col, 0.8);
 			}
-			else A = multColor(col, 1), B = multColor(col, 0.8), C = multColor(col, 0.5), D = "#000", E = multColor(col, 0.3);
+			else A = multColor(col, 1), B = multColor(col, 0.8, 0.5), C = multColor(col, 0.5), D = "#000", E = multColor(col, 0.3);
 			block.style = "--bg1: "+A+"; --bg2: "+B+"; --border: "+C+"; --text1: "+D+"; --text2: "+E;
 			block.innerHTML = `
 <img src="SRC">
