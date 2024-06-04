@@ -4,6 +4,9 @@ let images, particles, prev, interval, sbwidth;
 let dt = 0, fps = 60;
 let mouse = [0, 0];
 
+let colT = [[0, 0, 50], [0, 0, 0]];
+let colB = [[20, 20, 70], [30, 0, 0]];
+
 // name, description, image (true / false), base color, dark background
 let repos = [
 	[["hanoi", "Hanoi towers game", true, [193, 253, 249], true],
@@ -93,7 +96,8 @@ function drawLines(x, y) {
 		let d = dx*dx+dy*dy;
 		if (d < 100000) {
 			let col = 1 - Math.sqrt(d/100000);
-			ctx.strokeStyle = "rgba(0, 0, 0, " + col*col*0.5 + ")";
+			ctx.strokeStyle = "rgba(255, 255, 255, " + col*col*0.5 + ")";
+			ctx.lineWidth = 2;
 			ctx.beginPath();
 			ctx.moveTo(p.flatX, p.flatY);
 			ctx.lineTo(x, y);
@@ -113,12 +117,22 @@ function update() {
 }
 
 function styleBody() {
+	let cols = getScrollCols();
+	canvas.style = "--grad1: "+listCol(cols[0])+"; --grad2: "+listCol(cols[1]);
+}
+
+function getScrollCols() {
 	let t = window.scrollY/(document.body.parentNode.offsetHeight-window.innerHeight);
-	canvas.style = "--grad1: "+lerpCol(240, 250, 255, 91, 151, 176, t)+"; --grad2: "+lerpCol(199, 227, 237, 151, 156, 242, t);
+	return [lerpCol(...colT[0], ...colT[1], t), lerpCol(...colB[0], ...colB[1], t)];
 }
 
 function lerpCol(r1, g1, b1, r2, g2, b2, t) {
-	return "rgb(" + (r1+(r2-r1)*t) + ", " + (g1+(g2-g1)*t) + ", " + (b1+(b2-b1)*t) + ")";
+	return [r1+(r2-r1)*t, g1+(g2-g1)*t, b1+(b2-b1)*t];
+}
+
+function listCol(l, a=1) {
+	if (a == 1) return "rgb("+l[0]+", "+l[1]+", "+l[2]+")";
+	return "rgba("+l[0]+", "+l[1]+", "+l[2]+", "+a+")";
 }
 
 function mouseEvt(e) {
