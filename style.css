@@ -240,7 +240,7 @@ section>div {
 }
 
 .square>img {
-	transition: transform 0.05s linear, box-shadow 0.1s ease-out;
+	transition: transform 0.05s linear, box-shadow 0.05s ease-out;
 	position: absolute;
 	transform: translate(-50%, -160px);
 
@@ -250,12 +250,14 @@ section>div {
 	height: 140px;
 
 	border-radius: 20px;
+
+	box-shadow: 0 0 20px var(--color);
 }
 
 .square>img:hover {
 	transform: translate(-50%, -160px) scale(1.02);
 
-	box-shadow: 0 0 10px var(--color);
+	box-shadow: 0 0 15px var(--color);
 }
 
 div.footer {
