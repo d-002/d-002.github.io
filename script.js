@@ -179,9 +179,9 @@ function addRepos() {
 			let A, B, C, D, E;
 			if (dark) {
 				if (col2 == null) col2 = [10, 0, 30];
-				A = multColor(col2, 1), B = multColor(col, 0.8, 0.5), C = multColor(col, 0.6), D = multColor(col, 1), E = multColor(col, 0.8);
+				A = multColor(col2, 1), B = multColor(col, 0.8), C = multColor(col, 0.6), D = multColor(col, 1), E = multColor(col, 0.8);
 			}
-			else A = multColor(col, 1), B = multColor(col, 0.8, 0.5), C = multColor(col, 0.5), D = "#000", E = multColor(col, 0.3);
+			else A = multColor(col, 1), B = multColor(col, 0.8), C = multColor(col, 0.5), D = "#000", E = multColor(col, 0.3);
 			block.style = "--bg1: "+A+"; --bg2: "+B+"; --border: "+C+"; --text1: "+D+"; --text2: "+E;
 			block.innerHTML = `
 <img src="SRC">
