@@ -123,6 +123,7 @@ function styleBody() {
 
 function getScrollCols() {
 	let t = window.scrollY/(document.body.parentNode.offsetHeight-window.innerHeight);
+	if (t == NaN) t = 1;
 	return [lerpCol(...colT[0], ...colT[1], t), lerpCol(...colB[0], ...colB[1], t)];
 }
 
@@ -184,7 +185,8 @@ function addRepos() {
 			block.style = "--bg1: "+A+"; --bg2: "+B+"; --border: "+C+"; --text1: "+D+"; --text2: "+E;
 			block.innerHTML = `
 <img src="SRC">
-<div>
+<div></div>
+<div class="content">
 	<strong>TITLE</strong>
 	<span>DESC</span>
 </div>
