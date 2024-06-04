@@ -7,7 +7,7 @@ let mouse = [0, 0];
 let colT = [[0, 0, 50], [0, 0, 0]];
 let colB = [[20, 20, 70], [30, 0, 0]];
 
-// name, description, image (true / false), base color, dark background
+// name, description, image (boolean), base color, dark background (boolean)[, background color]
 let repos = [
 	[["hanoi", "Hanoi towers game", true, [193, 253, 249], true],
 	 ["hardest", "Hardest game ever. Truly.", true, [217, 50, 50], false],
@@ -174,7 +174,10 @@ function addRepos() {
 			block.className = "block";
 
 			let A, B, C, D, E;
-			if (dark) A = col2 == null ? "#222" : multColor(col2, 1), B = "#1a1a1a", C = "#000", D = multColor(col, 1), E = multColor(col, 0.8);
+			if (dark) {
+				if (col2 == null) col2 = [50, 50, 50];
+				A = multColor(col2, 1), B = multColor(col, 0.8), C = multColor(col, 0.6), D = multColor(col, 1), E = multColor(col, 0.8);
+			}
 			else A = multColor(col, 1), B = multColor(col, 0.8), C = multColor(col, 0.5), D = "#000", E = multColor(col, 0.3);
 			block.style = "--bg1: "+A+"; --bg2: "+B+"; --border: "+C+"; --text1: "+D+"; --text2: "+E;
 			block.innerHTML = `
