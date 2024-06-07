@@ -172,7 +172,7 @@ function addRepos() {
 			else src = "https://avatars.githubusercontent.com/u/69427207";
 
 			let block = document.createElement("a");
-			if (i == 0) block.href = "https://d-002.github.io/"+title;
+			if (i < 2) block.href = "https://d-002.github.io/"+title;
 			else block.href = "https://github.com/d-002/"+title;
 			block.className = "block";
 
