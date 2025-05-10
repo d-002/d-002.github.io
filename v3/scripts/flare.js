@@ -32,11 +32,14 @@ class Flare {
         transform.className = "flare-transform";
         transform.style = create_style(["t", "l"], [this.pos[1], this.pos[0]]);
 
+        let speed = Math.round(Math.random()*20 + 5) + "s";
+        let direction = Math.random() < .5 ? "normal" : "reverse";
+
         let flare = document.createElement("div");
         flare.className = "flare";
         flare.style = create_style(
-            ["s", "o1", "o2", "b1", "b2", "angle", "bg1", "bg2"],
-            [this.size, ...this.opacity, ...this.blur, this.gradient_angle, ...this.gradient]
+            ["s", "o1", "o2", "b1", "b2", "speed", "direction", "angle", "bg1", "bg2"],
+            [this.size, ...this.opacity, ...this.blur, speed, direction, this.gradient_angle, ...this.gradient]
         );
 
         let border = document.createElement("div");

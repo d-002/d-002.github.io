@@ -10,6 +10,15 @@
     }
 }
 
+@keyframes wiggle {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 #flare-container {
     display: flex;
     justify-content: center;
@@ -57,6 +66,9 @@
     height: var(--s);
 
     --bg: linear-gradient(var(--angle), var(--bg1), var(--bg2));
+
+    animation: var(--speed) wiggle infinite linear var(--direction);
+    transform-origin: 40% 50%;
 
     border-radius: 50%;
 }
