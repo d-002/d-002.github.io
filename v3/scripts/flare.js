@@ -10,10 +10,9 @@ function create_style(keys, values) {
 }
 
 class Gradient {
-    constructor(angle, col1a, col2a, col1b, col2b) {
-        // gradient between colors 1 and 2, but these change overtime
+    constructor(angle, col1, col2) {
         this.angle = angle;
-        this.colors = [col1a, col2a, col1b, col2b];
+        this.colors = [col1, col2];
     }
 }
 
@@ -36,7 +35,7 @@ class Flare {
         let flare = document.createElement("div");
         flare.className = "flare";
         flare.style = create_style(
-            ["s", "o1", "o2", "b1", "b2", "angle", "bg1a", "bg2a", "bg1b", "bg2b"],
+            ["s", "o1", "o2", "b1", "b2", "angle", "bg1", "bg2"],
             [this.size, ...this.opacity, ...this.blur, this.gradient_angle, ...this.gradient]
         );
 
@@ -50,13 +49,13 @@ class Flare {
 }
 
 let data = [
-    new Flare(40, 5, 700, .5, .7, 20, 0, new Gradient(90, 0x19130b, 0x3f2a18, 0, 0)),
-    new Flare(41, 74, 600, .1, .1, 50, 10, new Gradient(90, 0x19130b, 0x3f2a18, 0, 0)),
-    new Flare(17, 87, 500, .9, .8, 20, 0, new Gradient(135, 0x231e2f, 0x090c4b, 0, 0)),
-    new Flare(87, 9, 200, .7, .5, 40, 30, new Gradient(135, 0x66cfe7, 0x66c9de, 0, 0)),
-    new Flare(7, 52, 250, .7, .5, 10, 0, new Gradient(135, 0x332446, 0x21284f, 0, 0)),
-    new Flare(53, 49, 600, .15, .2, 20, 5, new Gradient(135, 0x7d6970, 0x6b5376, 0, 0)),
-    new Flare(78, 64, 800, .9, .7, 30, 0, new Gradient(10, 0x1e1c3d, 0x876c78, 0, 0))
+    new Flare(40, 5, 700, .5, .7, 20, 0, new Gradient(90, 0x19130b, 0x3f2a18)),
+    new Flare(41, 74, 600, .1, .1, 50, 10, new Gradient(90, 0x19130b, 0x3f2a18)),
+    new Flare(17, 87, 500, .8, .9, 20, 0, new Gradient(135, 0x231e2f, 0x090c4b)),
+    new Flare(87, 9, 200, .5, .7, 40, 30, new Gradient(135, 0x66cfe7, 0x66c9de)),
+    new Flare(7, 52, 250, .5, .7, 10, 0, new Gradient(135, 0x332446, 0x21284f)),
+    new Flare(53, 49, 600, .2, .15, 20, 5, new Gradient(135, 0x7d6970, 0x6b5376)),
+    new Flare(78, 64, 800, .6, .9, 30, 0, new Gradient(10, 0x1e1c3d, 0x876c78))
 ];
 
 let container = document.getElementById("flare-container-inner");

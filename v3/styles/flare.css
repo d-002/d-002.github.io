@@ -1,5 +1,13 @@
-body {
-    background: linear-gradient(95deg, #2f2945, #1f1e27);
+@keyframes transparency {
+    0% {
+        filter: opacity(0);
+    }
+    50% {
+        filter: opacity(1);
+    }
+    100% {
+        filter: opacity(0);
+    }
 }
 
 #flare-container {
@@ -9,7 +17,20 @@ body {
     width: 100vw;
     height: 100vh;
 
-    overflow: hidden visible;
+    overflow: hidden;
+
+    background: linear-gradient(95deg, #2f2945, #1f1e27);
+}
+
+#flare-container:before {
+    position: absolute;
+
+    content: "";
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(134deg, #1f1b2d, #201673);
+    animation: 10s transparency infinite;
 }
 
 #flare-container-inner {
@@ -35,7 +56,7 @@ body {
     width: var(--s);
     height: var(--s);
 
-    --bg: linear-gradient(var(--angle), var(--bg1a), var(--bg2a));
+    --bg: linear-gradient(var(--angle), var(--bg1), var(--bg2));
 
     border-radius: 50%;
 }
