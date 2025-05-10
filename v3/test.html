@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <style>
+:root {
+  background: black;
+}
+.container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+.element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: plus-lighter;
+}
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+  transform: translate(50%, 50%);
+}
+        </style>
+
+<div class="container">
+  <div class="element red"></div>
+  <div class="element green"></div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <style>
+@font-face {
+    src: url("CenturyGothic.ttf");
+    font-family: cgothic;
+}
+
+body {
+    margin: 0;
+
+    background: linear-gradient(95deg, #2f2945, #1f1e27);
+}
+
+#flare-container {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden visible;
+}
+
+#flare-container-inner {
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    flex-grow: 1;
+
+    position: relative;
+}
+
+.flare-transform {
+    position: absolute;
+    top: var(--t);
+    left: var(--l);
+    transform: translate(-50%, -50%);
+
+    mix-blend-mode: screen;
+}
+
+.flare {
+    position: relative;
+    width: var(--s);
+    height: var(--s);
+
+    border-radius: 50%;
+}
+
+.flare-border, .flare-border:before, .flare:before, .flare:after {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.flare-border {
+    padding: var(--b1);
+    box-sizing: border-box;
+
+    background: var(--bg);
+    filter: blur(var(--b1)) opacity(var(--o1));
+}
+
+.flare-border:before {
+    content: "";
+    display: block;
+
+    background: black;
+}
+
+/* background */
+.flare:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+
+    background: var(--bg);
+    filter: blur(var(--b1)) opacity(var(--o2));
+}
+
+/* grain */
+.flare:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    background: url("grain.jpg");
+    background-position: center;
+    mix-blend-mode: multiply;
+    filter: opacity(.1) blur(var(--b2));
+}
+
+h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    margin: 0;
+
+    font-size: 100px;
+    font-weight: normal;
+    font-family: cgothic, sans-serif;
+
+    text-align: center;
+    color: #e3dfdf;
+    filter: drop-shadow(0 0 20px #22222c30);
+}
+        </style>
+    </head>
+
+    <body>
+    <div id="flare-container"><div id="flare-container-inner">
+        <div class="flare-transform" style="--t: 5%; --l: 40%">
+            <div class="flare" style="--s: 700px; --o1: .7; --o2: .5; --b1: 20px; --b2: 0; --bg: linear-gradient(90deg, #19130b00, #3f2a18)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <div class="flare-transform" style="--t: 74%; --l: 41%">
+            <div class="flare" style="--s: 600px; --o1: .1; --o2: .1; --b1: 50px; --b2: 10px; --bg: linear-gradient(135deg, #231e2f, #090c4b)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <div class="flare-transform" style="--t: 87%; --l: 17%">
+            <div class="flare" style="--s: 500px; --o1: .9; --o2: .8; --b1: 20px; --b2: 0; --bg: linear-gradient(135deg, #332446, #21284f)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <div class="flare-transform" style="--t: 9%; --l: 87%">
+            <div class="flare" style="--s: 200px; --o1: .7; --o2: .5; --b1: 40px; --b2: 3px; --bg: linear-gradient(135deg, #66cfe7, #66c9de)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <div class="flare-transform" style="--t: 52%; --l: 7%">
+            <div class="flare" style="--s: 250px; --o1: .7; --o2: .5; --b1: 10px; --b2: 0; --bg: linear-gradient(135deg, #192343, #0f0616)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <div class="flare-transform" style="--t: 49%; --l: 53%">
+            <div class="flare" style="--s: 600px; --o1: .15; --o2: .2; --b1: 20px; --b2: 5px; --bg: linear-gradient(135deg, #7d6970, #6b5376)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <div class="flare-transform" style="--t: 64%; --l: 78%">
+            <div class="flare" style="--s: 800px; --o1: .9; --o2: .7; --b1: 30px; --b2: 0; --bg: linear-gradient(10deg, #1e1c3d, #876c78)">
+                <div class="flare-border"></div>
+            </div>
+        </div>
+
+        <h1>d-002</h1>
+    </div></div>
+
+    </body>
+
+    <script>
+        function percent(f) {
+            return Math.round(f*100)+"%";
+        }
+
+        document.body.addEventListener("click", evt => {
+            let w = document.body.offsetWidth;
+            let h = document.body.offsetHeight;
+            console.log(percent(evt.x/w) + ", " + percent(evt.y/h));
+        });
+    </script>
+</html>
