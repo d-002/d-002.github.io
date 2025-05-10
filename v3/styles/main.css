@@ -4,23 +4,16 @@
     font-display: swap;
 }
 
-body {
-    margin: 0;
+@keyframes float-down {
+    from {
+        filter: opacity(0);
+        transform: translateY(-50%);
+    }
+    to {
+        filter: opacity(1);
+    }
 }
 
-h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
+body {
     margin: 0;
-
-    font-size: 100px;
-    font-weight: normal;
-    font-family: "cgothic", century gothic, sans-serif;
-
-    text-align: center;
-    color: #e3dfdf;
-    filter: drop-shadow(0 0 20px #22222c30);
 }

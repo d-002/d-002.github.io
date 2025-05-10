@@ -28,21 +28,21 @@ class Flare {
     }
 
     build(parent) {
-        let transform = document.createElement("div");
+        const transform = document.createElement("div");
         transform.className = "flare-transform";
         transform.style = create_style(["t", "l"], [this.pos[1], this.pos[0]]);
 
-        let speed = Math.round(Math.random()*20 + 5) + "s";
-        let direction = Math.random() < .5 ? "normal" : "reverse";
+        const speed = Math.round(Math.random()*20 + 5) + "s";
+        const direction = Math.random() < .5 ? "normal" : "reverse";
 
-        let flare = document.createElement("div");
+        const flare = document.createElement("div");
         flare.className = "flare";
         flare.style = create_style(
             ["s", "o1", "o2", "b1", "b2", "speed", "direction", "angle", "bg1", "bg2"],
             [this.size, ...this.opacity, ...this.blur, speed, direction, this.gradient_angle, ...this.gradient]
         );
 
-        let border = document.createElement("div");
+        const border = document.createElement("div");
         border.className = "flare-border";
 
         flare.appendChild(border);
@@ -51,7 +51,7 @@ class Flare {
     }
 }
 
-let data = [
+const data = [
     new Flare(40, 5, 700, .5, .7, 20, 0, new Gradient(90, 0x19130b, 0x3f2a18)),
     new Flare(41, 74, 600, .1, .1, 50, 10, new Gradient(90, 0x19130b, 0x3f2a18)),
     new Flare(17, 87, 500, .8, .9, 20, 0, new Gradient(135, 0x231e2f, 0x090c4b)),
@@ -61,6 +61,6 @@ let data = [
     new Flare(78, 64, 800, .6, .9, 30, 0, new Gradient(10, 0x1e1c3d, 0x876c78))
 ];
 
-let container = document.getElementById("flare-container-inner");
+const container = document.getElementById("flare-container-inner");
 
 data.forEach(flare => flare.build(container));
