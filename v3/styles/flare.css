@@ -93,8 +93,7 @@
 .flare:after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     z-index: 2;
 
     background: url("/v3/images/grain.svg");

@@ -1,0 +1,36 @@
+<html>
+<head>
+    <style>
+body {
+    --bg: #030;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#zone {
+    width: 500px;
+    height: 500px;
+
+    background: url("https://2.img-dpreview.com/files/p/E~C1000x0S4000x4000T1200x1200~articles/3925134721/0266554465.jpeg");
+    mask-image: url("/v3/images/noise.png");
+    mask-size: cover;
+}
+
+#mask {
+    width: 100px;
+    height: 100px;
+
+    background-image: linear-gradient(0deg, white, transparent);
+    /*mask-image: radial-gradient(circle, black 30%, transparent 70%), url("/v3/images/noise.svg#noise");
+    mask-composite: add;*/
+}
+    </style>
+</head>
+<body>
+    <div id="mask"></div>
+    <div id="zone"></div>
+</body>
+</html>
+

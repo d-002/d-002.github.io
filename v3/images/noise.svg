@@ -1,0 +1,25 @@
+<svg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'>
+  <filter id='noise'>
+    <feTurbulence 
+      type='fractalNoise' 
+      numOctaves='3'
+      result='noise'
+      baseFrequency='0.01 0.006' 
+      stitchTiles='stitch' />
+
+    <feComponentTransfer in='noise' result='highContrast'>
+      <feFuncR type='linear' slope='10' intercept='-4.5' />
+      <feFuncG type='linear' slope='10' intercept='-4.5' />
+      <feFuncB type='linear' slope='10' intercept='-4.5' />
+    </feComponentTransfer>
+
+    <feColorMatrix in='highContrast' result='flattened' type='matrix'
+      values='
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        .34 .33 .33 0 0' />
+  </filter>
+
+  <rect width='100%' height='100%' filter='url(#noise)' />
+</svg>
