@@ -30,7 +30,7 @@ class Typer {
     }
 
     update_cursor() {
-        this.elt.className = ["normal", "insert", "visual"][this.cursor];
+        this.elt.className = "appear " + ["normal", "insert", "visual"][this.cursor];
     }
 
     update_text() {
@@ -103,8 +103,9 @@ const titles = [
     "Vim enjoyer",
     "I'm D_00 online",
     "Epita Student",
-    "Computational redstoner"
+    "Redstoner"
 ];
 
 const typer = new Typer(document.getElementById("subtitle"));
+
 const title_interval = window.setInterval(() => typer.update(), 16);

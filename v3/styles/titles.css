@@ -38,18 +38,8 @@
 
     text-wrap: nowrap;
     color: #e3dfdf;
-}
 
-body:not(.ready) #title h1 {
-    filter: opacity(0);
-}
-
-body.ready #title h1 {
-    animation: 1s float-down;
-}
-
-body:not(.ready) #title h2 {
-    opacity: 0;
+    --animation: float-down;
 }
 
 #title h2 {
@@ -67,6 +57,8 @@ body:not(.ready) #title h2 {
 
     text-align: center;
     color: var(--subtitle-color);
+
+    --animation: float-up;
 }
 
 /* vim modes */

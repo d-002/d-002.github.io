@@ -20,6 +20,24 @@
     }
 }
 
+@keyframes float-up {
+    from {
+        filter: opacity(0);
+        transform: translateY(50%);
+    }
+    to {
+        filter: opacity(1);
+    }
+}
+
+.appear {
+    animation: 1s var(--animation) forwards;
+}
+
+.disappear {
+    animation: 1s var(--animation) forwards reverse;
+}
+
 body {
     margin: 0;
 }
