@@ -3,11 +3,11 @@ class Typer {
         this.elt = elt;
 
         this.state = 0; // 0: typing, 1: erasing
-        this.wait_long();
         this.index = 0;
         this.cursor = 0; // 0: normal mode, 1: insert mode, 2: visual line mode
         this.text = "";
 
+        this.wait_long();
         this.update_cursor();
 
         // - typing animation:
@@ -25,7 +25,8 @@ class Typer {
     }
 
     wait_long() {
-        this.next_action = Date.now() + Math.random()*500 + 2000;
+        const base = this.text.length ? 2500 : 1500;
+        this.next_action = Date.now() + Math.random()*500 + base;
     }
 
     update_cursor() {
