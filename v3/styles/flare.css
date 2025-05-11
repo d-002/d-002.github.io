@@ -97,7 +97,7 @@
     left: 0;
     z-index: 2;
 
-    background: url("/v3/images/grain.jpg");
+    background: url("/v3/images/grain.png");
     background-position: center;
     mix-blend-mode: multiply;
     filter: opacity(.1) blur(var(--b2));
