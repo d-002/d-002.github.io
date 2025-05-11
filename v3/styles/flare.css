@@ -97,10 +97,10 @@
     left: 0;
     z-index: 2;
 
-    background: url("/v3/images/grain.png");
+    background: url("/v3/images/grain.svg");
     background-position: center;
     mix-blend-mode: multiply;
-    filter: opacity(.1) blur(var(--b2));
+    filter: opacity(.05) blur(var(--b2));
 }
 
 /* border */

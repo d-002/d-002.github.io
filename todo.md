@@ -8,6 +8,7 @@
 - more extensive resume in other page
 - link to previous versions at the bottom of the repos page
 - link to this in readme, clutter-free readme, custom image for link to pages repo
+- links: yt, tetrio, shadertoy, SO, wakatime
 
 # Small changes
 - down arrow at the start
@@ -26,10 +27,11 @@
 - hanoi
 
 ## featured
-- fast-voronoi
 - raymarch fractal
-- progression-graph
+- fast-voronoi
 - tetris-ai-2
+
+- progression-graph
 - cpp-renderer
 
 ## minecraft
