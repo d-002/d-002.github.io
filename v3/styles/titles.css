@@ -1,0 +1,63 @@
+@keyframes blink {
+    0% {
+        filter: opacity(0);
+    }
+    50% {
+        filter: opacity(1);
+    }
+    100% {
+        filter: opacity(0);
+    }
+}
+
+#title {
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+    top: 50%;
+    left: 50%;
+    margin: 0;
+
+    filter: drop-shadow(0 0 20px #22222c30);
+}
+
+#title h1 {
+    margin: 0;
+
+    font-family: "cgothic", century gothic, sans-serif;
+    font-weight: normal;
+    font-size: 100px;
+
+    text-align: center;
+    text-wrap: nowrap;
+    color: #e3dfdf;
+}
+
+body:not(.ready) #title h1 {
+    filter: opacity(0);
+}
+
+body.ready #title h1 {
+    animation: 1s float-down;
+}
+
+#title h2 {
+    margin: 0;
+
+    font-family: "cnew", courier new, monospace;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 48px;
+
+    text-align: center;
+    color: #cf8c50;
+}
+
+#title h2:after {
+    content: "_";
+    animation: blink .5s steps(1) infinite;
+}
+
+body:not(.ready) #title h2 {
+    opacity: 0;
+}

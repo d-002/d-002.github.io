@@ -1,4 +1,10 @@
 @font-face {
+    src: url("/v3/fonts/CourierNew.ttf");
+    font-family: "cnew";
+    font-display: swap;
+}
+
+@font-face {
     src: url("/v3/fonts/CenturyGothic.ttf");
     font-family: "cgothic";
     font-display: swap;
