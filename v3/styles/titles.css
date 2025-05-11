@@ -32,7 +32,7 @@
 #title h1 {
     margin: 0;
 
-    font-family: "cgothic", century gothic, sans-serif;
+    font-family: var(--cgothic);
     font-weight: normal;
     font-size: 100px;
 
@@ -50,7 +50,7 @@
     height: 1em;
     min-width: 1ch;
 
-    font-family: "cnew", courier new, monospace;
+    font-family: var(--cnew);;
     font-style: italic;
     font-weight: bold;
     font-size: 48px;

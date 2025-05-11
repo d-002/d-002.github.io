@@ -10,6 +10,12 @@
     font-display: swap;
 }
 
+@font-face {
+    src: url("/v3/fonts/Rubik.ttf");
+    font-family: "rubik";
+    font-display: swap;
+}
+
 @keyframes float-down {
     from {
         filter: opacity(0);
@@ -30,6 +36,24 @@
     }
 }
 
+:root {
+    --cgothic: "cgothic", century gothic, sans-serif;
+    --cnew: "cnew", courier new, monospace;
+    --rubik: "rubik", rubik, calibri, sans-serif;
+
+    --bg-main: #2d3033;
+    --bg-dark: #232629;
+    --bg-light: #3a4149;
+    --fg-main: #d3d0cb;
+    --fg-light: #dacbe7;
+    --link-color: #b9b1a9;
+
+    color: var(--fg-main);
+
+    font-family: var(--rubik);
+    font-size: 20px;
+}
+
 body {
     margin: 0;
 }
@@ -45,4 +69,26 @@ body {
 .noise-border {
     mask-image: url("/v3/images/noise.png");
     mask-size: 100% 100%;
+}
+
+img.highlight {
+    box-sizing: border-box;
+    border: 1px solid #ffffff08;
+    box-shadow: 5px 15px 30px #0002;
+}
+
+a, a span {
+    text-decoration: underline;
+    text-decoration-color: #fff2;
+    color: var(--link-color);
+}
+
+a:hover, a:hover span {
+    text-decoration-color: #fff8;
+}
+
+.grainy {
+    background: url("/v3/images/grain.svg"), var(--bg-main);
+    background-repeat: repeat;
+    background-blend-mode: overlay;
 }

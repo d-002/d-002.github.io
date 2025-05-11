@@ -21,7 +21,7 @@ for x in range(res):
         dist2 = sqr(max(abs(x-mid), abs(y-mid)) / mid)
         dist = (dist1+dist2) / 2
 
-        noise = (snoise2(x*.01, y*.007)+1) / 2
+        noise = (snoise2(x*.015, y*.015)+1) / 2
         circle = gradient(.4, .7, dist)
         value = noise > circle
         value = clamp(value)*255

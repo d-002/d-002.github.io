@@ -47,10 +47,9 @@
 
 #flare-container:after {
     background: url("/v3/images/grain.svg");
-    background-size: cover;
+    background-repeat: repeat;
 
     mix-blend-mode: multiply;
-    filter: opacity(.3);
 }
 
 #flare-container-inner {
