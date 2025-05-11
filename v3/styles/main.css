@@ -16,6 +16,19 @@
     font-display: swap;
 }
 
+@font-face {
+    src: url("/v3/fonts/Poppins.ttf");
+    font-family: "poppins";
+    font-display: swap;
+}
+
+@font-face {
+    src: url("/v3/fonts/Poppins-ExtraBold.ttf");
+    font-family: "bpoppins";
+    font-weight: bold;
+    font-display: swap;
+}
+
 @keyframes float-down {
     from {
         filter: opacity(0);
@@ -40,13 +53,17 @@
     --cgothic: "cgothic", century gothic, sans-serif;
     --cnew: "cnew", courier new, monospace;
     --rubik: "rubik", rubik, calibri, sans-serif;
+    --poppins: "poppins", poppins, calibri, sans-serif;
+    --bpoppins: "bpoppins", "poppins", poppins, calibri, sans-serif;
 
     --bg-main: #2d3033;
     --bg-dark: #232629;
-    --bg-light: #3a4149;
+    --bg-light: #383c41;
     --fg-main: #d3d0cb;
     --fg-light: #dacbe7;
     --link-color: #b9b1a9;
+    --accent-color: #a9afcf;
+    --accent-color-dark: #5b6079;
 
     color: var(--fg-main);
 
@@ -88,7 +105,15 @@ a:hover, a:hover span {
 }
 
 .grainy {
-    background: url("/v3/images/grain.svg"), var(--bg-main);
+    background-image: url("/v3/images/grain.svg");
     background-repeat: repeat;
     background-blend-mode: overlay;
+}
+
+.hover-scale {
+    transition: .15s transform;
+}
+
+.hover-scale:hover {
+    transform: scale(1.01);
 }

@@ -9,6 +9,7 @@
 
     border-top: 1px solid #ffffff08;
 
+    background-color: var(--bg-main);
     box-shadow: 0 0 100px #0008;
 }
 
@@ -58,20 +59,12 @@
     text-align: center;
 }
 
-.image-repo-link {
+a.image-repo-link {
     position: relative;
     display: block;
 }
 
-.image-repo-link img {
-    transition: .15s transform;
-}
-
-.image-repo-link img:hover {
-    transform: scale(1.01);
-}
-
-.image-repo-link span {
+a.image-repo-link span {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -85,26 +78,104 @@
 }
 
 /* secondary featured */
-#secondary-featured {
+.repos-list {
     display: flex;
-    justify-content: center;
-    gap: 400px;
-
-    margin-top: -300px;
+    flex-direction: column;
+    align-items: center;
 
     width: 100%;
-    overflow: hidden;
+    max-width: 800px;
 }
 
-#secondary-featured img {
-    width: 600px;
+.repos-list>div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
+    box-sizing: border-box;
+
+    margin: 20px 0;
+    padding: 10px 20px;
+    width: 100%;
+
+    background-color: var(--bg-light);
+}
+
+@media (min-width: 700px) {
+    .repos-list>div {
+        border-radius: 25px;
+    }
+}
+
+.repos-list>br {
+    content: "";
+    width: 70%;
+    height: 1px;
+    border-bottom: 1px solid #fff2;
+}
+
+.repos-list img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+    border-radius: 20px;
+}
+
+.repos-list .right {
+    display: flex;
+    justify-content: end;
+    text-align: right;
+}
+
+a.external-open {
     position: relative;
-    z-index: 0;
 }
 
-#secondary-featured>div:first-child img {
+a.external-open:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    transition: .3s opacity;
+    opacity: 0;
+
+    background: url("/v3/images/external-open.svg"), #fff8;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+
+    mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    mask-size: cover;
 }
 
-#secondary-featured>div:last-child img {
+a.external-open:hover:after {
+    opacity: 1;
+}
+
+a.button {
+    transition: .4s;
+
+    margin: 25px 0;
+    padding: .8em;
+    min-width: 150px;
+
+    box-shadow: 5px 10px 20px #0002;
+    border-radius: 2em;
+    background-color: var(--bg-light);
+    color: var(--accent-color);
+    border: 3px solid var(--accent-color);
+
+    font-family: var(--bpoppins);
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+a.button:hover {
+    box-shadow: 2px 5px 10px var(--accent-color-dark);
+    color: var(--bg-main);
+    background-color: var(--accent-color);
+
+    transform: translateY(3px);
 }

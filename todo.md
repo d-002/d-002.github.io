@@ -29,9 +29,9 @@
 ## featured
 - raymarch fractal
 - fast-voronoi
-- tetris-ai-2
-
 - progression-graph
+
+- tetris-ai-2
 - cpp-renderer
 
 ## minecraft
