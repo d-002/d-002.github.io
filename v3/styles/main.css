@@ -42,7 +42,7 @@
 @keyframes float-up {
     from {
         filter: opacity(0);
-        transform: translateY(50%);
+        transform: translateY(50px);
     }
     to {
         filter: opacity(1);
@@ -59,6 +59,7 @@
     --bg-main: #2d3033;
     --bg-dark: #232629;
     --bg-light: #383c41;
+    --bg-lighter: #535d69;
     --fg-main: #d3d0cb;
     --fg-light: #dacbe7;
     --link-color: #b9b1a9;
@@ -69,6 +70,8 @@
 
     font-family: var(--rubik);
     font-size: 20px;
+
+    scroll-behavior: smooth;
 }
 
 body {
@@ -80,7 +83,7 @@ body {
 }
 
 .disappear {
-    animation: 1s var(--animation) forwards reverse;
+    animation: .3s var(--animation) forwards reverse;
 }
 
 .noise-border {
@@ -116,4 +119,47 @@ a:hover, a:hover span {
 
 .hover-scale:hover {
     transform: scale(1.01);
+}
+
+/* to top arrow */
+#page-top {
+    position: absolute;
+    top: 0;
+}
+
+#to-top {
+    position: fixed;
+    z-index: 99;
+
+    bottom: 20px;
+    right: 20px;
+
+    --animation: float-up;
+}
+
+#to-top a {
+    transition: .4s;
+
+    display: block;
+
+    width: 60px;
+    height: 60px;
+
+    background-image: url("/v3/images/up-arrow.svg");
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-shadow: 0 4px 7px var(--accent-color-dark);
+    border: 2px solid var(--accent-color);
+    color: var(--bg-main);
+    background-color: var(--bg-lighter);
+    border-radius: 50%;
+}
+
+#to-top a:hover {
+    transform: translateY(-10px);
+
+    box-shadow: 0 5px 15px var(--accent-color-dark);
+    background-color: var(--accent-color-dark);
 }

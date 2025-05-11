@@ -17,10 +17,12 @@ class ScrollElt {
 
     show_elt() {
         this.set_animation("disappear", "appear");
+        this.visible = true;
     }
 
     hide_elt() {
         this.set_animation("appear", "disappear");
+        this.visible = false;
     }
 
     update() {
@@ -33,16 +35,22 @@ class ScrollElt {
         if (target != this.visible) {
             if (target) this.show_elt();
             else this.hide_elt();
-            this.visible = target;
         }
     }
 }
 
 function scroll_handler() {
     elts.forEach(elt => elt.update(scrollY));
+
+    // special behavior for the Scroll to top button
+    if (window.scrollY > 10 && !to_top.visible)
+        to_top.show_elt();
+    else if (window.scrollY <= 10 && to_top.visible)
+        to_top.hide_elt();
 }
 
 const elts = Array.from(document.querySelectorAll(".animate-on-scroll")).map(elt => new ScrollElt(elt));
+const to_top = new ScrollElt(document.getElementById("to-top"));
 
 const scroll_listener = window.addEventListener("scroll", scroll_handler);
 scroll_handler(); // force update on load to make sure the already visible elements are animated
