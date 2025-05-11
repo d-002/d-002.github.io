@@ -1,3 +1,7 @@
+:root {
+    --subtitle-color: #cf8c50;
+}
+
 @keyframes blink {
     0% {
         filter: opacity(0);
@@ -14,6 +18,10 @@
     position: absolute;
     transform: translate(-50%, -50%);
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     top: 50%;
     left: 50%;
     margin: 0;
@@ -28,7 +36,6 @@
     font-weight: normal;
     font-size: 100px;
 
-    text-align: center;
     text-wrap: nowrap;
     color: #e3dfdf;
 }
@@ -41,8 +48,17 @@ body.ready #title h1 {
     animation: 1s float-down;
 }
 
+body:not(.ready) #title h2 {
+    opacity: 0;
+}
+
 #title h2 {
+    display: inline-block;
+    position: relative;
     margin: 0;
+
+    height: 1em;
+    min-width: 1ch;
 
     font-family: "cnew", courier new, monospace;
     font-style: italic;
@@ -50,14 +66,30 @@ body.ready #title h1 {
     font-size: 48px;
 
     text-align: center;
-    color: #cf8c50;
+    color: var(--subtitle-color);
 }
 
-#title h2:after {
-    content: "_";
-    animation: blink .5s steps(1) infinite;
+/* vim modes */
+#title h2:is(.normal, .visual):after {
+    content: "";
+
+    position: absolute;
+    right: 0;
+
+    width: 0.9ch;
+    height: 1em;
+
+    color: transparent;
+    background-color: var(--subtitle-color);
+    mix-blend-mode: screen;
 }
 
-body:not(.ready) #title h2 {
-    opacity: 0;
+#title h2.insert:after {
+    display: inline-block;
+    content: "|";
+    transform: translate(-.25em, -.05em);
+}
+
+#title h2.visual {
+    background: color-mix(in srgb, currentColor 30%, transparent);
 }

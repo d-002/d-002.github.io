@@ -3,54 +3,91 @@ class Typer {
         this.elt = elt;
 
         this.state = 0; // 0: typing, 1: erasing
-        this.next_action = Date.now() + 1000;
+        this.wait_long();
         this.index = 0;
+        this.cursor = 0; // 0: normal mode, 1: insert mode, 2: visual line mode
         this.text = "";
+
+        this.update_cursor();
+
+        // - typing animation:
+        //  enter insert mode, then type, then go back to normal mode
+        // - erasing animation:
+        //  select everything, then delete all
     }
 
-    wait_short(now, is_erasing) {
-        if (is_erasing)
-            this.next_action = now + Math.random()*30 + 60;
-        else
-            this.next_action = now + Math.random()*80 + 20;
+    wait_short() {
+        this.next_action = Date.now() + Math.random()*80 + 20;
     }
 
-    wait_long(now) {
-        this.next_action = now + Math.random()*500 + 2000;
+    wait_mid() {
+        this.next_action = Date.now() + Math.random()*50 + 200;
+    }
+
+    wait_long() {
+        this.next_action = Date.now() + Math.random()*500 + 2000;
+    }
+
+    update_cursor() {
+        this.elt.className = ["normal", "insert", "visual"][this.cursor];
+    }
+
+    update_text() {
+        this.elt.innerHTML = this.text;
     }
 
     update() {
-        const now = Date.now();
-
-        if (now > this.next_action) {
+        if (Date.now() > this.next_action) {
             if (this.state === 0) {
                 const target = titles[this.index];
 
                 if (this.text === target) {
-                    // start erasing
-                    this.state = 1;
-                    this.wait_long(now);
+                    if (this.cursor === 1) {
+                        // go to normal mode
+                        this.cursor = 0;
+                        this.update_cursor();
+                        this.wait_short();
+                    }
+                    else {
+                        // start erasing
+                        this.state = 1;
+                        this.wait_long();
+                    }
                 }
                 else {
-                    // write a character
-                    this.text += target[this.text.length];
-                    this.elt.innerHTML = this.text;
-                    this.wait_short(now, false);
+                    if (this.cursor === 0) {
+                        // go to insert mode
+                        this.cursor = 1;
+                        this.update_cursor();
+                        this.wait_mid();
+                    }
+                    else {
+                        // write a character
+                        this.text += target[this.text.length];
+                        this.update_text();
+                        this.wait_short();
+                    }
                 }
             }
 
             else {
-                if (this.text.length) {
-                    // erase a character
-                    this.text = this.text.substring(0, this.text.length-1);
-                    this.elt.innerHTML = this.text;
-                    this.wait_short(now, true);
+                if (this.cursor == 0) {
+                    // select the whole line
+                    this.cursor = 2;
+                    this.update_cursor();
+                    this.wait_mid();
                 }
                 else {
+                    // delete the title
+                    this.cursor = 0;
+                    this.text = "";
+                    this.update_cursor();
+                    this.update_text();
+
                     // write a new title
                     this.index = (this.index+1) % titles.length;
                     this.state = 0;
-                    this.wait_long(now);
+                    this.wait_long();
                 }
             }
         }
