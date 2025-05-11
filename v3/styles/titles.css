@@ -42,6 +42,10 @@
     --animation: float-down;
 }
 
+#title div:has(h2) {
+    --animation: float-up;
+}
+
 #title h2 {
     display: inline-block;
     position: relative;
@@ -57,8 +61,6 @@
 
     text-align: center;
     color: var(--subtitle-color);
-
-    --animation: float-up;
 }
 
 /* vim modes */

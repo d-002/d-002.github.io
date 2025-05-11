@@ -32,6 +32,8 @@
 
 #featured>a {
     font-size: 32px;
+
+    --animation: float-up;
 }
 
 @media (min-width: 700px) {

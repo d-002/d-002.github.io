@@ -12,21 +12,23 @@
 </head>
 
 <body>
+    <div id="page-top"></div>
+
     <!-- First screen -->
     <div id="flare-container">
         <div id="flare-container-inner"></div>
     </div>
 
     <div id="title">
-        <h1 class="appear">d-002</h1>
-        <h2 id="subtitle" class="appear"></h2>
+        <h1 class="appear animate-on-scroll">d-002</h1>
+        <div class="appear"><h2 id="subtitle"></h2></div>
     </div>
 
     <div id="main" class="grainy">
         <!-- Featured projects -->
         <div id="featured">
             <span>Featured •</span>
-            <a href="https://github.com/d-002/raymarch-fractal" target="_blank" class="image-repo-link">
+            <a href="https://github.com/d-002/raymarch-fractal" target="_blank" class="image-repo-link animate-on-scroll">
                 <img src="/v3/images/featured/mandelbrot.png" class="highlight hover-scale">
                 <span>raymarch-fractal</span>
             </a>
@@ -56,4 +58,5 @@
 
 <script src="/v3/scripts/flare.js" type="module"></script>
 <script src="/v3/scripts/titles.js" type="module"></script>
+<script src="/v3/scripts/scroll.js" type="module"></script>
 </html>

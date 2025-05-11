@@ -30,7 +30,7 @@ class Typer {
     }
 
     update_cursor() {
-        this.elt.className = "appear " + ["normal", "insert", "visual"][this.cursor];
+        this.elt.className = ["normal", "insert", "visual"][this.cursor];
     }
 
     update_text() {
