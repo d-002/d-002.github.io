@@ -20,26 +20,37 @@
 }
 
 #flare-container {
+    position: fixed;
     display: flex;
     justify-content: center;
 
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
+    z-index: -1;
 
     overflow: hidden;
 
     background: linear-gradient(95deg, #2f2945, #1f1e27);
 }
 
-#flare-container:before {
-    position: absolute;
-
+#flare-container:before, #flare-container:after {
     content: "";
+
+    position: absolute;
     width: 100%;
     height: 100%;
+}
 
+#flare-container:before {
     background: linear-gradient(134deg, #1f1b2d, #201673);
     animation: 10s transparency infinite;
+}
+
+#flare-container:after {
+    background: url("/v3/images/grain.svg");
+    background-size: cover;
+
+    mix-blend-mode: multiply;
+    filter: opacity(.3);
 }
 
 #flare-container-inner {
@@ -73,48 +84,43 @@
     border-radius: 50%;
 }
 
-.flare-border, .flare-border:before, .flare:before, .flare:after {
+.flare-background, .flare-border:after {
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
 
-/* background */
-.flare:before {
-    content: "";
+/* grain, background */
+.flare-background {
     position: absolute;
-    z-index: 1;
+
+    /* cancel animation rotation */
+    animation: var(--speed) wiggle infinite linear var(--other-direction);
 
     background: var(--bg);
+
     filter: blur(var(--b1)) opacity(var(--o1));
-}
-
-/* grain */
-.flare:after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-
-    background: url("/v3/images/grain.svg");
-    background-position: center;
-    mix-blend-mode: multiply;
-    filter: opacity(.05) blur(var(--b2));
 }
 
 /* border */
 .flare-border {
-    padding: var(--b1);
-    box-sizing: border-box;
+    position: absolute;
 
-    background: var(--bg);
+    --offset: calc(0px - var(--b1));
+    --size: calc(var(--s) + var(--b1)*2);
+    transform: translate(var(--offset), var(--offset));
+    width: var(--size);
+    height: var(--size);
+
     filter: blur(var(--b1)) opacity(var(--o2));
 }
 
-.flare-border:before {
+.flare-border:after {
     content: "";
     display: block;
 
-    background: black;
+    background: var(--bg);
+    --cutoff: calc(var(--s)*.5 - var(--b1));
+    mask-image: radial-gradient(circle, transparent var(--cutoff), black var(--cutoff));
+    mask-size: cover;
 }
-

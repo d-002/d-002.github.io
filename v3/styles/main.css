@@ -30,6 +30,10 @@
     }
 }
 
+body {
+    margin: 0;
+}
+
 .appear {
     animation: 1s var(--animation) forwards;
 }
@@ -38,6 +42,7 @@
     animation: 1s var(--animation) forwards reverse;
 }
 
-body {
-    margin: 0;
+.noise-border {
+    mask-image: url("/v3/images/noise.png");
+    mask-size: 100% 100%;
 }
