@@ -6,7 +6,8 @@ class ScrollElt {
         this.scroll_start = elt.getAttribute("scroll-start");
         this.scroll_stop = elt.getAttribute("scroll-stop");
 
-        this.visible = false;
+        this.visible = !this.elt.classList.contains("disappear");
+        this.hide_elt();
     }
 
     set_animation(previous, next) {
@@ -16,11 +17,18 @@ class ScrollElt {
     }
 
     show_elt() {
+        if (this.visible) return;
+
+        // for elements that need to bee hidden on page load, remove this state now
+        if (this.elt.classList.contains("hidden"))
+            this.elt.classList.remove("hidden");
+
         this.set_animation("disappear", "appear");
         this.visible = true;
     }
 
     hide_elt() {
+        if (!this.visible) return;
         this.set_animation("appear", "disappear");
         this.visible = false;
     }
