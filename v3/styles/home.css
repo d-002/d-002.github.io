@@ -36,14 +36,14 @@
     --animation: float-up;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 750px) {
     #featured img {
         height: 400px;
         border-radius: 30px;
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
     #featured img {
         width: 100%;
         border: none;
@@ -131,17 +131,18 @@ a.image-repo-link span {
     max-width: 700px;
 }
 
-#about h2 {
+h2, h3 {
     position: relative;
     margin: 0;
     margin-bottom: 2rem;
 
+    text-align: center;
     font-family: var(--cgothic);
     font-size: 2.5rem;
     color: var(--accent-color);
 }
 
-#about h2:after {
+h2:after {
     content: "";
 
     display: block;
@@ -152,4 +153,57 @@ a.image-repo-link span {
     transform: translateY(.5rem);
 
     border-bottom: 1px solid #fff2;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--fg-light);
+}
+
+/* languages and tools */
+#languages {
+    display: flex;
+    justify-content: center;
+    gap: 30px 60px;
+    flex-wrap: wrap;
+
+    max-width: max(80%, 960px);
+}
+
+#languages canvas {
+    flex: 1;
+    height: 600px;
+
+    background: url("/v3/images/quad-lines.svg"), var(--bg-darker);
+    background-size: 40px;
+    background-repeat: repeat;
+    background-position: center;
+}
+
+@media (min-width: 1200px) {
+    #languages {
+        width: 90%;
+    }
+
+    #languages canvas {
+        width: 55%;
+    }
+}
+
+@media (max-width: 1200px) {
+    #languages canvas {
+        flex: 1;
+    }
+}
+
+#languages>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex: 1;
+}
+
+#languages h3 {
+    width: 100%;
 }

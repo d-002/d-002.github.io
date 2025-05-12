@@ -70,10 +70,11 @@
 
     --bg-main: #2d3033;
     --bg-dark: #232629;
+    --bg-darker: #161b1e;
     --bg-light: #383c41;
     --bg-lighter: #535d69;
     --fg-main: #d3d0cb;
-    --fg-light: #dacbe7;
+    --fg-light: #ebe4f1;
     --link-color: #b9b1a9;
     --accent-color: #a9afcf;
     --accent-color-dark: #5b6079;
@@ -219,3 +220,25 @@ a.button:hover {
 
     transform: translateY(3px);
 }
+
+/* containers */
+.light-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    box-sizing: border-box;
+
+    padding: 10px 20px;
+    width: 100%;
+
+    background-color: var(--bg-light);
+    box-shadow: 3px 5px 20px #0002;
+}
+
+@media (min-width: 700px) {
+    .light-container {
+        border-radius: 25px;
+    }
+}
+

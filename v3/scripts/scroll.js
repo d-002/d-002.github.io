@@ -60,5 +60,5 @@ function scroll_handler() {
 const elts = Array.from(document.querySelectorAll(".animate-on-scroll")).map(elt => new ScrollElt(elt));
 const to_top = new ScrollElt(document.getElementById("to-top"));
 
-const scroll_listener = window.addEventListener("scroll", scroll_handler);
+window.addEventListener("scroll", scroll_handler);
 scroll_handler(); // force update on load to make sure the already visible elements are animated
