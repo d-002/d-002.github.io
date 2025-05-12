@@ -8,6 +8,8 @@ class ScrollElt {
 
         this.visible = !this.elt.classList.contains("disappear");
         this.hide_elt();
+
+        this.prevent_hiding = !this.elt.classList.contains("redo-animation");
     }
 
     set_animation(previous, next) {
@@ -28,7 +30,7 @@ class ScrollElt {
     }
 
     hide_elt() {
-        if (!this.visible) return;
+        if (!this.visible || this.prevent_hiding) return;
         this.set_animation("appear", "disappear");
         this.visible = false;
     }

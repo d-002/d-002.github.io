@@ -100,6 +100,8 @@ a.image-repo-link span {
 
     background: linear-gradient(360deg, #44325f, #145667);
     border-radius: 50%;
+
+    --animation: float-right;
 }
 
 #about .rainbow-circle:before {
@@ -187,6 +189,12 @@ h3 {
 
     #languages canvas {
         width: 55%;
+
+        --animation: float-right;
+    }
+
+    #languages>div {
+        --animation: float-left;
     }
 }
 

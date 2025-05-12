@@ -61,6 +61,26 @@
     }
 }
 
+@keyframes float-left {
+    from {
+        filter: opacity(0);
+        transform: translateX(50px);
+    }
+    to {
+        filter: opacity(1);
+    }
+}
+
+@keyframes float-right {
+    from {
+        filter: opacity(0);
+        transform: translateX(-50px);
+    }
+    to {
+        filter: opacity(1);
+    }
+}
+
 :root {
     --cgothic: "cgothic", century gothic, sans-serif;
     --cnew: "cnew", courier new, monospace;
