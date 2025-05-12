@@ -32,7 +32,7 @@ function cycle_profile() {
 
 const perf_popup = document.getElementById("perf-popup");
 const current_profile_elt = document.getElementById("current-profile");
-document.getElementById("dismiss-perf").addEventListener("click", () => perf_popup.blur());
+document.getElementById("dismiss-perf").addEventListener("click", () => { perf_popup.className = ""; });
 document.getElementById("cycle-profile").addEventListener("click", cycle_profile);
 
 // check if just came from the benchmark, in this case open a popup
@@ -41,4 +41,4 @@ const from_benchmark = new URL(document.location.href).searchParams.get("from-be
 set_profile_visual();
 
 if (from_benchmark)
-    window.setTimeout(() => perf_popup.focus(), 1000);
+    window.setTimeout(() => { perf_popup.className = "focus"; }, 1000);

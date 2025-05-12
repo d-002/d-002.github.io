@@ -167,6 +167,8 @@ a, a span {
     text-decoration: underline;
     text-decoration-color: #fff2;
     color: var(--link-color);
+
+    cursor: pointer;
 }
 
 a:hover, a:hover span {
@@ -256,8 +258,6 @@ a.button {
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-
-    cursor: pointer;
 }
 
 a.button:hover {

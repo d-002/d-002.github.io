@@ -13,6 +13,132 @@
     box-shadow: 0 0 100px #0008;
 }
 
+/* performance popup */
+#perf-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+
+    display: flex;
+    gap: 10px;
+
+    text-align: right;
+}
+
+@media (min-width: 500px) {
+    #dismiss-perf {
+        position: relative;
+
+        transition: .4s;
+        opacity: 0;
+        transform: translateX(30px);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+
+        margin-right: 20px;
+        padding: 10px;
+        border-radius: 15px;
+
+        --popup-bg: #dbba87;
+        background-color: var(--popup-bg);
+        text-decoration: none;
+    }
+
+    #dismiss-perf:after {
+        content: "";
+        position: absolute;
+
+        box-sizing: border-box;
+        width: 20px;
+        height: 25px;
+
+        top: 50%;
+        right: -20px;
+        transform: translateY(-50%);
+
+        border-style: solid;
+        border-width: 12px 0 12px 10px;
+        border-color: transparent transparent transparent var(--popup-bg);
+    }
+
+    #perf-popup.focus #dismiss-perf {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    #dismiss-perf:hover span {
+        text-decoration: none;
+    }
+
+    #dismiss-perf p {
+        font-size: .8rem;
+        margin: 0;
+        text-wrap: wrap;
+
+        color: var(--bg-main);
+    }
+
+    #dismiss-perf span {
+        font-size: .7rem;
+        color: var(--bg-light);
+    }
+}
+
+@media (max-width: 500px) {
+    #dismiss-perf {
+        display: none;
+    }
+}
+
+#perf-popup div {
+    position: relative;
+    transition: .4s;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+
+    color: transparent;
+    background: url("/v3/images/grain.svg"), var(--bg-lighter);
+    box-shadow: 2px 5px 20px #0001;
+}
+
+#perf-popup div:not(:hover):after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: url("/v3/images/menu.svg");
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#perf-popup div:hover {
+    width: unset;
+    height: unset;
+
+    border-radius: 25px;
+    padding: 15px;
+
+    color: unset;
+    box-shadow: 2px 5px 20px #0003;
+}
+
+#perf-popup div p {
+    margin: 0;
+}
+
+#perf-popup div a {
+    display: block;
+    color: var(--fg-light);
+}
+
 /* featured */
 #featured {
     margin-top: -300px;
