@@ -34,7 +34,7 @@
 
     font-family: var(--cgothic);
     font-weight: normal;
-    font-size: 100px;
+    font-size: 5rem;
 
     text-wrap: nowrap;
     color: #e3dfdf;
@@ -42,11 +42,11 @@
     --animation: float-down;
 }
 
-#title div:has(h2) {
+#title div:has(#subtitle) {
     --animation: float-up;
 }
 
-#title h2 {
+#subtitle {
     display: inline-block;
     position: relative;
     margin: 0;
@@ -57,14 +57,14 @@
     font-family: var(--cnew);;
     font-style: italic;
     font-weight: bold;
-    font-size: 48px;
+    font-size: 2.5rem;
 
     text-align: center;
     color: var(--subtitle-color);
 }
 
 /* vim modes */
-#title h2:is(.normal, .visual):after {
+#subtitle:is(.normal, .visual):after {
     content: "";
 
     position: absolute;
@@ -78,12 +78,12 @@
     mix-blend-mode: screen;
 }
 
-#title h2.insert:after {
+#subtitle.insert:after {
     display: inline-block;
     content: "|";
     transform: translate(-.25em, -.05em);
 }
 
-#title h2.visual {
+#subtitle.visual {
     background: color-mix(in srgb, currentColor 30%, transparent);
 }

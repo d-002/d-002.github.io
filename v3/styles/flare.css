@@ -1,15 +1,3 @@
-@keyframes transparency {
-    0% {
-        filter: opacity(0);
-    }
-    50% {
-        filter: opacity(1);
-    }
-    100% {
-        filter: opacity(0);
-    }
-}
-
 @keyframes wiggle {
     from {
         transform: rotate(0);
