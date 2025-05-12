@@ -1,5 +1,5 @@
 const storage_item = "profile";
-const profile_names = ["low", "high", "ultra"];
+export const profile_names = ["low", "high", "ultra"];
 
 function check_profile(input) {
     const output = parseInt(input) || 0;
@@ -7,7 +7,7 @@ function check_profile(input) {
 }
 
 // returns [profile, true if previously set, false otherwise]
-function get_profile() {
+export function get_profile() {
     const value = localStorage.getItem(storage_item);
     return [check_profile(value), value != null];
 }

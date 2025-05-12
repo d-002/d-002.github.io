@@ -1,7 +1,7 @@
 import { set_profile } from "/v3/scripts/performance-utils.js";
 
 function complete_test() {
-    document.location.href = "/v3";
+    document.location.href = "/v3?from-benchmark=1";
 }
 
 function skip() {
