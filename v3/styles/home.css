@@ -107,15 +107,24 @@
     box-shadow: 2px 5px 20px #0001;
 }
 
-#perf-popup div:not(:hover):after {
+#perf-popup div:after {
     content: "";
     position: absolute;
     inset: 0;
+
+    opacity: 0;
+    pointer-events: none;
 
     background-image: url("/v3/images/menu.svg");
     background-size: 50%;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+#perf-popup div:not(:hover):after {
+    /* animation only when closing to more easily read content when opening */
+    transition: .4s opacity;
+    opacity: 1;
 }
 
 #perf-popup div:hover {
@@ -136,6 +145,11 @@
 #perf-popup div a {
     display: block;
     color: var(--fg-light);
+}
+
+#perf-popup div:not(:hover) a {
+    color: transparent;
+    text-decoration: none;
 }
 
 /* featured */
