@@ -1,12 +1,3 @@
-@keyframes wiggle {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 #flare-container {
     position: absolute;
     display: flex;
@@ -65,7 +56,7 @@ body.ultra #flare-container:not(.sleeping) #flare-container-background:before {
 }
 
 body:not(.low) #flare-container:not(.sleeping) .flare {
-    animation: var(--speed) wiggle infinite linear var(--direction);
+    animation: var(--speed) spin infinite linear var(--direction);
 }
 
 .flare-background, .flare-border:after {
@@ -85,7 +76,7 @@ body:not(.low) #flare-container:not(.sleeping) .flare {
 
 /* cancel animation rotation */
 body:not(.low) #flare-container:not(.sleeping) .flare-background {
-    animation: var(--speed) wiggle infinite linear var(--other-direction);
+    animation: var(--speed) spin infinite linear var(--other-direction);
 }
 
 /* border */

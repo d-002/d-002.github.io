@@ -81,6 +81,27 @@
     }
 }
 
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes blink {
+    0% {
+        filter: opacity(0);
+    }
+    50% {
+        filter: opacity(1);
+    }
+    100% {
+        filter: opacity(0);
+    }
+}
+
 :root {
     --cgothic: "cgothic", century gothic, sans-serif;
     --cnew: "cnew", courier new, monospace;
@@ -103,6 +124,10 @@
 
     font-family: var(--rubik);
     font-size: 20px;
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
 
     scroll-behavior: smooth;
 }
@@ -231,6 +256,8 @@ a.button {
     font-weight: bold;
     text-align: center;
     text-decoration: none;
+
+    cursor: pointer;
 }
 
 a.button:hover {

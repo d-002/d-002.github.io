@@ -2,18 +2,6 @@
     --subtitle-color: #cf8c50;
 }
 
-@keyframes blink {
-    0% {
-        filter: opacity(0);
-    }
-    50% {
-        filter: opacity(1);
-    }
-    100% {
-        filter: opacity(0);
-    }
-}
-
 #title {
     position: absolute;
     transform: translate(-50%, -50%);

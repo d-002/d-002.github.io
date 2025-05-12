@@ -6,8 +6,10 @@ function check_profile(input) {
     return output < 0 ? 0 : output > 2 ? 2 : output;
 }
 
-export function get_profile() {
-    return check_profile(localStorage.getItem(storage_item));
+// returns [profile, true if previously set, false otherwise]
+function get_profile() {
+    const value = localStorage.getItem(storage_item);
+    return [check_profile(value), value != null];
 }
 
 export function set_profile(profile) {
@@ -15,8 +17,10 @@ export function set_profile(profile) {
 }
 
 export function apply_profile() {
-    const profile = get_profile();
+    const [profile, was_set] = get_profile();
 
     profile_names.forEach(name => document.body.classList.remove(name));
     document.body.classList.add(profile_names[profile]);
+
+    return was_set;
 }

@@ -1,5 +1,5 @@
 import { apply_profile } from "/v3/scripts/performance-utils.js";
-apply_profile();
+if (!apply_profile()) document.location.href = "/v3/benchmark";
 
 function scroll_handler() {
     const rect = flares_container.getBoundingClientRect();
