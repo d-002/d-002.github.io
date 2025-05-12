@@ -4,8 +4,7 @@
     align-items: center;
 
     margin-top: calc(100vh + 300px);
-    padding-top: 50px;
-    padding-bottom: 1000px; /* to remove */
+    padding: 50px 0;
 
     border-top: 1px solid #ffffff08;
 
@@ -333,4 +332,22 @@ h3 {
 
 #languages h3 {
     width: 100%;
+}
+
+/* footer */
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    width: 100%;
+    min-height: 5rem;
+
+    background-color: var(--bg-dark);
+}
+
+#footer p {
+    font-size: .8em;
+    color: var(--fg-dark);
 }
