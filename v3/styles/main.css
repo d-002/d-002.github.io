@@ -95,6 +95,10 @@ body {
     mask-size: 100% 100%;
 }
 
+img {
+    display: block; /* for alt text */
+}
+
 img.highlight {
     box-sizing: border-box;
     border: 1px solid #ffffff08;
@@ -149,16 +153,11 @@ a:hover, a:hover span {
     width: 60px;
     height: 60px;
 
-    background-image: url("/v3/images/up-arrow.svg");
-    background-size: 50%;
-    background-position: center;
-    background-repeat: no-repeat;
-
     box-shadow: 0 4px 7px var(--accent-color-dark);
-    border: 2px solid var(--accent-color);
-    color: var(--bg-main);
+    border: 3px solid var(--accent-color);
     background-color: var(--bg-lighter);
     border-radius: 50%;
+    text-decoration: none;
 }
 
 #to-top a:hover {
@@ -166,4 +165,17 @@ a:hover, a:hover span {
 
     box-shadow: 0 5px 15px var(--accent-color-dark);
     background-color: var(--accent-color-dark);
+}
+
+#to-top a:before {
+    position: absolute;
+    content: "^";
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -32%);
+
+    color: var(--accent-color);
+    font-size: 80px;
+    font-family: var(--cnew);
 }

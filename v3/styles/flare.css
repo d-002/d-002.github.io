@@ -32,7 +32,7 @@
     background: linear-gradient(95deg, #2f2945, #1f1e27);
 }
 
-#flare-container:before, #flare-container:after {
+#flare-container:before {
     content: "";
 
     position: absolute;
@@ -43,13 +43,6 @@
 #flare-container:before {
     background: linear-gradient(134deg, #1f1b2d, #201673);
     animation: 10s transparency infinite;
-}
-
-#flare-container:after {
-    background: url("/v3/images/grain.svg");
-    background-repeat: repeat;
-
-    mix-blend-mode: multiply;
 }
 
 #flare-container-inner {

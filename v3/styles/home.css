@@ -36,10 +36,12 @@
     --animation: float-up;
 }
 
+#featured img {
+    height: 400px;
+}
+
 @media (min-width: 700px) {
     #featured img {
-        height: 400px;
-
         border-radius: 30px;
     }
 }
@@ -142,12 +144,12 @@ a.external-open:after {
     transition: .3s opacity;
     opacity: 0;
 
-    background: url("/v3/images/external-open.svg"), #fff8;
+    background: url("/v3/images/external-open.svg"), #fff6;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
 
-    mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    mask-image: radial-gradient(circle, black 30%, transparent 60%);
     mask-size: cover;
 }
 
