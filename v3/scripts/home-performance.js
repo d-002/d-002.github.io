@@ -4,28 +4,26 @@ if (!apply_profile()) document.location.href = "/v3/benchmark";
 // ----- flare section optimization
 
 function scroll_handler() {
-    let rect = flares_container.getBoundingClientRect();
+    const rect = flares_container.getBoundingClientRect();
     const target = rect.bottom > 0 && rect.top < window.innerHeight;
 
     if (visible != target) {
         visible = target;
         flares_container.className = visible ? null : "sleeping";
     }
-
-    // ----- fix popup hover animation
-    rect = perf_popup.children[1].children[0].getBoundingClientRect();
-
-    perf_popup.style = "--w: " + rect.width + "px; --h: " + rect.height + "px";
 }
 
 let visible = true;
 const flares_container = document.getElementById("flare-container");
+document.addEventListener("scroll", scroll_handler);
 
 // ----- popup settings
 
 function set_profile_visual() {
     const name = profile_names[get_profile()[0]];
     current_profile_elt.textContent = "Current profile: " + name.charAt(0).toUpperCase() + name.substring(1);
+
+    set_popup_size();
 }
 
 function cycle_profile() {
@@ -47,8 +45,19 @@ set_profile_visual();
 if (from_benchmark)
     window.setTimeout(() => { perf_popup.className = "focus"; }, 1000);
 
+// ----- fix popup hover animation
+function set_popup_size() {
+    // trigger reflow, to avoid previous size values from being used
+    perf_popup.style = "";
+    perf_popup.offsetWidth;
 
-// ----- common listener (needs to be defined last to avoid issues)
+    const rect = perf_popup.children[1].children[0].getBoundingClientRect();
+    perf_popup.style = "--w: " + rect.width + "px; --h: " + rect.height + "px";
+}
 
-document.addEventListener("scroll", scroll_handler);
-scroll_handler();
+function resize_handler() {
+    set_popup_size();
+}
+
+document.addEventListener("resize", resize_handler);
+resize_handler();
