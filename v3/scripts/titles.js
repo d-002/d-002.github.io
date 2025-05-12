@@ -97,7 +97,7 @@ class Typer {
 
 const titles = [
     "Hi, I'm Léo!",
-    "French Student",
+    "CS Student",
     "Python enthusiast",
     "Graduating 2028",
     "Vim enjoyer",

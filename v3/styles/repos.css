@@ -26,10 +26,16 @@
     border-radius: 20px;
 }
 
+.repos-list .left {
+    --animation: float-right;
+}
+
 .repos-list .right {
     display: flex;
     justify-content: end;
     text-align: right;
+
+    --animation: float-left;
 }
 
 a.external-open {
