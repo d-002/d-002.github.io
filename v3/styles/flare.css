@@ -8,38 +8,41 @@
 }
 
 #flare-container {
-    position: fixed;
+    position: absolute;
     display: flex;
     justify-content: center;
 
-    inset: 0;
+    top: 0;
     z-index: -1;
 
-    overflow: hidden;
-
-    background: linear-gradient(95deg, #2f2945, #1f1e27);
-}
-
-#flare-container:before {
-    content: "";
-
-    position: absolute;
     width: 100%;
-    height: 100%;
+    height: calc(100vh + 300px);
+
+    overflow: hidden;
 }
 
-#flare-container:before {
+#flare-container-background {
+    position: fixed;
+    background: linear-gradient(95deg, #2f2945, #1f1e27);
+
+    inset: 0;
+}
+
+body.ultra #flare-container:not(.sleeping) #flare-container-background:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
     background: linear-gradient(134deg, #1f1b2d, #201673);
     animation: 10s transparency infinite;
 }
 
 #flare-container-inner {
+    position: relative;
     width: 100%;
     max-width: 1280px;
     height: 100%;
     flex-grow: 1;
-
-    position: relative;
 }
 
 .flare-transform {
@@ -58,10 +61,11 @@
 
     --bg: linear-gradient(var(--angle), var(--bg1), var(--bg2));
 
-    animation: var(--speed) wiggle infinite linear var(--direction);
     transform-origin: 40% 50%;
+}
 
-    border-radius: 50%;
+body:not(.low) #flare-container:not(.sleeping) .flare {
+    animation: var(--speed) wiggle infinite linear var(--direction);
 }
 
 .flare-background, .flare-border:after {
@@ -74,12 +78,14 @@
 .flare-background {
     position: absolute;
 
-    /* cancel animation rotation */
-    animation: var(--speed) wiggle infinite linear var(--other-direction);
-
     background: var(--bg);
 
     filter: blur(var(--b1)) opacity(var(--o1));
+}
+
+/* cancel animation rotation */
+body:not(.low) #flare-container:not(.sleeping) .flare-background {
+    animation: var(--speed) wiggle infinite linear var(--other-direction);
 }
 
 /* border */
