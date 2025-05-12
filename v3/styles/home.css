@@ -102,12 +102,11 @@
     height: 50px;
     overflow: hidden;
 
-    color: transparent;
     background: url("/v3/images/grain.svg"), var(--bg-lighter);
     box-shadow: 2px 5px 20px #0001;
 }
 
-#perf-popup div:after {
+#perf-popup>div:after {
     content: "";
     position: absolute;
     inset: 0;
@@ -121,21 +120,32 @@
     background-repeat: no-repeat;
 }
 
-#perf-popup div:not(:hover):after {
+#perf-popup>div:not(:hover):after {
     /* animation only when closing to more easily read content when opening */
     transition: .4s opacity;
     opacity: 1;
 }
 
 #perf-popup div:hover {
-    width: unset;
-    height: unset;
+    width: var(--w);
+    height: var(--h);
 
     border-radius: 25px;
+
+    box-shadow: 2px 5px 20px #0003;
+}
+
+#perf-popup div>div {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    box-sizing: border-box; /* for js script that needs to know the total size */
     padding: 15px;
 
-    color: unset;
-    box-shadow: 2px 5px 20px #0003;
+    width: fit-content;
+    height: fit-content;
+    text-wrap: nowrap;
 }
 
 #perf-popup div p {
@@ -147,7 +157,7 @@
     color: var(--fg-light);
 }
 
-#perf-popup div:not(:hover) a {
+#perf-popup div:not(:hover) :is(p, a) {
     color: transparent;
     text-decoration: none;
 }

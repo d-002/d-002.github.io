@@ -4,18 +4,22 @@ if (!apply_profile()) document.location.href = "/v3/benchmark";
 // ----- flare section optimization
 
 function scroll_handler() {
-    const rect = flares_container.getBoundingClientRect();
+    let rect = flares_container.getBoundingClientRect();
     const target = rect.bottom > 0 && rect.top < window.innerHeight;
 
     if (visible != target) {
         visible = target;
         flares_container.className = visible ? null : "sleeping";
     }
+
+    // ----- fix popup hover animation
+    rect = perf_popup.children[1].children[0].getBoundingClientRect();
+
+    perf_popup.style = "--w: " + rect.width + "px; --h: " + rect.height + "px";
 }
 
 let visible = true;
 const flares_container = document.getElementById("flare-container");
-document.addEventListener("scroll", scroll_handler);
 
 // ----- popup settings
 
@@ -42,3 +46,9 @@ set_profile_visual();
 
 if (from_benchmark)
     window.setTimeout(() => { perf_popup.className = "focus"; }, 1000);
+
+
+// ----- common listener (needs to be defined last to avoid issues)
+
+document.addEventListener("scroll", scroll_handler);
+scroll_handler();
