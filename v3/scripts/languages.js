@@ -15,6 +15,8 @@ const hover_dist = 50;
 // force strength when selecting a node
 const front_force = 100;
 
+const smoothstep = x => (3 - 2*x) * x * x;
+
 class Camera {
     constructor() {
         this.pos = new vec3(0, 0, 0); // dummy, will be changed later
@@ -52,18 +54,25 @@ class Node {
         this.z = 0; // for sorting later
     }
 
+    // returns true if an action was made, false otherwise
     show(anim_time) {
-        if (this.next_state) return;
+        if (this.next_state) return false;
+
         this.anim_time = anim_time;
         this.next_state = true;
+
+        return true;
     }
 
     hide(anim_time) {
-        if (!this.next_state) return;
+        if (!this.next_state) return false;
+
         this.anim_time = anim_time;
         this.next_state = false;
 
         this.animation_index = 1; // from now on, use the faster animation
+
+        return true;
     }
 
     update(trig) {
@@ -126,8 +135,9 @@ class Node {
         if (now <= this.anim_time+duration) {
             let t = (now-this.anim_time) / duration;
             if (t < 0) t = 0; // avoid weird scaling for planned hide animations
-            if (this.next_state) scale *= t;
-            else scale *= (1-t);
+            if (!this.next_state) t = 1-t;
+
+            scale *= smoothstep(t);
         }
         // 3d scale
         const cam_z = this.master.camera.pos.z;
@@ -222,9 +232,12 @@ class Graph {
 
         // update nodes
         this.nodes.forEach(node => {
-            if (type === -1 || type == node.type) node.show(delay);
-            else node.hide(delay);
-            delay += 30;
+            let action;
+            if (type === -1 || type == node.type) action = node.show(delay);
+            else action = node.hide(delay);
+            
+            // only show a delay for affected nodes, don't delay because of hidden ones
+            if (action) delay += 30;
 
             node.hover = false;
         });
