@@ -3,13 +3,15 @@ import vec3 from "/v3/scripts/vector3.js";
 // in seconds
 const delta_time = 1/60;
 // speed at which the points react
-const rotation_speed = .5;
+const rotation_speed = .2;
 // node spawn animation time
 const spawn_anim_time = 1500;
 // sphere radius with respect to the size of the screen
 const sphere_radius = .45;
 // degrees
 const fov_deg = 60;
+// distance to consider a node hovered
+const hover_dist = 50;
 
 class Camera {
     constructor() {
@@ -24,29 +26,29 @@ class Camera {
         this.d = -screen_size * .5 / Math.tan(this.fov/2);
         this.pos.z = Math.cos(this.fov/2) / Math.tan(this.fov/2) * .5 / sphere_radius + Math.sin(this.fov/2);
     }
-
-    get_scale(z) {
-        return this.pos.z / (this.pos.z - z);
-    }
 }
 
 class Node {
     constructor(master, spawn) {
         this.master = master;
         this.pos = new vec3(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
+        this.projected = [0, 0];
 
         this.spawn = spawn;
         this.active = false;
+        this.hover = false;
 
         this.z = 0; // for sorting later
     }
 
-    update() {
+    update(trig) {
+        // spawn
         if (!this.active) {
             if (Date.now() > this.spawn) this.active = true;
             else return;
         }
 
+        // movement
         let movement = new vec3(0, 0, 0);
         this.master.nodes.forEach(node => {
             if (node === this || !node.active) return;
@@ -58,11 +60,8 @@ class Node {
         });
 
         this.pos = (this.pos.add(movement.mul(.1 * delta_time))).normalize();
-    }
 
-    draw(trig) {
-        if (!this.active) return;
-
+        // rotation
         let rotated = new vec3(
             this.pos.x*trig[0] - this.pos.z*trig[1],
             this.pos.y,
@@ -71,24 +70,35 @@ class Node {
         this.z = rotated.z;
         rotated = rotated.sub(this.master.camera.pos);
 
+        // projection
         const m = this.master.camera.d / rotated.z;
 
-        const projected = [
+        this.projected = [
             rotated.x*m + this.master.w*.5,
             -rotated.y*m + this.master.h*.5
         ];
+
+    }
+
+    draw() {
+        if (!this.active) return;
 
         const now = Date.now();
         let scale = 20;
         // spawn scale animation
         scale *= now > this.spawn+spawn_anim_time ? 1 : (now-this.spawn) / spawn_anim_time;
         // 3d scale
-        scale *= this.master.camera.get_scale(rotated.z);
+        const cam_z = this.master.camera.pos.z;
+        scale *= cam_z / (cam_z*2 - this.z);
 
-        const r = 255 * (this.z+1)/2;
-        this.master.ctx.fillStyle = "rgba(" + r + ", 0, " + (255-r) + ")";
+        if (this.hover)
+            this.master.ctx.fillStyle = "white";
+        else {
+            const r = 255 * (this.z+1)/2;
+            this.master.ctx.fillStyle = "rgba(" + r + ", 0, " + (255-r) + ")";
+        }
         this.master.ctx.beginPath();
-        this.master.ctx.arc(projected[0], projected[1], scale, 0, 359);
+        this.master.ctx.arc(this.projected[0], this.projected[1], scale, 0, 359);
         this.master.ctx.fill();
     }
 }
@@ -139,15 +149,44 @@ class Graph {
         if (!this.is_init)
             this.init();
 
-        this.camera.rotation += rotation_speed * delta_time;
-
+        // move and project nodes
+        const trig = [Math.cos(this.camera.rotation), Math.sin(this.camera.rotation)];
+        this.nodes.forEach(node => node.update(trig));
         this.nodes.sort(compare_nodes);
-        this.nodes.forEach(node => node.update());
 
+        // get if a node is being hovered
+        let closest = null;
+        let closest_dist = 0;
+        if (mouse_pos[0] >= 0 && mouse_pos[0] < this.w &&
+            mouse_pos[1] >= 0 && mouse_pos[1] < this.h)
+            this.nodes.forEach(node => {
+                const dx = mouse_pos[0] - node.projected[0];
+                const dy = mouse_pos[1] - node.projected[1];
+                const dist = Math.sqrt(dx*dx + dy*dy);
+
+                // hover the node closest to the mouse,
+                // first in projected coords then in depth
+                if (closest != null && (dist > closest_dist ||
+                    (dist == closest_dist && node.z <= closest.z)))
+                    return;
+
+                closest = node;
+                closest_dist = dist;
+            });
+
+        if (closest != null && closest_dist > hover_dist) closest = null;
+
+        this.nodes.forEach(node => { node.hover = node === closest });
+
+        // camera rotation: slower if hovering a node
+        let speed = rotation_speed;
+        if (closest != null) speed *= Math.pow(closest_dist/hover_dist, 1.5);
+        this.camera.rotation += speed * delta_time;
+
+        // display section
         this.ctx.clearRect(0, 0, this.w, this.h);
 
-        const trig = [Math.cos(this.camera.rotation), Math.sin(this.camera.rotation)];
-        this.nodes.forEach(node => node.draw(trig));
+        this.nodes.forEach(node => node.draw());
     }
 }
 
@@ -163,8 +202,15 @@ function resize_handler() {
     window.setTimeout(resizer, 100, time);
 }
 
+function get_mouse_pos(evt) {
+    const rect = graph.elt.getBoundingClientRect();
+    mouse_pos = [evt.x-rect.x, evt.y-rect.top];
+}
+
 const graph = new Graph(document.getElementById("languages").querySelector("canvas"));
+let mouse_pos = [-1, -1];
 
 window.addEventListener("resize", resize_handler);
+window.addEventListener("mousemove", get_mouse_pos);
 
 window.setInterval(() => graph.update(), 1000 * delta_time);
