@@ -24,6 +24,10 @@ class Camera {
         this.d = -screen_size * .5 / Math.tan(this.fov/2);
         this.pos.z = Math.cos(this.fov/2) / Math.tan(this.fov/2) * .5 / sphere_radius + Math.sin(this.fov/2);
     }
+
+    get_scale(z) {
+        return this.pos.z / (this.pos.z - z);
+    }
 }
 
 class Node {
@@ -33,6 +37,8 @@ class Node {
 
         this.spawn = spawn;
         this.active = false;
+
+        this.z = 0; // for sorting later
     }
 
     update() {
@@ -57,11 +63,13 @@ class Node {
     draw(trig) {
         if (!this.active) return;
 
-        const rotated = new vec3(
+        let rotated = new vec3(
             this.pos.x*trig[0] - this.pos.z*trig[1],
             this.pos.y,
             this.pos.x*trig[1] + this.pos.z*trig[0]
-        ).sub(this.master.camera.pos);
+        );
+        this.z = rotated.z;
+        rotated = rotated.sub(this.master.camera.pos);
 
         const m = this.master.camera.d / rotated.z;
 
@@ -71,14 +79,24 @@ class Node {
         ];
 
         const now = Date.now();
-        let scale = now > this.spawn+spawn_anim_time ? 1 : (now-this.spawn) / spawn_anim_time;
-        scale *= 5;
+        let scale = 20;
+        // spawn scale animation
+        scale *= now > this.spawn+spawn_anim_time ? 1 : (now-this.spawn) / spawn_anim_time;
+        // 3d scale
+        scale *= this.master.camera.get_scale(rotated.z);
 
-        this.master.ctx.fillStyle = "#fff";
+        const r = 255 * (this.z+1)/2;
+        this.master.ctx.fillStyle = "rgba(" + r + ", 0, " + (255-r) + ")";
         this.master.ctx.beginPath();
         this.master.ctx.arc(projected[0], projected[1], scale, 0, 359);
         this.master.ctx.fill();
     }
+}
+
+function compare_nodes(a, b) {
+    a = a.z;
+    b = b.z;
+    return a < b ? -1 : a > b ? 1 : 0;
 }
 
 class Graph {
@@ -123,6 +141,7 @@ class Graph {
 
         this.camera.rotation += rotation_speed * delta_time;
 
+        this.nodes.sort(compare_nodes);
         this.nodes.forEach(node => node.update());
 
         this.ctx.clearRect(0, 0, this.w, this.h);
