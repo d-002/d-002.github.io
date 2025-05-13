@@ -12,6 +12,8 @@ const sphere_radius = .45;
 const fov_deg = 60;
 // distance to consider a node hovered
 const hover_dist = 50;
+// force strength when selecting a node
+const front_force = 100;
 
 class Camera {
     constructor() {
@@ -36,7 +38,9 @@ class Node {
 
         this.spawn = spawn;
         this.active = false;
+
         this.hover = false;
+        this.clicked = false;
 
         this.z = 0; // for sorting later
     }
@@ -58,6 +62,14 @@ class Node {
 
             movement = movement.add(diff.mul(1/dist2));
         });
+
+        if (this.clicked) {
+            movement = movement.add(new vec3(
+                -front_force * Math.sin(-this.master.camera.rotation),
+                0,
+                front_force * Math.cos(-this.master.camera.rotation)
+            ));
+        }
 
         this.pos = (this.pos.add(movement.mul(.1 * delta_time))).normalize();
 
@@ -91,7 +103,7 @@ class Node {
         const cam_z = this.master.camera.pos.z;
         scale *= cam_z / (cam_z*2 - this.z);
 
-        if (this.hover)
+        if (this.hover || this.clicked)
             this.master.ctx.fillStyle = "white";
         else {
             const r = 255 * (this.z+1)/2;
@@ -139,6 +151,10 @@ class Graph {
         this.elt.height = this.h;
 
         this.camera.set_d(Math.min(this.w, this.h));
+    }
+
+    on_click() {
+        this.nodes.forEach(node => { node.clicked = node.hover; });
     }
 
     update() {
@@ -211,6 +227,7 @@ const graph = new Graph(document.getElementById("languages").querySelector("canv
 let mouse_pos = [-1, -1];
 
 window.addEventListener("resize", resize_handler);
-window.addEventListener("mousemove", get_mouse_pos);
+graph.elt.addEventListener("mousemove", get_mouse_pos);
+graph.elt.addEventListener("click", () => graph.on_click());
 
 window.setInterval(() => graph.update(), 1000 * delta_time);
