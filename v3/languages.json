@@ -239,7 +239,7 @@
 
     "opengl": {
         "title": "OpenGL",
-        "description": "I used OpenGL in multiple places, whether that is in Python (PyOpenGL) or C (SDL2).",
+        "description": "I used OpenGL in multiple places, whether that was in Python (PyOpenGL) or C (SDL2).",
         "image": "/v3/images/frameworks/OpenGL.png",
         "type": 2
     },
@@ -260,7 +260,7 @@
 
     "sdl2": {
         "title": "SDL2",
-        "description": "",
+        "description": "I used SDL2 during a semester-long project in 2024, but I used it before and after that for various projects where I needed to have a fast access to a screen and GPU calls in a C project.",
         "image": "/v3/images/frameworks/SDL2.png",
         "type": 2
     }
