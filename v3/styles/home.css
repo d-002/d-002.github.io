@@ -357,6 +357,8 @@ h3 {
 
 #languages h3 {
     width: 100%;
+    margin: 0;
+    margin-top: 1rem;
 }
 
 /* footer */

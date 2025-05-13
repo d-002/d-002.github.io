@@ -31,12 +31,15 @@ class Camera {
 }
 
 class Node {
-    constructor(master, spawn) {
+    constructor(master, spawn, entry, image) {
         this.master = master;
+        this.spawn = spawn;
+        this.image = image;
+        this.entry = entry;
+
         this.pos = new vec3(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
         this.projected = [0, 0];
 
-        this.spawn = spawn;
         this.active = false;
 
         this.hover = false;
@@ -96,22 +99,24 @@ class Node {
         if (!this.active) return;
 
         const now = Date.now();
-        let scale = 20;
+        let scale = this.master.image_scale;
         // spawn scale animation
         scale *= now > this.spawn+spawn_anim_time ? 1 : (now-this.spawn) / spawn_anim_time;
         // 3d scale
         const cam_z = this.master.camera.pos.z;
-        scale *= cam_z / (cam_z*2 - this.z);
+        scale *= 1 / (1 - this.z/cam_z);
 
-        if (this.hover || this.clicked)
-            this.master.ctx.fillStyle = "white";
-        else {
-            const r = 255 * (this.z+1)/2;
-            this.master.ctx.fillStyle = "rgba(" + r + ", 0, " + (255-r) + ")";
-        }
-        this.master.ctx.beginPath();
-        this.master.ctx.arc(this.projected[0], this.projected[1], scale, 0, 359);
-        this.master.ctx.fill();
+        // draw image
+        const brightness = this.clicked ? 1.5 : this.hover ? 1.2 : 1;
+        this.master.ctx.filter = "brightness(" + brightness + ")";
+
+        try {
+            this.master.ctx.drawImage(
+                this.image,
+                this.projected[0]-scale, this.projected[1]-scale,
+                scale*2, scale*2
+            );
+        } catch {}
     }
 }
 
@@ -122,10 +127,11 @@ function compare_nodes(a, b) {
 }
 
 class Graph {
-    constructor(elt) {
+    constructor(canvas, data) {
         this.is_init = false;
-        this.elt = elt;
-        this.ctx = elt.getContext("2d");
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+        this.data = data;
 
         this.nodes = [];
 
@@ -135,30 +141,48 @@ class Graph {
     init() {
         this.is_init = true;
         this.on_resize();
+        this.on_click();
 
         let delay = Date.now();
-        for (let i = 0; i < 20; i++) {
-            this.nodes.push(new Node(this, delay));
+        Object.entries(this.data).forEach(([key, value]) => {
+            this.nodes.push(new Node(this, delay, key, value.image));
             delay += 300;
-        }
+        });
     }
 
     on_resize() {
-        const rect = this.elt.getBoundingClientRect();
+        const rect = this.canvas.getBoundingClientRect();
         this.w = rect.width;
         this.h = rect.height;
-        this.elt.width = this.w;
-        this.elt.height = this.h;
+        this.canvas.width = this.w;
+        this.canvas.height = this.h;
 
-        this.camera.set_d(Math.min(this.w, this.h));
+        const min_size = Math.min(this.w, this.h)
+        this.image_scale = min_size * .05;
+        this.camera.set_d(min_size);
     }
 
     on_click() {
-        this.nodes.forEach(node => { node.clicked = node.hover; });
+        let node_entry = null;
+        this.nodes.forEach(node => {
+            node.clicked = node.hover;
+            if (node.clicked) node_entry = node.entry;
+        });
+
+        let entry;
+        if (node_entry == null)
+            entry = {
+                "title": "",
+                "description": "Select an element in the graph to discover more about it"
+            };
+        else entry = this.data[node_entry];
+
+        title_elt.textContent = entry.title;
+        description_elt.textContent = entry.description;
     }
 
     update() {
-        const rect = this.elt.getBoundingClientRect();
+        const rect = this.canvas.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > window.innerHeight)
             return;
 
@@ -219,15 +243,31 @@ function resize_handler() {
 }
 
 function get_mouse_pos(evt) {
-    const rect = graph.elt.getBoundingClientRect();
+    const rect = graph.canvas.getBoundingClientRect();
     mouse_pos = [evt.x-rect.x, evt.y-rect.top];
 }
 
-const graph = new Graph(document.getElementById("languages").querySelector("canvas"));
 let mouse_pos = [-1, -1];
+let graph;
+const container = document.getElementById("languages");
+const canvas = container.querySelector("canvas");
+const title_elt = container.querySelector("h3");
+const description_elt = container.querySelector("p");
 
-window.addEventListener("resize", resize_handler);
-graph.elt.addEventListener("mousemove", get_mouse_pos);
-graph.elt.addEventListener("click", () => graph.on_click());
+fetch('/v3/languages.json')
+    .then(response => response.json())
+    .then(data => {
+        Object.values(data).forEach(value => {
+            const image = new Image("img");
+            image.src = value.image;
+            value.image = image;
+        });
 
-window.setInterval(() => graph.update(), 1000 * delta_time);
+        graph = new Graph(canvas, data);
+
+        window.addEventListener("resize", resize_handler);
+        canvas.addEventListener("mousemove", get_mouse_pos);
+        canvas.addEventListener("click", () => graph.on_click());
+
+        window.setInterval(() => graph.update(), 1000 * delta_time);
+    });
