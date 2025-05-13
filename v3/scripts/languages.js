@@ -88,11 +88,6 @@ class Graph {
         this.ctx = elt.getContext("2d");
 
         this.nodes = [];
-        let delay = Date.now();
-        for (let i = 0; i < 20; i++) {
-            this.nodes.push(new Node(this, delay));
-            delay += 300;
-        }
 
         this.camera = new Camera();
     }
@@ -100,6 +95,12 @@ class Graph {
     init() {
         this.is_init = true;
         this.on_resize();
+
+        let delay = Date.now();
+        for (let i = 0; i < 20; i++) {
+            this.nodes.push(new Node(this, delay));
+            delay += 300;
+        }
     }
 
     on_resize() {
