@@ -1,0 +1,73 @@
+{
+    "python": {
+        "title": "Python",
+        "description": "The language I know the most, by far. I would say I'm very proficient at it. I started really coding in Python in 2020 during lockdown, but I had learned the basics a few years before that.",
+        "image": "/v3/images/languages/Python.svg"
+    },
+
+    "html": {
+        "title": "HTML/CSS, Javascript",
+        "description": "I have not had any formal lessons about HTML/CSS or JS in my studies yet, but I coded many personal web projects, allowing me to gather consequent knowledge about these languages.",
+        "image": "/v3/images/languages/HTML.svg"
+    },
+
+    "css": {
+        "title": "HTML/CSS, Javascript",
+        "description": "I have not had any formal lessons about HTML/CSS or JS in my studies yet, but I coded many personal web projects, allowing me to gather consequent knowledge about these languages.",
+        "image": "/v3/images/languages/CSS.svg"
+    },
+
+    "js": {
+        "title": "HTML/CSS, Javascript",
+        "description": "I have not had any formal lessons about HTML/CSS or JS in my studies yet, but I coded many personal web projects, allowing me to gather consequent knowledge about these languages.",
+        "image": "/v3/images/languages/JavaScript.svg"
+    },
+
+    "php": {
+        "title": "PHP",
+        "description": "I did a few projects involving PHP, PDO, sqlite3, but I wouldn't say I'm an expert at it.",
+        "image": "/v3/images/languages/PHP.svg"
+    },
+
+    "arduino": {
+        "title": "Arduino, Processing",
+        "description": "I started my coding adventure with Arduino, in 2018 or before, I can't remember exactly.",
+        "image": "/v3/images/languages/Arduino.svg"
+    },
+
+    "processing": {
+        "title": "Arduino, Processing",
+        "description": "I started my coding adventure with Arduino, in 2018 or before, I can't remember exactly.",
+        "image": "/v3/images/languages/Processing.svg"
+    },
+
+    "c": {
+        "title": "C, C++",
+        "description": "I coded small projects in C++, but I mainly focused on C, for example during 6 months in 2024 as part of my studies.",
+        "image": "/v3/images/languages/C.svg"
+    },
+
+    "cpp": {
+        "title": "C, C++",
+        "description": "I coded small projects in C++, but I mainly focused on C, for example during 6 months in 2024 as part of my studies.",
+        "image": "/v3/images/languages/CPp.svg"
+    },
+
+    "cs": {
+        "title": "C#",
+        "description": "I spent a year, in 2023-2024, learning C# as part of my studies.",
+        "image": "/v3/images/languages/CS.svg"
+    },
+
+    "caml": {
+        "title": "OCaml",
+        "description": "I also spent a year studying OCaml, mainly for formal algorithm classes in 2023-2024.",
+        "image": "/v3/images/languages/OCaml.svg"
+    },
+
+    "java": {
+        "title": "Java",
+        "description": "I worked with Java for 6 months in 2025, when I went to Ireland (University of Limerick) as part of my studies. I know how to code in Java alright, but I hate it so sorry if you only work with Java ¯\\_(ツ)_/¯.",
+        "image": "/v3/images/languages/Java.svg"
+    }
+}
