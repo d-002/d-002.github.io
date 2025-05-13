@@ -334,8 +334,50 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 
     flex: 1;
+}
+
+#languages>div>div {
+    width: 100%;
+
+    background-color: var(--bg-lighter);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 2px 7px 10px #0002;
+}
+
+#languages ul {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    font-size: .9rem;
+}
+
+#languages li {
+    transition: .2s;
+
+    padding: 8px;
+    border-radius: 10px;
+    background-color: var(--bg-light);
+    color: var(--accent-color);
+
+    cursor: pointer;
+}
+
+#languages li:hover {
+    filter: brightness(120%);
+}
+
+#languages li::marker {
+    content: none;
+}
+
+#languages li.selected {
+    background-color: var(--accent-color);
+    color: var(--bg-main);
 }
 
 @media (min-width: 1200px) {

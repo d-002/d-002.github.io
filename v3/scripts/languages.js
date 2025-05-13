@@ -4,8 +4,8 @@ import vec3 from "/v3/scripts/vector3.js";
 const delta_time = 1/60;
 // speed at which the points react
 const rotation_speed = .2;
-// node spawn animation time
-const spawn_anim_time = 1500;
+// node animation times (ms): show/hide, spawn
+const anim_duration = [1500, 500];
 // sphere radius with respect to the size of the screen
 const sphere_radius = .45;
 // degrees
@@ -31,11 +31,15 @@ class Camera {
 }
 
 class Node {
-    constructor(master, spawn, entry, image) {
+    constructor(master, anim_time, entry, image, type) {
         this.master = master;
-        this.spawn = spawn;
-        this.image = image;
         this.entry = entry;
+        this.image = image;
+        this.type = type;
+
+        this.anim_time = anim_time;
+        this.next_state = true;
+        this.animation_index = 0;
 
         this.pos = new vec3(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
         this.projected = [0, 0];
@@ -48,12 +52,29 @@ class Node {
         this.z = 0; // for sorting later
     }
 
+    show(anim_time) {
+        if (this.next_state) return;
+        this.anim_time = anim_time;
+        this.next_state = true;
+    }
+
+    hide(anim_time) {
+        if (!this.next_state) return;
+        this.anim_time = anim_time;
+        this.next_state = false;
+
+        this.animation_index = 1; // from now on, use the faster animation
+    }
+
     update(trig) {
-        // spawn
-        if (!this.active) {
-            if (Date.now() > this.spawn) this.active = true;
-            else return;
+        // show/hide animation
+        if (this.active != this.next_state) {
+            // hide the nodes after their hiding animation to prevent them from freezing
+            const delay = this.next_state ? 0 : anim_duration[this.animation_index];
+
+            if (Date.now() > this.anim_time + delay) this.active = this.next_state;
         }
+        if (!this.active) return;
 
         // movement
         let movement = new vec3(0, 0, 0);
@@ -98,13 +119,21 @@ class Node {
     draw() {
         if (!this.active) return;
 
-        const now = Date.now();
         let scale = this.master.image_scale;
-        // spawn scale animation
-        scale *= now > this.spawn+spawn_anim_time ? 1 : (now-this.spawn) / spawn_anim_time;
+        // animation scale
+        const now = Date.now();
+        const duration = anim_duration[this.animation_index];
+        if (now <= this.anim_time+duration) {
+            let t = (now-this.anim_time) / duration;
+            if (t < 0) t = 0; // avoid weird scaling for planned hide animations
+            if (this.next_state) scale *= t;
+            else scale *= (1-t);
+        }
         // 3d scale
         const cam_z = this.master.camera.pos.z;
         scale *= 1 / (1 - this.z/cam_z);
+        // hover scale
+        if (this.hover || this.clicked) scale *= 1.05;
 
         // draw image
         const brightness = this.clicked ? 1.5 : this.hover ? 1.2 : 1;
@@ -141,13 +170,16 @@ class Graph {
     init() {
         this.is_init = true;
         this.on_resize();
-        this.on_click();
 
         let delay = Date.now();
         Object.entries(this.data).forEach(([key, value]) => {
-            this.nodes.push(new Node(this, delay, key, value.image));
+            this.nodes.push(new Node(this, delay, key, value.image, value.type));
             delay += 300;
         });
+
+        // this will trigger invisible animations for things that are hidden, which shouldn't matter
+        // and the animations for nodes to be shown will be ignored
+        this.update_visible(0);
     }
 
     on_resize() {
@@ -179,6 +211,26 @@ class Graph {
 
         title_elt.textContent = entry.title;
         description_elt.textContent = entry.description;
+    }
+
+    update_visible(type) {
+        let delay = Date.now();
+
+        // update ul
+        let i = -1;
+        Array.from(ul.children).forEach(li => li.className = i++ == type ? "selected" : "");
+
+        // update nodes
+        this.nodes.forEach(node => {
+            if (type === -1 || type == node.type) node.show(delay);
+            else node.hide(delay);
+            delay += 30;
+
+            node.hover = false;
+        });
+
+        // deselect everything
+        this.on_click();
     }
 
     update() {
@@ -247,12 +299,19 @@ function get_mouse_pos(evt) {
     mouse_pos = [evt.x-rect.x, evt.y-rect.top];
 }
 
+function on_ul_click(evt) {
+    if (evt.target.tagName.toUpperCase() != 'LI') return;
+
+    graph.update_visible(Array.from(evt.target.parentNode.children).indexOf(evt.target) - 1);
+}
+
 let mouse_pos = [-1, -1];
 let graph;
 const container = document.getElementById("languages");
 const canvas = container.querySelector("canvas");
 const title_elt = container.querySelector("h3");
 const description_elt = container.querySelector("p");
+const ul = container.querySelector("ul");
 
 fetch('/v3/languages.json')
     .then(response => response.json())
@@ -266,8 +325,9 @@ fetch('/v3/languages.json')
         graph = new Graph(canvas, data);
 
         window.addEventListener("resize", resize_handler);
-        canvas.addEventListener("mousemove", get_mouse_pos);
         canvas.addEventListener("click", () => graph.on_click());
+        canvas.addEventListener("mousemove", get_mouse_pos);
+        ul.addEventListener("click", on_ul_click);
 
         window.setInterval(() => graph.update(), 1000 * delta_time);
     });
