@@ -341,6 +341,7 @@ h3 {
 
 #languages>div>div {
     width: 100%;
+    box-sizing: border-box;
 
     background-color: var(--bg-lighter);
     padding: 25px;
@@ -352,6 +353,7 @@ h3 {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    padding-left: 0;
 
     font-size: .9rem;
 }
