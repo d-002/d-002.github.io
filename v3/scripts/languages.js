@@ -207,6 +207,8 @@ class Graph {
     on_click() {
         let node_entry = null;
         this.nodes.forEach(node => {
+            if (!node.active) return;
+
             node.clicked = node.hover;
             if (node.clicked) node_entry = node.entry;
         });
