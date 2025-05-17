@@ -1,14 +1,23 @@
-#main {
+.main, .main-dark {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    margin-top: calc(100vh + 300px);
-    padding: 50px 0;
+    padding: 50px 30px;
+}
+
+.main {
+    background-color: var(--bg-main);
+}
+
+.main-dark {
+    background-color: var(--bg-dark);
+}
+
+#first-main {
+    margin-top: calc(100vh + 200px);
 
     border-top: 1px solid #ffffff08;
-
-    background-color: var(--bg-main);
     box-shadow: 0 0 100px #0008;
 }
 
@@ -130,7 +139,7 @@
     width: var(--w);
     height: var(--h);
 
-    border-radius: 25px;
+    border-radius: var(--round);
 
     box-shadow: 2px 5px 20px #0003;
 }
@@ -164,7 +173,7 @@
 
 /* featured */
 #featured {
-    margin-top: -300px;
+    margin-top: -200px;
 }
 
 #featured>span {
@@ -186,14 +195,14 @@
 }
 
 #featured img {
+    border-radius: var(--round);
+
     @media (min-width: 750px) {
         height: 400px;
-        border-radius: 30px;
     }
 
     @media (max-width: 750px) {
         width: 100%;
-        border: none;
     }
 }
 
@@ -228,17 +237,10 @@ a.image-repo-link span {
 
 /* about me section */
 #about {
-    display: flex;
-    gap: 50px 200px;
     justify-content: center;
     flex-wrap: wrap;
-
-    box-sizing: border-box;
-    margin: 50px 0;
-    padding: 50px;
-    width: 100%;
-
-    background-color: var(--bg-dark);
+    flex-direction: row;
+    gap: 50px 200px;
 }
 
 #about .rainbow-circle {
@@ -345,7 +347,7 @@ h3 {
 
     background-color: var(--bg-lighter);
     padding: 25px;
-    border-radius: 12px;
+    border-radius: var(--round);
     box-shadow: 2px 7px 10px #0002;
 }
 
@@ -403,22 +405,4 @@ h3 {
     width: 100%;
     margin: 0;
     margin-top: 1rem;
-}
-
-/* footer */
-#footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-
-    width: 100%;
-    min-height: 5rem;
-
-    background-color: var(--bg-dark);
-}
-
-#footer p {
-    font-size: .8em;
-    color: var(--fg-dark);
 }
