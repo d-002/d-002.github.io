@@ -78,6 +78,11 @@
         transform: translateX(0);
     }
 
+    #perf-popup:not(.focus) #dismiss-perf {
+        pointer-events: none;
+    }
+
+
     #dismiss-perf:hover span {
         text-decoration: none;
     }
@@ -343,11 +348,11 @@ h3 {
 
 #languages>div>div {
     width: 100%;
-    box-sizing: border-box;
+    padding: 25px;
 
     background-color: var(--bg-lighter);
-    padding: 25px;
     border-radius: var(--round);
+    box-sizing: border-box;
     box-shadow: 2px 7px 10px #0002;
 }
 
@@ -405,4 +410,16 @@ h3 {
     width: 100%;
     margin: 0;
     margin-top: 1rem;
+}
+
+/* education */
+
+#moving-dot {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+    border: 4px solid var(--accent-color2);
+    box-sizing: border-box;
+    background: var(--accent-color2-dark);
 }

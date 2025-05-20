@@ -13,7 +13,6 @@
 
 # Small changes
 - down arrow at the start
-- noscript
 - absolute paths in other pages
 
 # Projects

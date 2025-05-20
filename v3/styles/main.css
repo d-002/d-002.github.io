@@ -119,7 +119,9 @@
     --fg-light: #ebe4f1;
     --link-color: #b9b1a9;
     --accent-color: #a9afcf;
+    --accent-color2: #78a6dd;
     --accent-color-dark: #5b6079;
+    --accent-color2-dark: #22395d;
     --round: 25px;
 
     color: var(--fg-main);
