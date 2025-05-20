@@ -4,7 +4,7 @@ import is_active from "/v3/scripts/sleep.js";
 // in seconds
 const delta_time = get_dtime();
 // from 0 to 1
-const target_y = .38;
+const target_y = .62;
 
 class SmoothPoint {
     constructor(pos) {

@@ -472,9 +472,11 @@ h3 {
     background-color: #272c35;
 
     --animation: float-left;
+
+    transition: .5s;
 }
 
-.tile, .tile:not(.active) h3 {
+.tile, .tile:not(.active)>* {
     color: var(--fg-dark);
 }
 
@@ -494,4 +496,23 @@ body:not(.low) .tile.active {
 
 body:not(.low) .tile.active>* {
     filter: drop-shadow(0 0 10px #78a6dd80);
+}
+
+.tile h3 {
+    margin-bottom: 1rem;
+}
+
+.tile p {
+    margin: 0;
+}
+
+.tile p:not(.subtitle) {
+    font-size: .8rem;
+    color: var(--fg-dark);
+}
+
+.tile span {
+    font-size: .7rem;
+    color: var(--fg-dark);
+    opacity: .8;
 }
