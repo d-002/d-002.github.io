@@ -414,7 +414,7 @@ h3 {
 
 /* education */
 
-#education {
+.tiles-section {
     @media (min-width: 500px) {
         position: relative;
     }
@@ -425,7 +425,7 @@ h3 {
     }
 }
 
-#education .line {
+.tiles-section .line {
     --top: 50%;
 
     @media (min-width: 500px) {
@@ -446,10 +446,10 @@ h3 {
 
     width: 3px;
 
-    background-color: #52667f;
+    background-color: #5c728d80;
 }
 
-#education .line:before {
+.tiles-section .line:before {
     content: "";
     position: absolute;
     top: 0;
@@ -461,7 +461,7 @@ h3 {
     background-color: var(--accent-color2);
 }
 
-#moving-dot {
+.moving-dot {
     position: absolute;
     top: var(--top);
     left: 50%;
@@ -476,7 +476,7 @@ h3 {
     background-color: #272c35;
 }
 
-#education .tiles-container {
+.tiles-section .tiles-container {
     display: flex;
     flex-direction: column;
     gap: 40px;

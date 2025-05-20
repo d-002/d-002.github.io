@@ -103,7 +103,7 @@ const titles = [
     "Vim enjoyer",
     "I'm D_00 online",
     "Epita Student",
-    "Redstoner"
+    "Redstoner :)"
 ];
 
 const typer = new Typer(document.getElementById("subtitle"));

@@ -76,5 +76,7 @@ class TilesManager {
 }
 
 const education = new TilesManager(document.getElementById("education"));
+const experience = new TilesManager(document.getElementById("experience"));
 
 education.start();
+experience.start();
