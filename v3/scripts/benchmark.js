@@ -1,4 +1,5 @@
 import { set_profile } from "/v3/scripts/performance-utils.js";
+import { set_fps } from "/v3/scripts/fps.js";
 
 function complete_test() {
     document.location.href = "/v3?from-benchmark=1";
@@ -11,9 +12,8 @@ function skip() {
 }
 
 function verdict() {
-    console.log(final_framerate);
-    console.log(final_framerate[0] > 70, final_framerate[0]/final_framerate[1] < 1.5);
     set_profile((final_framerate[0] > 70) + (final_framerate[0]/final_framerate[1] < 1.5));
+    set_fps(final_framerate[0]);
     complete_test();
 }
 

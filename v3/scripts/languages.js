@@ -1,7 +1,8 @@
 import vec3 from "/v3/scripts/vector3.js";
+import get_delay from "/v3/scripts/fps.js";
 
 // in seconds
-const delta_time = 1/60;
+const delta_time = get_delay() / 1000;
 // speed at which the points react
 const rotation_speed = .2;
 // node animation times (ms): show/hide, spawn
