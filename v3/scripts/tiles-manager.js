@@ -39,6 +39,7 @@ class TilesManager {
         this.line = parent.querySelector(".line");
 
         this.point = new SmoothPoint(get_percentage(parent));
+        this.prev_set_top = -1;
         this.inactive_tiles = Array.from(this.tiles_elt.children);
     }
 
@@ -53,7 +54,11 @@ class TilesManager {
         const percent = get_percentage(this.parent);
         this.point.update(percent);
 
-        this.line.style = "--top: " + this.point.pos + "%";
+        // stop refreshing the dom for insignificant changes
+        if (Math.abs(this.point.pos-this.prev_set_top) > 0.001) {
+            this.line.style = "--top: " + this.point.pos + "%";
+            this.prev_set_top = this.point.pos;
+        }
 
         // update tiles
         const to_remove = [];
