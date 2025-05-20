@@ -414,12 +414,84 @@ h3 {
 
 /* education */
 
+#education {
+    display: flex;
+    gap: 80px;
+}
+
+#education .line {
+    --top: 50%;
+    position: relative;
+    flex: 1;
+    width: 3px;
+
+    margin: 20px 0;
+
+    background-color: #52667f;
+}
+
+#education .line:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: var(--top);
+
+    background-color: var(--accent-color2);
+}
+
 #moving-dot {
-    width: 60px;
-    height: 60px;
+    position: absolute;
+    top: var(--top);
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 40px;
+    height: 40px;
 
     border-radius: 50%;
     border: 4px solid var(--accent-color2);
     box-sizing: border-box;
-    background: var(--accent-color2-dark);
+    background-color: #272c35;
+}
+
+#education .tiles-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.tile {
+    padding: 20px;
+
+    border-radius: var(--round);
+    border: 2px solid #52667f;
+    box-sizing: border-box;
+    background-color: #272c35;
+
+    --animation: float-left;
+}
+
+.tile, .tile:not(.active) h3 {
+    color: var(--fg-dark);
+}
+
+.tile.active {
+    border: 2px solid var(--accent-color2);
+    background-color: #323c4f;
+    color: var(--fg-main);
+}
+
+.tile:not(.active) {
+    filter: opacity(0.7);
+}
+
+body:not(.low) .tile.active {
+    box-shadow: 0 0 30px #78a6dd50;
+}
+
+body:not(.low) .tile.active>* {
+    filter: drop-shadow(0 0 10px #78a6dd80);
 }
