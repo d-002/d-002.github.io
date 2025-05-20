@@ -1,8 +1,9 @@
 import vec3 from "/v3/scripts/vector3.js";
-import get_delay from "/v3/scripts/fps.js";
+import is_active from "/v3/scripts/sleep.js";
+import get_dtime from "/v3/scripts/fps.js";
 
 // in seconds
-const delta_time = get_delay() / 1000;
+const delta_time = get_dtime();
 // speed at which the points react
 const rotation_speed = .2;
 // node animation times (ms): show/hide, spawn
@@ -250,9 +251,7 @@ class Graph {
     }
 
     update() {
-        const rect = this.canvas.getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > window.innerHeight)
-            return;
+        if (!is_active(this.canvas)) return;
 
         if (!this.is_init)
             this.init();
