@@ -163,6 +163,7 @@
 }
 
 #perf-popup div p {
+    cursor: default;
     margin: 0;
 }
 
@@ -174,6 +175,7 @@
 #perf-popup div:not(:hover) :is(p, a) {
     color: transparent;
     text-decoration: none;
+    pointer-events: none;
 }
 
 /* featured */
@@ -545,7 +547,7 @@ body:not(.low) .tile.active>* {
 
 #links>div {
     display: flex;
-    gap: 30px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
 
@@ -568,6 +570,7 @@ body:not(.low) .tile.active>* {
 
     background-color: var(--bg-main);
     --color: var(--fg-dark);
+    color: var(--color);
     text-align: center;
     text-decoration: none;
 }
@@ -575,7 +578,7 @@ body:not(.low) .tile.active>* {
 #links>div>a img {
     height: 1.3em;
 
-    filter: opacity(.8);
+    filter: opacity(.6);
 }
 
 #links>div>a span {
