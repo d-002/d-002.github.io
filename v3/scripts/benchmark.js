@@ -38,6 +38,12 @@ function update() {
             requestAnimationFrame(t2 => resolve(1000 / (t2 - t1)))
         )
     ).then(fps => {
+        // timeout
+        if (Date.now() - start > timeout) {
+            skip();
+            return;
+        }
+
         fps = Math.round(fps);
 
         // only store the framerate value when it is stable
@@ -47,7 +53,7 @@ function update() {
         const variance = prev_fps.reduce((sum, elt) => sum + Math.pow(elt-average, 2), 0) / prev_fps.length;
         const deviation = Math.sqrt(variance).toFixed(2);
 
-        if (deviation < 5) {
+        if (deviation < 15) {
             final_framerate[state] = fps;
             if (++state == 1) {
                 // reset fps values
@@ -82,6 +88,9 @@ function update() {
 let prev_fps = Array(50);
 let final_framerate = [null, null];
 let state = 0; // 0: testing normal framerate, 1: with gradient background, 2: done
+
+const start = Date.now();
+const timeout = 10000;
 
 let logs = ["Waiting..."];
 show_logs();
