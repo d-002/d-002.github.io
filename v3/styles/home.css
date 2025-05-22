@@ -593,3 +593,13 @@ body:not(.low) .tile.active>* {
     --color: var(--accent-color);
     box-shadow: 0 0 20px #51577780;
 }
+
+/* random stuff */
+
+.celeste-font {
+    font-family: "celeste", Renogare, var(--bpoppins), sans-serif;
+}
+
+.tetrio-font {
+    font-family: "tetrio", HunDIN1451, var(--bpoppins), sans-serif;
+}
