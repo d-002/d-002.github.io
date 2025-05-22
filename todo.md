@@ -10,10 +10,11 @@
 + various stats section: tetrio 40L pb, celeste status, wakatime
 + link to previous versions at the bottom
 + repos page
-- link to this in readme, clutter-free readme, custom image for link to pages repo
++ link to this in readme, clutter-free readme, custom image for link to pages repo
 
 # Additional changes
 + absolute paths in other pages
+- version system for scripts etc to prevent caching
 - better 3d graph: particles in high profile, links in ultra profile
 - js automation (will make the page slower, but way easier to update featured projects etc
 

@@ -550,6 +550,13 @@ body:not(.low) .tile.active>* {
 }
 
 /* random stuff */
+#random>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px 30px;
+}
+
 .banner-tile {
     position: relative;
     overflow: hidden;
@@ -558,7 +565,6 @@ body:not(.low) .tile.active>* {
     flex-direction: column;
     justify-content: center;
 
-    margin: 20px 0;
     padding: 20px;
 
     min-width: min(500px, 90%);
