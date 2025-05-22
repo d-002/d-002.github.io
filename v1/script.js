@@ -343,7 +343,7 @@ function init() {
 
 	for (let i = 0; i < 3; i++) {
 		let audio = document.createElement("audio");
-		audio.src = "music/" + (i+1) + ".mp3";
+		audio.src = "/v1/music/" + (i+1) + ".mp3";
 		audio.loop = true;
 		document.body.appendChild(audio);
 
