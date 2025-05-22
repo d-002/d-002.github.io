@@ -170,7 +170,7 @@ function addRepos() {
 
             let title = repo[0], desc = repo[1], col = repo[3], dark = repo[4], col2 = repo[5];
             let src;
-            if (repo[2]) src = "images/repos/" + repo[0] + ".png";
+            if (repo[2]) src = "/v2/images/repos/" + repo[0] + ".png";
             else src = "https://avatars.githubusercontent.com/u/69427207";
 
             let block = document.createElement("a");

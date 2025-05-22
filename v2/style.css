@@ -1,16 +1,16 @@
 @font-face {
     font-family: "ubuntu";
-    src: url("Ubuntu-R.ttf");
+    src: url("/v2/Ubuntu-R.ttf");
 }
 
 @font-face {
     font-family: "cascadia";
-    src: url("Cascadia.ttf");
+    src: url("/v2/Cascadia.ttf");
 }
 
 @font-face {
     font-family: "proximab";
-    src: url("ProximaSoft-Bold.ttf");
+    src: url("/v2/ProximaSoft-Bold.ttf");
 }
 
 @keyframes pulse {

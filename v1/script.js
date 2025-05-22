@@ -210,7 +210,7 @@ function addRepos() {
 
 			let src;
 			if (repo[2]) {
-				src = "images/repos/" + repo[0] + ".png";
+				src = "/v1/images/repos/" + repo[0] + ".png";
 			} else {
 				src = "https://avatars.githubusercontent.com/u/69427207";
 			}
