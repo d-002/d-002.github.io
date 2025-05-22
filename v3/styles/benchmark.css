@@ -46,6 +46,8 @@ body {
 }
 
 #main {
+    z-index: 1;
+
     max-width: 960px;
 }
 
