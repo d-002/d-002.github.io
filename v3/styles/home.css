@@ -537,3 +537,56 @@ body:not(.low) .tile.active>* {
     color: var(--fg-dark);
     opacity: .8;
 }
+
+/* links */
+#links>p {
+    text-align: center;
+}
+
+#links>div {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    max-width: 700px;
+}
+
+#links>div>a {
+    transition: .3s;
+
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    padding: .8em;
+    min-width: 150px;
+
+    border: 3px solid var(--fg-darker);
+    border-radius: 1.2em;
+
+    background-color: var(--bg-main);
+    --color: var(--fg-dark);
+    text-align: center;
+    text-decoration: none;
+}
+
+#links>div>a img {
+    height: 1.3em;
+
+    filter: opacity(.8);
+}
+
+#links>div>a span {
+    text-decoration: none;
+
+    color: var(--color);
+}
+
+#links>div>a:hover {
+    border-color: var(--accent-color);
+    background-color: #2a2e41;
+    --color: var(--accent-color);
+    box-shadow: 0 0 20px #51577780;
+}
