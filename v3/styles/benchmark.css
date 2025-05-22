@@ -82,7 +82,7 @@ p {
     min-height: 1em;
     padding: 10px;
 
-    font-family: var(--cnew);
+    font-family: var(--roboto);
     background-color: var(--bg-darker);
     color: #2f2;
 }

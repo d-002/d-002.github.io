@@ -41,6 +41,12 @@
     font-display: swap;
 }
 
+@font-face {
+    src: url("/v3/fonts/Roboto.ttf");
+    font-family: "roboto";
+    font-display: swap;
+}
+
 @keyframes transparency {
     0% {
         filter: opacity(0);
@@ -122,6 +128,7 @@
     --bpoppins: "bpoppins", "poppins", poppins, calibri, sans-serif;
     --celeste: "celeste", Renogare, var(--bpoppins), sans-serif;
     --tetrio: "tetrio", HunDIN1451, var(--bpoppins), sans-serif;
+    --roboto: "roboto", roboto, courier new, monospace;
 
     --bg-main: #2d3033;
     --bg-dark: #232629;

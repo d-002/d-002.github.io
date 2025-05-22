@@ -1,19 +1,3 @@
-.main, .main-dark {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 50px 30px;
-}
-
-.main {
-    background-color: var(--bg-main);
-}
-
-.main-dark {
-    background-color: var(--bg-dark);
-}
-
 #first-main {
     margin-top: calc(100vh + 200px);
 
@@ -287,35 +271,6 @@ body.low #about .rainbow-circle:before {
 #about>div {
     text-align: center;
     max-width: 700px;
-}
-
-h2, h3 {
-    position: relative;
-    margin: 0;
-    margin-bottom: 2rem;
-
-    text-align: center;
-    font-family: var(--cgothic);
-    font-size: 2.5rem;
-    color: var(--accent-color);
-}
-
-h2:after {
-    content: "";
-
-    display: block;
-    margin: 0 40%;
-    width: 20%;
-    height: 1px;
-
-    transform: translateY(.5rem);
-
-    border-bottom: 1px solid #fff2;
-}
-
-h3 {
-    font-size: 1.5rem;
-    color: var(--fg-light);
 }
 
 /* languages and tools */
@@ -639,18 +594,7 @@ body:not(.low) .tile.active>* {
     width: 100%;
 }
 
-.banner-tile>img {
-    position: absolute;
-    right: 25%;
-    top: 50%;
-
-    height: 60%;
-    transform: translate(50%, -50%);
-
-    filter: drop-shadow(0 0 20px var(--bg));
-}
-
-.banner-tile>*:not(.img, img) {
+.banner-tile>*:not(.img) {
     position: relative;
 }
 
@@ -662,10 +606,19 @@ body:not(.low) .tile.active>* {
     font-size: 3rem;
 }
 
+#random a {
+    text-decoration: none;
+}
+
+#random a:hover {
+    text-decoration: underline;
+}
+
 #random span {
     font-size: .67em;
 }
 
+/* celeste */
 #celeste {
     --bg: #fdfde4;
     font-family: var(--celeste);
@@ -683,13 +636,13 @@ body:not(.low) .tile.active>* {
 
 #celeste a {
     color: #ffd4bc;
-    text-decoration: none;
 }
 
 #celeste span {
     color: #e7f0ff;
 }
 
+/* tetrio */
 #tetrio {
     --bg: #243e25;
     font-family: var(--tetrio);
@@ -701,7 +654,6 @@ body:not(.low) .tile.active>* {
 
 #tetrio a {
     color: #eaffec;
-    text-decoration: none;
 }
 
 #tetrio p.large {
@@ -709,4 +661,37 @@ body:not(.low) .tile.active>* {
 
     font-weight: 900;
     text-shadow: 0 .03em #8ebb93, 0 0 16px #fff4;
+}
+
+/* monkeytype */
+#monkeytype {
+    --bg: #323437;
+    font-family: var(--roboto);
+
+    border: 1px solid #fff3;
+}
+
+#monkeytype p {
+    color: #d1d0c5;
+}
+
+#monkeytype span {
+    color: #89887f;
+}
+
+#monkeytype a {
+    color: #e2b714;
+}
+
+/* counting */
+#counting {
+    --bg: #fff;
+}
+
+#counting p {
+    color: #000;
+}
+
+#counting a {
+    color: #28a745;
 }
