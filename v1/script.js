@@ -210,7 +210,7 @@ function addRepos() {
 
 			let src;
 			if (repo[2]) {
-				src = "images/repos/" + repo[0] + ".png";
+				src = "/v1/images/repos/" + repo[0] + ".png";
 			} else {
 				src = "https://avatars.githubusercontent.com/u/69427207";
 			}
@@ -343,7 +343,7 @@ function init() {
 
 	for (let i = 0; i < 3; i++) {
 		let audio = document.createElement("audio");
-		audio.src = "music/" + (i+1) + ".mp3";
+		audio.src = "/v1/music/" + (i+1) + ".mp3";
 		audio.loop = true;
 		document.body.appendChild(audio);
 

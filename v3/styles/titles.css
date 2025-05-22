@@ -1,0 +1,77 @@
+:root {
+    --subtitle-color: #cf8c50;
+}
+
+#title {
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    top: 50%;
+    left: 50%;
+    margin: 0;
+
+    filter: drop-shadow(0 0 20px #22222c30);
+}
+
+#title h1 {
+    margin: 0;
+
+    font-family: var(--cgothic);
+    font-weight: normal;
+    font-size: 5rem;
+
+    text-wrap: nowrap;
+    color: #e3dfdf;
+
+    --animation: float-down;
+}
+
+#title div:has(#subtitle) {
+    --animation: float-up;
+}
+
+#subtitle {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+
+    height: 1em;
+    min-width: 1ch;
+
+    font-family: var(--cnew);
+    font-style: italic;
+    font-weight: bold;
+    font-size: 2.5rem;
+
+    text-align: center;
+    color: var(--subtitle-color);
+}
+
+/* vim modes */
+#subtitle:is(.normal, .visual):after {
+    content: "";
+
+    position: absolute;
+    right: 0;
+
+    width: 0.9ch;
+    height: 1em;
+
+    color: transparent;
+    background-color: var(--subtitle-color);
+    mix-blend-mode: screen;
+}
+
+#subtitle.insert:after {
+    display: inline-block;
+    content: "|";
+    transform: translate(-.25em, -.05em);
+}
+
+#subtitle.visual {
+    background: color-mix(in srgb, currentColor 30%, transparent);
+}

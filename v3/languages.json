@@ -1,0 +1,267 @@
+{
+    "python": {
+        "title": "Python",
+        "description": "Python is the language I know the most, by far. I would say I'm very proficient at it. I started really coding in Python in 2020 during lockdown, but I had learned the basics a few years before that. I made a lot of projects in Python, several I even typed on a calculator with very limited memory and processing power, which taught me to find optimizations everywhere and make my code compact and efficient.",
+        "image": "/v3/images/languages/Python.svg",
+        "type": 0
+    },
+
+    "html": {
+        "title": "HTML/CSS, Javascript",
+        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick, however I had gathered consequently more knowledge about these languages before that, on my own, and proceeded to expand my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail. I plan to follow an optional, side course at EPITA that should help me learn a lot about devops, so this section will most likely be changed soon.",
+        "image": "/v3/images/languages/HTML.svg",
+        "type": 0
+    },
+
+    "css": {
+        "title": "HTML/CSS, Javascript",
+        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick, however I had gathered consequently more knowledge about these languages before that, on my own, and proceeded to expand my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail. I plan to follow an optional, side course at EPITA that should help me learn a lot about devops, so this section will most likely be changed soon.",
+        "image": "/v3/images/languages/CSS.svg",
+        "type": 0
+    },
+
+    "js": {
+        "title": "HTML/CSS, Javascript",
+        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick, however I had gathered consequently more knowledge about these languages before that, on my own, and proceeded to expand my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail. I plan to follow an optional, side course at EPITA that should help me learn a lot about devops, so this section will most likely be changed soon.",
+        "image": "/v3/images/languages/JavaScript.svg",
+        "type": 0
+    },
+
+    "php": {
+        "title": "PHP",
+        "description": "During my coding life, I did a few projects involving PHP, PDO, sqlite3, but I wouldn't say I'm an expert at these tools. I don't really like their syntax either. :eyes:",
+        "image": "/v3/images/languages/PHP.svg",
+        "type": 0
+    },
+
+    "arduino": {
+        "title": "Arduino, Processing",
+        "description": "I started my coding adventure with Arduino, in 2018 or before, I can't remember exactly. I coded multiple projects, and they are the ones that made me fall in love with programming, problem-solving and reasoning to solve practical problems. I used many libraries along the way, like Processing, that I also used separately from Arduino.",
+        "image": "/v3/images/languages/Arduino.svg",
+        "type": 0
+    },
+
+    "processing": {
+        "title": "Arduino, Processing",
+        "description": "I started my coding adventure with Arduino, in 2018 or before, I can't remember exactly. I coded multiple projects, and they are the ones that made me fall in love with programming, problem-solving and reasoning to solve practical problems. I used many libraries along the way, like Processing, that I also used separately from Arduino.",
+        "image": "/v3/images/languages/Processing.svg",
+        "type": 0
+    },
+
+    "c": {
+        "title": "C, C++",
+        "description": "I coded small projects in C++, but I mainly focused on C, for example during 6 months in 2024 as part of my studies, where I helped create a word search program with SDL2. I really enjoy coding in C, as I come from a Python background and the speed increase really boosts my creativity and opens up new possibilities.",
+        "image": "/v3/images/languages/C.svg",
+        "type": 0
+    },
+
+    "cpp": {
+        "title": "C, C++",
+        "description": "I coded small projects in C++, but I mainly focused on C, for example during 6 months in 2024 as part of my studies, where I helped create a word search program with SDL2. I really enjoy coding in C, as I come from a Python background and the speed increase really boosts my creativity and opens up new possibilities.",
+        "image": "/v3/images/languages/CPp.svg",
+        "type": 0
+    },
+
+    "cs": {
+        "title": "C#",
+        "description": "I spent a year, in 2023-2024, learning C# as part of my studies. I also used it on side projects, like for Celeste modding or making Unity games.",
+        "image": "/v3/images/languages/CS.svg",
+        "type": 0
+    },
+
+    "caml": {
+        "title": "OCaml",
+        "description": "I spent a year studying OCaml, mainly for formal algorithm classes in 2023-2024. This introduced me to the world of functional programming, which I had never quite understood before.",
+        "image": "/v3/images/languages/OCaml.svg",
+        "type": 0
+    },
+
+    "java": {
+        "title": "Java",
+        "description": "I worked with Java for 6 months in 2025, suding my semester at the University of Limerick. I know how to code in Java alright, but I hate it so sorry if you only work with Java ¯\\_(ツ)_/¯.",
+        "image": "/v3/images/languages/Java.svg",
+        "type": 0
+    },
+
+    "neovim": {
+        "title": "Neovim",
+        "description": "I use and enjoy Vim (or NeoVim) almost on a daily basis. I use it for basically every project and in every language I use, to the point where I find it missing in places from my web browser to even Discord. I have not yet touched the wonderful world of configuration files, but I am planning to in the near future.",
+        "image": "/v3/images/tools/NeoVim.svg",
+        "type": 1
+    },
+
+    "vim": {
+        "title": "Vim",
+        "description": "I use and enjoy Vim (or NeoVim) almost on a daily basis. I use it for basically every project and in every language I use, to the point where I find it missing in places from my web browser to even Discord. I have not yet touched the wonderful world of configuration files, but I am planning to in the near future.",
+        "image": "/v3/images/tools/VIM.svg",
+        "type": 1
+    },
+
+    "rider": {
+        "title": "Jetbrains Rider",
+        "description": "I used Rider for the first time in my first year at EPITA, in 2023-2024, to code in C# for the first time. During that time, I coded weekly tutorials and an entire game in Unity. I then revisited this editor when I needed quick integration of multiple tools such as solution management or Unity integrations, when making other side projects like a 4D raymarching compute shader for rendering fractals the next year. And of course, I used the Vim plugin :).",
+        "image": "/v3/images/tools/Rider.svg",
+        "type": 1
+    },
+
+    "intellij": {
+        "title": "IntelliJ IDEA",
+        "description": "I spent a semester using IntelliJ for a Java project while I was at the University of Limerick in 2025. I think most of my Rider knowledge easily transcribed to this IDE.",
+        "image": "/v3/images/tools/IntelliJ.png",
+        "type": 1
+    },
+
+    "astudio": {
+        "title": "Android Studio",
+        "description": "I used Android Studio when designing a mobile application during my semester at the University of Limerick in 2025.",
+        "image": "/v3/images/tools/AndroidStudio.svg",
+        "type": 1
+    },
+
+    "vscode": {
+        "title": "Visual Studio Code",
+        "description": "One of the first IDEs that I ever used was Visual Studio Code. I have not used it much since I started using Rider in 2023, and even less when I discovered Vim, however I think I would still be able to understand what is needed to code with it today.",
+        "image": "/v3/images/tools/VSCode.svg",
+        "type": 1
+    },
+
+    "git": {
+        "title": "Git",
+        "description": "I use version control systems almost on a daily basis, and I understand how they are fundamentally useful when managing projects of any size. I know about and have used branches, stashes, bisect, and many other features of Git, for the most part through GitHub.",
+        "image": "/v3/images/tools/Git.svg",
+        "type": 1
+    },
+
+    "gh": {
+        "title": "GitHub",
+        "description": "I use version control systems almost on a daily basis, and I understand how they are fundamentally useful when managing projects of any size. I know about and have used branches, stashes, bisect, and many other features of Git, for the most part through GitHub.",
+        "image": "/v3/images/tools/Github.svg",
+        "type": 1
+    },
+
+    "obsidian": {
+        "title": "Obsidian",
+        "description": "Obsidian has been useful to me at the start of my semester at the University of Limerick in early 2025. I got to learn the basics of Obsidian then. However, I quickly pivoted to its Vim keybinds, then ultimately to fully using Vim to take class notes, as I saw many limitations in the Vim plugin, that were ultimately not making me more efficient. The markdown aspect of Obsidian was very eye-opening to me though, and I learned to use, for example, mermaid graphs thanks to it.",
+        "image": "/v3/images/tools/Obsidian.svg",
+        "type": 1
+    },
+
+    "unity": {
+        "title": "Unity",
+        "description": "I created a Unity game as part of my studies in 2023-2024, where I proceeded to remake basically everything that was already there since I didn't want inferior performance for the sake of scalability or portability. Whether that was a mistake, I sure did learn a lot along the way.",
+        "image": "/v3/images/tools/Unity.svg",
+        "type": 1
+    },
+
+    "vercel": {
+        "title": "Vercel",
+        "description": "I have used Vercel multiple times to deploy various websites, although I took most of them down or only kept utilities such as ones managing GitHub stats",
+        "image": "/v3/images/tools/Vercel.svg",
+        "type": 1
+    },
+
+    "infinityfree": {
+        "title": "Infinityfree",
+        "description": "I have used Infinityfree multiple times in the past, as a FTP server or for PHP websites. I learned PHP this way, when creating my first dynamic projects.",
+        "image": "/v3/images/tools/Infinityfree.png",
+        "type": 1
+    },
+
+    "cmake": {
+        "title": "CMake",
+        "description": "CMake has been very useful for automating and optimizing some of the compilation of large C projects.",
+        "image": "/v3/images/tools/CMake.svg",
+        "type": 1
+    },
+
+    "trello": {
+        "title": "Trello",
+        "description": "Trello is a very useful tool for managing teams and projects, making sure everyone is working in the right direction, keeping track of bugs and issues, and balancing work and making sure every feature is underway. I used this service multiple times, and always found it useful.",
+        "image": "/v3/images/tools/Trello.png",
+        "type": 1
+    },
+
+    "tex": {
+        "title": "TeX / LaTeX",
+        "description": "I found TeX and LaTeX improve my work quality in various fields from note-taking to making reports. I am not super proficient at it since I don't use it enough to remember most of the keywords, but I understand its general syntax style.",
+        "image": "/v3/images/tools/LaTeX.svg",
+        "type": 1
+    },
+
+    "koyeb": {
+        "title": "Koyeb",
+        "description": "I found koyeb in search of a free Node.js hosting service, and really liked it straight away.",
+        "image": "/v3/images/tools/Koyeb.png",
+        "type": 1
+    },
+
+    "glitch": {
+        "title": "Glitch",
+        "description": "I used Glitch.com once or twice for personal projects, but I quickly switched to Koyeb because Glitch was not very stable (glitch glitched, can you believe it?).",
+        "image": "/v3/images/tools/Glitch.png",
+        "type": 1
+    },
+
+    "so": {
+        "title": "Stack Overflow",
+        "description": "I used Stack Overflow a lot in my first years of coding, amassing more than 1.5k reputation, answering numerous questions that made me peek out of my comfort zone, solve algorithmic problems, and generally improve. I would not be at the level I am now without this Stack Overflow experience.",
+        "image": "/v3/images/tools/StackOverflow.svg",
+        "type": 1
+    },
+
+    "nodejs": {
+        "title": "Node.js",
+        "description": "Node and Express were among the first JavaScript frameworks I ever used, and they introduced me to the concept of front/back end model when creating my first dynamic websites that didn't use PHP.",
+        "image": "/v3/images/frameworks/NodeJS.svg",
+        "type": 2
+    },
+
+    "express": {
+        "title": "Express.js",
+        "description": "Node and Express were among the first JavaScript frameworks I ever used, and they introduced me to the concept of front/back end model when creating my first dynamic websites that didn't use PHP.",
+        "image": "/v3/images/frameworks/ExpressJS.svg",
+        "type": 2
+    },
+
+    "jquery": {
+        "title": "jQuery",
+        "description": "I often resort to JQuery when I want something fast, portable, and cross-browser, when such a thing doesn't exist in vanilla JS. I first used JQuery back in 2021.",
+        "image": "/v3/images/frameworks/JQuery.svg",
+        "type": 2
+    },
+
+    "dotnet": {
+        "title": ".NET",
+        "description": "I first used this framework when coding in C# in my first year at EPITA.",
+        "image": "/v3/images/frameworks/DotNet.svg",
+        "type": 2
+    },
+
+    "opengl": {
+        "title": "OpenGL",
+        "description": "I used OpenGL in multiple places, whether that was in Python (PyOpenGL) or C (SDL2).",
+        "image": "/v3/images/frameworks/OpenGL.png",
+        "type": 2
+    },
+
+    "pygame": {
+        "title": "PyGame",
+        "description": "I created a lot of Python games in my first years of coding, and most of them were with PyGame. Although not the go-to in terms of performance, I am very confident when creating Python games, or even utilities that use PyGame's many features, such as sound, image and video processing.",
+        "image": "/v3/images/frameworks/PyGame.png",
+        "type": 2
+    },
+
+    "tkinter": {
+        "title": "tkinter",
+        "description": "The first projects I ever created were small GuI applications in Python, and even small games, before I discovered PyGame. My first Stack Overflow contributions were Tkinter questions as well.",
+        "image": "/v3/images/frameworks/Tkinter.png",
+        "type": 2
+    },
+
+    "sdl2": {
+        "title": "SDL2",
+        "description": "I used SDL2 during a semester-long project in 2024, but I used it before and after that for various projects where I needed to have a fast access to a screen and GPU calls in a C project.",
+        "image": "/v3/images/frameworks/SDL2.png",
+        "type": 2
+    }
+}

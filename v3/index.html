@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>d-002 - GitHub homepage</title>
+
+    <link rel="stylesheet" href="/v3/styles/main.css">
+    <link rel="stylesheet" href="/v3/styles/home.css">
+    <link rel="stylesheet" href="/v3/styles/flare.css">
+    <link rel="stylesheet" href="/v3/styles/titles.css">
+    <link rel="stylesheet" href="/v3/styles/repos.css">
+</head>
+
+<body>
+    <div id="page-top"></div>
+    <div id="to-top" class="hidden">
+        <a href="#page-top"></a>
+    </div>
+
+    <div id="perf-popup">
+        <a id="dismiss-perf">
+            <p>Bad performance? Set the performance profile here</p>
+            <span>Dismiss</span>
+        </a>
+
+        <div>
+            <div>
+                <p id="current-profile">Loading...</p>
+                <a id="cycle-profile">Cycle profile</a>
+                <a href="/v3/benchmark">Let us decide</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- First screen -->
+    <div id="flare-container">
+        <div id="flare-container-background"></div>
+        <div id="flare-container-inner"></div>
+    </div>
+
+    <div id="title">
+        <h1 class="appear animate-on-scroll redo-animation">d-002</h1>
+        <div class="appear"><p id="subtitle"></p></div>
+    </div>
+
+    <div id="first-main" class="main grainy">
+        <!-- Featured projects -->
+        <div id="featured">
+            <span>Featured •</span>
+            <a href="https://github.com/d-002/raymarch-fractal" target="_blank" class="image-repo-link animate-on-scroll">
+                <img src="/v3/images/repos/featured/raymarch-fractal.png" class="highlight hover-scale" alt="raymarch-fractal">
+                <span>raymarch-fractal</span>
+            </a>
+            <p>4-dimensional ray marcher for Julia sets visualization. First coded in C, then as a <a href="https://www.khronos.org/opengl/wiki/Compute_Shader" target="_blank">compute shader</a> for Unity.</p>
+        </div>
+
+        <div class="repos-list">
+            <div class="left light-container grainy animate-on-scroll">
+                <a href="https://github.com/d-002/fast-voronoi" target="_blank" class="external-open hover-scale">
+                    <img src="/v3/images/repos/featured/fast-voronoi.png" class="highlight" alt="fast-voronoi">
+                </a>
+                <p>
+                Very fast <a href="https://en.wikipedia.org/wiki/Voronoi_diagram" target="_blank">Voronoi diagram</a> display. Finds the polygons that define the cells to allow for CPU-side actions on them.
+                <br>
+                In progress: weight support.
+                </p>
+            </div>
+            <br>
+            <div class="right light-container grainy animate-on-scroll">
+                <p>
+                Progression graph tool for games and other things that have a strong emphasis on progression. Create and export progression trees to organize.
+                </p>
+                <a href="https://github.com/d-002/progression-graph" target="_blank" class="external-open hover-scale">
+                    <img src="/v3/images/repos/featured/progression-graph.png" class="highlight" alt="progression-graph">
+                </a>
+            </div>
+        </div>
+
+        <a href="/v3/repos" class="button">More</a>
+    </div>
+
+    <div id="about" class="main-dark">
+            <div class="rainbow-circle animate-on-scroll">
+                <div><img src="/v3/images/logo.png"></div>
+            </div>
+            <div>
+                <h2>About me</h2>
+                <p>Hi, I'm Léo, or D_00 online. I am currently enrolled in a five-year computer science engineering degree at <a href="https://www.epita.fr" target="_blank">EPITA Lyon</a>, France, with an expected graduation date of 2028. I enjoy math, programming, both low and high-level, with an emphasis on AI, web development and image processing.<br>I also appreciate both playing and composing music a lot.</p>
+            </div>
+    </div>
+
+    <div class="main grainy">
+        <h2>Tools and languages</h2>
+        <div id="languages">
+            <canvas class="light-container animate-on-scroll"></canvas>
+            <div class="animate-on-scroll">
+                <div>
+                    <ul>
+                        <li>All</li>
+                        <li class="selected">Languages</li>
+                        <li>Tools</li>
+                        <li>Frameworks</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3></h3>
+                    <p>Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-dark">
+        <h2>Education</h2>
+        <div id="education" class="tiles-section">
+            <div class="line">
+                <div class="moving-dot"></div>
+            </div>
+
+            <div class="tiles-container">
+                <div class="tile animate-on-scroll">
+                    <h3>EPITA</h3>
+                    <p class="subtitle">Engineer's Degree in Computer Science</p>
+                    <span>Currently in 2nd year | 2023 - 2028</span>
+                </div>
+                <div class="tile animate-on-scroll">
+                    <h3>University of Limerick</h3>
+                    <p class="subtitle">Study Abroad 2025 Spring Semester</p>
+                    <span>Followed ML, OS, Java, Mobile and web development classes</span>
+                </div>
+                <div class="tile animate-on-scroll">
+                    <h3>Baccalauréat Général</h3>
+                    <p class="subtitle">with High Honors ("Mention Très Bien")</p>
+                    <p class="subtitle">Math and Computer Science (NSI) majors</p>
+                    <p>Lycée Jean Michel</p>
+                    <span>Lons-le-Saunier, France | 2023</span>
+                </div>
+                <div class="tile animate-on-scroll">
+                    <h3>Brevet des Collèges</h3>
+                    <p class="subtitle">with High Honors ("Mention Très Bien")</p>
+                    <span>France | 2020</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main grainy">
+        <h2>Experience</h2>
+        <div id="experience" class="tiles-section">
+            <div class="line">
+                <div class="moving-dot"></div>
+            </div>
+
+            <div class="tiles-container">
+                <div class="tile animate-on-scroll">
+                    <h3>Bi1</h3>
+                    <p class="subtitle">Seasonal job</p>
+                    <p>Fruit and vegetable department management, deliveries and stock management, fresh produce, liquids, traditional department</p>
+                    <span>Summers 2024, 2025</span>
+                </div>
+                <div class="tile animate-on-scroll">
+                    <h3>Gilson SAS</h3>
+                    <p class="subtitle">Internship</p>
+                    <p>Job descriptions: IT infrastructure manager, electronics design, molding, quality control, accounting</p>
+                    <span>Paris, France | 2019</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="links" class="main-dark">
+        <h2>Links</h2>
+
+        <!-- split email for bots -->
+        <p>I will keep my email private for now.<br>Want to contact me? I am usually active on Discord (D_00).</p>
+
+        <div>
+            <a href="https://github.com/d-002" target="_blank">
+                <img src="/v3/images/socials/github.svg">
+                <span>GitHub</span>
+            </a>
+            <a href="https://stackoverflow.com/u/13633424" target="_blank">
+                <img src="/v3/images/socials/so.svg">
+                <span>Stack Overflow</span>
+            </a>
+            <a href="https://www.shadertoy.com/user/d_00" target="_blank">
+                <img src="/v3/images/socials/shadertoy.svg">
+                <span>Shadertoy</span>
+            </a>
+            <a href="https://wakatime.com/@d_00" target="_blank">
+                <img src="/v3/images/socials/wakatime.svg">
+                <span>WakaTime</span>
+            </a>
+            <a href="https://www.youtube.com/@d_00" target="_blank">
+                <img src="/v3/images/socials/yt.svg">
+                <span>YouTube</span>
+            </a>
+            <a href="https://ch.tetr.io/u/d_00" target="_blank">
+                <img src="/v3/images/socials/tetrio.png">
+                <span>TETR.IO</span>
+            </a>
+        </div>
+
+        <p>This page is the third version of my profile page.<br>Want to see how it evolved?</p>
+
+        <div>
+            <a href="/v2" target="_blank">Visit version 2</a>
+            <a href="/v1" target="_blank">Visit version 1</a>
+        </div>
+    </div>
+
+    <div id="random" class="main grainy">
+        <h2>Random stats</h2>
+
+        <div id="celeste" class="banner-tile">
+            <div class="img"><img src="/v3/images/banners/celeste.png"></div>
+
+            <p><a href="https://www.celestegame.com" target="_blank">Celeste</a> strawberries</p>
+            <p class="large celeste-font">199<span>/202</span></p>
+        </div>
+
+        <div id="tetrio" class="banner-tile">
+            <div class="img"><img src="/v3/images/banners/tetrio.png"></div>
+
+            <p>40L Personal Best (<a href="https://tetr.io/#R:9b3b735fbad9" target="_blank">TETR.IO</a>)</p>
+            <p class="large tetrio-font">0.35.<span>938<span></p>
+        </div>
+
+        <div id="monkeytype" class="banner-tile">
+            <div class="img"><img src="/v3/images/banners/monkeytype.png"></div>
+
+            <p>15 seconds <a href="https://monkeytype.com" target="_blank">Monkeytype</a></p>
+            <p class="large tetrio-font">107<span>wpm<span></p>
+        </div>
+
+        <div id="counting" class="banner-tile">
+            <div class="img"><img src="/v3/images/banners/counting.png"></div>
+
+            <p>I can <a href="https://www.jetpunk.com/user-quizzes/1376293/test-de-rapidite-aller-de-1-a-100-en-chiffres" target="_blank">type from 1 to 100</a> in</p>
+            <p class="large tetrio-font">19<span>s<span></p>
+        </div>
+    </div>
+
+    <div id="footer">
+        <p>© D_00 2025 - <a href="https://github.com/d-002/d-002.github.io/blob/main/LICENSE">MIT license</a></p>
+    </div>
+</body>
+
+<script src="/v3/scripts/home-performance.js" type="module"></script>
+<script src="/v3/scripts/flare.js" type="module"></script>
+<script src="/v3/scripts/scroll.js" type="module"></script>
+<script src="/v3/scripts/languages.js" type="module"></script>
+<script src="/v3/scripts/tiles-manager.js" type="module"></script>
+</html>

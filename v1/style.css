@@ -1,11 +1,11 @@
 @font-face {
 	font-family: "open sans";
-	src: url("opensans.ttf");
+	src: url("/v1/opensans.ttf");
 }
 
 @font-face {
 	font-family: "hubot";
-	src: url("hubot.ttf");
+	src: url("/v1/hubot.ttf");
 }
 
 @keyframes slide {

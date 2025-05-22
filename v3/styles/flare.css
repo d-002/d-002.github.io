@@ -1,0 +1,103 @@
+#flare-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    top: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: calc(100vh + 300px);
+
+    overflow: hidden;
+}
+
+#flare-container-background {
+    position: fixed;
+    background: linear-gradient(95deg, #2f2945, #1f1e27);
+
+    inset: 0;
+}
+
+body.ultra #flare-container:not(.sleeping) #flare-container-background:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(134deg, #1f1b2d, #201673);
+    animation: 10s transparency infinite;
+}
+
+#flare-container-inner {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.flare-transform {
+    position: absolute;
+    top: var(--t);
+    left: var(--l);
+    transform: translate(-50%, -50%);
+
+    mix-blend-mode: screen;
+}
+
+.flare {
+    position: relative;
+    width: var(--s);
+    height: var(--s);
+
+    --bg: linear-gradient(var(--angle), var(--bg1), var(--bg2));
+
+    transform-origin: 40% 50%;
+}
+
+body:not(.low) #flare-container:not(.sleeping) .flare {
+    animation: var(--speed) spin infinite linear var(--direction);
+}
+
+.flare-background, .flare-border:after {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/* grain, background */
+.flare-background {
+    position: absolute;
+
+    background: var(--bg);
+
+    filter: blur(var(--b1)) opacity(var(--o1));
+}
+
+/* cancel animation rotation */
+body:not(.low) #flare-container:not(.sleeping) .flare-background {
+    animation: var(--speed) spin infinite linear var(--other-direction);
+}
+
+/* border */
+.flare-border {
+    position: absolute;
+
+    --offset: calc(0px - var(--b1));
+    --size: calc(var(--s) + var(--b1)*2);
+    transform: translate(var(--offset), var(--offset));
+    width: var(--size);
+    height: var(--size);
+
+    filter: blur(var(--b1)) opacity(var(--o2));
+}
+
+.flare-border:after {
+    content: "";
+    display: block;
+
+    background: var(--bg);
+    --cutoff: calc(var(--s)*.5 - var(--b1));
+    mask-image: radial-gradient(circle, transparent var(--cutoff), black var(--cutoff));
+    mask-size: cover;
+}
