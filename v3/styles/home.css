@@ -595,11 +595,118 @@ body:not(.low) .tile.active>* {
 }
 
 /* random stuff */
+.banner-tile {
+    position: relative;
+    overflow: hidden;
 
-.celeste-font {
-    font-family: "celeste", Renogare, var(--bpoppins), sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 20px 0;
+    padding: 20px;
+
+    min-width: min(500px, 90%);
+    height: 100px;
+
+    box-shadow: 5px 15px 30px #0002;
+    border-radius: var(--round);
+
+    background-color: var(--bg);
 }
 
-.tetrio-font {
-    font-family: "tetrio", HunDIN1451, var(--bpoppins), sans-serif;
+.banner-tile .img {
+    position: absolute;
+    top: 50%;
+    right: 0;
+
+    transform: translateY(-50%);
+    width: 70%;
+}
+
+.banner-tile .img:after {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    width: 40%;
+    height: 100%;
+
+    background: linear-gradient(90deg, var(--bg), transparent);
+}
+
+.banner-tile .img img {
+    width: 100%;
+}
+
+.banner-tile>img {
+    position: absolute;
+    right: 25%;
+    top: 50%;
+
+    height: 60%;
+    transform: translate(50%, -50%);
+
+    filter: drop-shadow(0 0 20px var(--bg));
+}
+
+.banner-tile>*:not(.img, img) {
+    position: relative;
+}
+
+#random p {
+    margin: 0;
+}
+
+#random p.large {
+    font-size: 3rem;
+}
+
+#celeste {
+    --bg: #fdfde4;
+    font-family: var(--celeste);
+}
+
+/* text border */
+#celeste :is(p, span) {
+    --col: #111e32;
+    text-shadow: -2px 0 var(--col), 0 2px var(--col), 2px 0 var(--col), 0 -2px var(--col), 1px 1px var(--col), -1px 1px var(--col), 1px -1px var(--col), -1px -1px var(--col);
+}
+
+#celeste p {
+    color: #fff;
+}
+
+#celeste a {
+    color: #ffd4bc;
+    text-decoration: none;
+}
+
+#celeste span {
+    color: #e7f0ff;
+}
+
+#tetrio {
+    --bg: #243e25;
+    font-family: var(--tetrio);
+}
+
+#tetrio p {
+    color: #c3f6c3;
+}
+
+#tetrio a {
+    color: #eaffec;
+    text-decoration: none;
+}
+
+#tetrio p.large {
+    margin-top: .3em;
+
+    font-weight: 900;
+    text-shadow: 0 .03em #8ebb93, 0 0 16px #fff4;
+}
+
+#random span {
+    font-size: .7em;
 }
