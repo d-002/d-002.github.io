@@ -14,8 +14,17 @@
 # Additional changes
 + absolute paths in other pages
 - better 3d graph: particles in high profile, links in ultra profile
+- js automation (will make the page slower, but way easier to update featured projects etc
 
 # Projects
+## featured
+- raymarch fractal
+- fast-voronoi
+- progression-graph
+
+- tetris-ai-2
+- cpp-renderer
+
 ## pages
 - password
 - download-ram
@@ -26,14 +35,6 @@
 - mandelbrot
 - jstolist
 - hanoi
-
-## featured
-- raymarch fractal
-- fast-voronoi
-- progression-graph
-
-- tetris-ai-2
-- cpp-renderer
 
 ## minecraft
 hurry before I get YPP and I restrict access :)
