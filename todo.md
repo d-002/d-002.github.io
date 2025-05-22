@@ -9,8 +9,7 @@
 + links: yt, tetrio, shadertoy, SO, wakatime
 + various stats section: tetrio 40L pb, celeste status, wakatime
 + link to previous versions at the bottom
-- repos page
-- link to music stuff
++ repos page
 - link to this in readme, clutter-free readme, custom image for link to pages repo
 
 # Additional changes
