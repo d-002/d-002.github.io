@@ -8,7 +8,9 @@
 + line graph with moving dot and animations for resume
 + links: yt, tetrio, shadertoy, SO, wakatime
 + various stats section: tetrio 40L pb, celeste status, wakatime
-- repos page, link to previous versions at the bottom
++ link to previous versions at the bottom
+- repos page
+- link to music stuff
 - link to this in readme, clutter-free readme, custom image for link to pages repo
 
 # Additional changes
