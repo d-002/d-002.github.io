@@ -662,6 +662,10 @@ body:not(.low) .tile.active>* {
     font-size: 3rem;
 }
 
+#random span {
+    font-size: .67em;
+}
+
 #celeste {
     --bg: #fdfde4;
     font-family: var(--celeste);
@@ -705,8 +709,4 @@ body:not(.low) .tile.active>* {
 
     font-weight: 900;
     text-shadow: 0 .03em #8ebb93, 0 0 16px #fff4;
-}
-
-#random span {
-    font-size: .7em;
 }
