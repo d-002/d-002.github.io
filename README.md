@@ -1,2 +1,1 @@
-<h1 align="center"><a href="https://d-002.github.io">d-002.github.io</a></h1>
-<p align="center">D_00 (d-002) GitHub home page.</p>
+<a href="https://d-002.github.io" target="_blank"><img width="100%" src="https://d-002.github.io/v3/thumbnail.png" alt="d-002's GitHub homepage"></a>
