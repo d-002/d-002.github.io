@@ -21,9 +21,13 @@ def edit_version(file):
         # edit version
         if '?v=' in line:
             a, c = line.split('?v=')
-            b, c = v, c.split('"')[1]
-            line = a+'?v='+b+'"'+c
+            c = c[c.index('"'):]
+            line = a+'?v='+v+c
         edited += line+'\n'
+
+    # make sure to not add too many newlines
+    while edited.endswith('\n\n'):
+        edited = edited[:-1]
 
     with open(file, 'w', encoding='utf-8') as f: f.write(edited)
     print('Edited', file)
