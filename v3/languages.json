@@ -253,7 +253,7 @@
 
     "tkinter": {
         "title": "tkinter",
-        "description": "The first projects I ever created were small GuI applications in Python, and even small games, before I discovered PyGame. My first Stack Overflow contributions were Tkinter questions as well.",
+        "description": "The first projects I ever created were small GUI applications in Python, and even small games, before I discovered PyGame. My first Stack Overflow contributions were Tkinter questions as well.",
         "image": "/v3/images/frameworks/Tkinter.png",
         "type": 2
     },
