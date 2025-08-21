@@ -8,21 +8,21 @@
 
     "html": {
         "title": "HTML/CSS, Javascript",
-        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick, however I had gathered consequently more knowledge about these languages before that, on my own, and proceeded to expand my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail. I plan to follow an optional, side course at EPITA that should help me learn a lot about devops, so this section will most likely be changed soon.",
+        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick. However, I had gathered consequently more knowledge before that, on my own, and have expanded my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail.",
         "image": "/v3/images/languages/HTML.svg",
         "type": 0
     },
 
     "css": {
         "title": "HTML/CSS, Javascript",
-        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick, however I had gathered consequently more knowledge about these languages before that, on my own, and proceeded to expand my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail. I plan to follow an optional, side course at EPITA that should help me learn a lot about devops, so this section will most likely be changed soon.",
+        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick. However, I had gathered consequently more knowledge before that, on my own, and have expanded my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail.",
         "image": "/v3/images/languages/CSS.svg",
         "type": 0
     },
 
     "js": {
         "title": "HTML/CSS, Javascript",
-        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick, however I had gathered consequently more knowledge about these languages before that, on my own, and proceeded to expand my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail. I plan to follow an optional, side course at EPITA that should help me learn a lot about devops, so this section will most likely be changed soon.",
+        "description": "I have only had formal lessons on HTML/CSS and JS in my studies during my semester at the University of Limerick. However, I had gathered consequently more knowledge before that, on my own, and have expanded my toolbox since then. I coded many personal web projects, allowing me to discover these languages in detail.",
         "image": "/v3/images/languages/JavaScript.svg",
         "type": 0
     },
