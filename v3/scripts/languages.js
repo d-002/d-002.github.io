@@ -1,12 +1,16 @@
 import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+import SmoothValue from "/v3/scripts/smooth.js";
 import is_active from "/v3/scripts/sleep.js";
 
-const rotationSpeed = .1;
+const rotationSpeed = .15;
 let prevTime = -1;
 const maxDt = .1;
 // node animation times (ms)
 const animDuration = { spawn: 1500, showHide: 500 };
+// lag in between nodes animations (ms)
 const innerDelay = { spawn: 150, showHide: 30 };
+// ms
+const rotationSlowdownSpeed = 400;
 const fovDeg = 60;
 // force strength when selecting a node
 const frontForce = 30;
@@ -24,15 +28,13 @@ function onMouseMove(evt) {
     mouse.y = -(evt.clientY - rect.top) / rect.height * 2 + 1;
 }
 
-const smoothstep = x => x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
-
 const container = document.getElementById("languages");
 const titleElt = container.querySelector("h3");
 const descriptionElt = container.querySelector("p");
 const ul = container.querySelector("ul");
 
 class Node {
-    constructor(master, anim_time, id, image, type) {
+    constructor(master, delay, id, image, type) {
         this.texture = new THREE.TextureLoader().load(image);
         this.texture.colorSpace = THREE.SRGBColorSpace;
         this.material = new THREE.SpriteMaterial({map: this.texture});
@@ -45,10 +47,11 @@ class Node {
         this.sprite.userData = {node: this};
 
         this.master = master;
-        this.anim_time = anim_time;
         this.id = id;
         this.type = type;
-        this.nextActive = true;
+        this.scale = new SmoothValue(0)
+            .transitionTo(1, animDuration[this.animationName], delay);
+        this.targetActive = true;
         this.animationName = "spawn";
 
         this.active = false;
@@ -59,46 +62,33 @@ class Node {
     // get the node's sprite scale depending on the animation as well as update
     // its active state when the animation is done playing
     getScale() {
-        if (this.active != this.nextActive) {
-            const now = Date.now();
-            const duration = animDuration[this.animationName];
-            let t = (now - this.anim_time) / duration;
+        const res = this.scale.get();
 
-            // avoid weird scaling for planned hide animations
-            if (t < 0)
-                t = 0;
+        if (this.active != this.targetActive && res.done)
+            this.active = this.targetActive;
 
-            if (t < 1) {
-                if (!this.nextActive)
-                    t = 1-t;
-
-                return smoothstep(t);
-            }
-
-            this.active = this.nextActive;
-        }
-
-        return this.active ? 1 : 0;
+        return res.value;
     }
 
     // returns true if an action was made, false otherwise
-    show(anim_time) {
-        if (this.nextActive) return false;
+    show(delay) {
+        if (this.targetActive)
+            return false;
 
-        this.anim_time = anim_time;
-        this.nextActive = true;
+        this.scale.transitionTo(1, null, delay);
+        this.targetActive = true;
 
         return true;
     }
 
-    hide(anim_time) {
-        if (!this.nextActive) return false;
-
-        this.anim_time = anim_time;
-        this.nextActive = false;
+    hide(delay) {
+        if (!this.targetActive)
+            return false;
 
         // from now on, use the faster animation
         this.animationName = "showHide";
+        this.scale.transitionTo(0, animDuration[this.animationName], delay);
+        this.targetActive = false;
 
         return true;
     }
@@ -123,9 +113,10 @@ class Node {
             movement.add(diff.multiplyScalar(mul));
         });
 
-        if (this.clicked) {
-            movement.add(this.master.camera.position.clone().sub(this.pos).multiplyScalar(frontForce * dt));
-        }
+        if (this.clicked)
+            movement.add(this.master.camera.position.clone()
+                .sub(this.pos)
+                .multiplyScalar(frontForce * dt));
 
         // update position
         this.pos = this.pos.add(movement.multiplyScalar(sphereRadius * dt));
@@ -159,15 +150,21 @@ class Graph {
         this.rotation = 0;
 
         // updated when hovering to change the speed
-        this.speedMultiplier = 1;
+        this.speedMultiplier = new SmoothValue(1, rotationSlowdownSpeed);
 
-        let delay = Date.now();
+        let delay = 0;
         Object.entries(this.data).forEach(([key, value]) => {
             const node = new Node(this, delay, key, value.image, value.type);
             this.group.add(node.sprite);
             this.nodes.push(node);
             delay += innerDelay.spawn;
         });
+
+        // shuffle the nodes to break any type patterns
+        this.nodes = this.nodes.map(
+            node => ({ value: node, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(o => o.value);
 
         // this will trigger invisible animations for things that are hidden,
         // which shouldn't matter, and the animations for nodes to be shown will
@@ -220,7 +217,7 @@ class Graph {
     }
 
     updateVisible(type) {
-        let delay = Date.now();
+        let delay = 0;
 
         // update ul
         let i = -1;
@@ -257,7 +254,7 @@ class Graph {
         requestAnimationFrame(() => this.update());
 
         const now = Date.now();
-        if (prevTime == -1)
+        if (prevTime === -1)
             prevTime = now;
         let dt = (now - prevTime) / 1000;
         if (dt > maxDt)
@@ -286,9 +283,9 @@ class Graph {
             );
 
             // camera rotation: slower if hovering a node
-            this.speedMultiplier = ((hovered == null ? 1 : 0)
-                + this.speedMultiplier * 10) / 11;
-            this.camera.rotation.y += rotationSpeed * this.speedMultiplier * dt;
+            this.speedMultiplier.transitionTo(hovered == null ? 1 : 0);
+            this.camera.rotation.y += rotationSpeed
+                * this.speedMultiplier.get().value * dt;
             this.camera.position.set(pos.x, pos.y, pos.z);
 
             // update and render

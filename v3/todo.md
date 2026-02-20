@@ -1,0 +1,3 @@
+- remove get dtime, should also update benchmarking
+- remove profile cycle popup on click
+- use camelCase
