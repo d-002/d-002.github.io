@@ -17,18 +17,23 @@ class SmoothPoint {
         this.movement *= .8; // drag
         this.movement += (target-this.pos)/2;
     }
+
+    jump(target) {
+        this.pos = target;
+        this.movement = 0;
+    }
 }
 
 function get_percentage(parent) {
     const rect = parent.getBoundingClientRect();
-    const scroll = target_y - rect.top / window.innerHeight;
-    const t = scroll * window.innerHeight / rect.height;
+    const scroll = target_y - rect.top / self.innerHeight;
+    const t = scroll * self.innerHeight / rect.height;
     return t < 0 ? 0 : t > 1 ? 100 : t*100; 
 }
 
 function is_tile_lower(tile) {
     const rect = tile.getBoundingClientRect();
-    return rect.top + rect.height/2 > target_y * window.innerHeight;
+    return rect.top + rect.height/2 > target_y * self.innerHeight;
 }
 
 class TilesManager {
@@ -44,11 +49,15 @@ class TilesManager {
     }
 
     start() {
-        this.interval = window.setInterval(() => this.update(), 1000 * delta_time);
+        this.interval = self.setInterval(() => this.update(), 1000 * delta_time);
     }
 
     update() {
-        if (!is_active(this.parent)) return;
+        if (!is_active(this.parent)) {
+            const percent = this.parent.getBoundingClientRect().top > 0 ? 0 : 100;
+            this.point.jump(percent);
+            return;
+        }
 
         // update point position
         const percent = get_percentage(this.parent);
