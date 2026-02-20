@@ -108,4 +108,4 @@ const titles = [
 
 const typer = new Typer(document.getElementById("subtitle"));
 
-window.setInterval(() => typer.update(), 16);
+self.setInterval(() => typer.update(), 16);

@@ -283,7 +283,7 @@ body.low #about .rainbow-circle:before {
     max-width: max(80%, 960px);
 }
 
-#languages canvas {
+#languages #three {
     flex: 1;
     height: 600px;
 
@@ -351,7 +351,7 @@ body.low #about .rainbow-circle:before {
         width: 90%;
     }
 
-    #languages canvas {
+    #languages #three {
         width: 55%;
 
         --animation: float-right;
