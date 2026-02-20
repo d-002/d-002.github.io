@@ -10,8 +10,9 @@ const animDuration = { spawn: 1500, showHide: 500 };
 // lag in between nodes animations (ms)
 const innerDelay = { spawn: 150, showHide: 30 };
 // ms
-const rotationSlowdownSpeed = 400;
-const fovDeg = 60;
+const rotationChangeDelay = 400;
+const fovChangeDelay = 500;
+const fov = { normal: 50, selected: 80 };
 // force strength when selecting a node
 const frontForce = 30;
 // radius of the sphere
@@ -56,7 +57,7 @@ class Node {
 
         this.active = false;
         this.hover = false;
-        this.clicked = false;
+        this.selected = false;
     }
 
     // get the node's sprite scale depending on the animation as well as update
@@ -97,7 +98,7 @@ class Node {
         // animations
         const s = this.getScale();
         this.sprite.scale.set(s, s, 1);
-        this.material.color.setScalar(this.hover ? 2 : 1);
+        this.material.color.setScalar(this.hover || this.selected ? 2 : 1);
 
         // movement
         const movement = new THREE.Vector3(0, 0, 0);
@@ -113,7 +114,7 @@ class Node {
             movement.add(diff.multiplyScalar(mul));
         });
 
-        if (this.clicked)
+        if (this.selected)
             movement.add(this.master.camera.position.clone()
                 .sub(this.pos)
                 .multiplyScalar(frontForce * dt));
@@ -128,8 +129,8 @@ class Node {
 class Graph {
     constructor(data) {
         this.scene = new THREE.Scene();
-        // aspect ratio and position will be set in this.init
-        this.camera = new THREE.PerspectiveCamera(fovDeg, null, 0.1, 1000);
+        // missing parameters will be set in this.init
+        this.camera = new THREE.PerspectiveCamera(fov.normal, null, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 
         this.elt = this.renderer.domElement;
@@ -150,7 +151,10 @@ class Graph {
         this.rotation = 0;
 
         // updated when hovering to change the speed
-        this.speedMultiplier = new SmoothValue(1, rotationSlowdownSpeed);
+        this.speedMultiplier = new SmoothValue(1, rotationChangeDelay);
+
+        // updated when something is selected
+        this.fov = new SmoothValue(fov.normal, fovChangeDelay);
 
         let delay = 0;
         Object.entries(this.data).forEach(([key, value]) => {
@@ -198,8 +202,8 @@ class Graph {
             if (!node.active)
                 return;
 
-            node.clicked = node.hover;
-            if (node.clicked)
+            node.selected = node.hover;
+            if (node.selected)
                 nodeEntry = node.id;
         });
 
@@ -266,6 +270,16 @@ class Graph {
 
             const hovered = this.getHovered();
 
+            // update fov when selecting something
+            const selected = this.nodes.filter(node => node.selected).length
+                != 0;
+            this.fov.transitionTo(selected ? fov.selected : fov.normal);
+            const myFov = this.fov.get();
+            if (myFov.changed) {
+                this.camera.fov = myFov.value;
+                this.onResize();
+            }
+
             this.nodes.forEach(node => { node.hover = node === hovered });
 
             // compute final camera variables after revolution
@@ -297,18 +311,6 @@ class Graph {
     }
 }
 
-// don't resize every frame, wait a little to prevent lag from multiple resizes
-let targetTime;
-function resizer(time) {
-    if (targetTime == time) graph.onResize();
-}
-
-function resizeHandler() {
-    const time = Date.now();
-    targetTime = time;
-    self.setTimeout(resizer, 100, time);
-}
-
 function onUlClick(evt) {
     if (evt.target.tagName.toUpperCase() != "LI") return;
 
@@ -329,7 +331,7 @@ fetch("/v3/languages.json")
         graph = new Graph(response);
         graph.update();
 
-        self.addEventListener("resize", resizeHandler);
+        self.addEventListener("resize", () => graph.onResize());
         graph.elt.addEventListener("click", () => graph.onClick());
         graph.elt.addEventListener("mousemove", onMouseMove);
         ul.addEventListener("click", onUlClick);
