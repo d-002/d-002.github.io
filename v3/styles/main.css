@@ -155,6 +155,7 @@
     }
 
     scroll-behavior: smooth;
+    line-height: 1.5;
 }
 
 body {
@@ -233,7 +234,7 @@ a:hover, a:hover span {
 h2, h3 {
     position: relative;
     margin: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
     text-align: center;
     font-family: var(--cgothic);
