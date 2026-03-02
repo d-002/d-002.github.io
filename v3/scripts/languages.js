@@ -224,7 +224,7 @@ class Graph {
                 "associated tool!",
                 see_also: []
             };
-        else entry = this.data.info[nodeEntry];
+        else entry = this.data.info[this.data.elements[nodeEntry].info];
 
         titleElt.textContent = entry.name;
         descriptionElt.innerHTML = entry.description;

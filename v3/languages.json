@@ -1,44 +1,32 @@
 {
     "elements": {
-        "python": {
-            "group": 0,
-            "info": "python"
-        },
-        "numpy": {
-            "group": 2,
-            "info": "numpy"
-        },
-        "html5": {
-            "group": 0,
-            "info": "html_css"
-        },
-        "css3": {
-            "group": 0,
-            "info": "html_css"
-        },
-        "js": {
-            "group": 0,
-            "info": "js"
-        },
-        "php": {
-            "group": 0,
-            "info": "php"
+        "androidstudio": {
+            "group": 1,
+            "info": "android"
         },
         "arduino": {
-            "group": 2,
+            "group": 1,
             "info": "arduino"
         },
-        "processing": {
-            "group": 2,
-            "info": "processing"
+        "autotools": {
+            "group": 1,
+            "info": "build_systems"
         },
-        "php": {
-            "group": 0,
-            "info": "php"
+        "bash": {
+            "group": 1,
+            "info": "linux"
+        },
+        "bootstrap": {
+            "group": 2,
+            "info": "bootstrap"
         },
         "c": {
             "group": 0,
             "info": "c"
+        },
+        "cmake": {
+            "group": 1,
+            "info": "build_systems"
         },
         "cplusplus": {
             "group": 0,
@@ -47,21 +35,229 @@
         "csharp": {
             "group": 0,
             "info": "csharp"
+        },
+        "css3": {
+            "group": 0,
+            "info": "html_css"
+        },
+        "dotnet": {
+            "group": 2,
+            "info": "csharp"
+        },
+        "express": {
+            "group": 1,
+            "info": "express"
+        },
+        "fastapi": {
+            "group": 2,
+            "info": "fastapi"
+        },
+        "figma": {
+            "group": 1,
+            "info": "figma"
+        },
+        "filezilla": {
+            "group": 1,
+            "info": "filezilla"
+        },
+        "gcc": {
+            "group": 1,
+            "info": "gcc"
+        },
+        "git": {
+            "group": 1,
+            "info": "git_hub_lab"
+        },
+        "github": {
+            "group": 1,
+            "info": "git_hub_lab"
+        },
+        "gitlab": {
+            "group": 1,
+            "info": "git_hub_lab"
+        },
+        "html5": {
+            "group": 0,
+            "info": "html_css"
+        },
+        "intellij": {
+            "group": 1,
+            "info": "jetbrains"
+        },
+        "java": {
+            "group": 0,
+            "info": "java"
+        },
+        "jetbrains": {
+            "group": 1,
+            "info": "jetbrains"
+        },
+        "jquery": {
+            "group": 2,
+            "info": "jquery"
+        },
+        "js": {
+            "group": 0,
+            "info": "js"
+        },
+        "jupyter": {
+            "group": 1,
+            "info": "jupyter"
+        },
+        "latex": {
+            "group": 0,
+            "info": "latex"
+        },
+        "linux": {
+            "group": 1,
+            "info": "linux"
+        },
+        "lua": {
+            "group": 0,
+            "info": "lua"
+        },
+        "markdown": {
+            "group": 0,
+            "info": "markdown"
+        },
+        "neovim": {
+            "group": 1,
+            "info": "vim"
+        },
+        "nodejs": {
+            "group": 2,
+            "info": "nodejs"
+        },
+        "numpy": {
+            "group": 2,
+            "info": "numpy"
+        },
+        "obsidian": {
+            "group": 1,
+            "info": "obsidian"
+        },
+        "ocaml": {
+            "group": 0,
+            "info": "ocaml"
+        },
+        "opengl": {
+            "group": 2,
+            "info": "opengl"
+        },
+        "php": {
+            "group": 0,
+            "info": "php"
+        },
+        "postgresql": {
+            "group": 0,
+            "info": "sql"
+        },
+        "processing": {
+            "group": 2,
+            "info": "processing"
+        },
+        "pygame": {
+            "group": 2,
+            "info": "pygame"
+        },
+        "pytest": {
+            "group": 2,
+            "info": "pytest"
+        },
+        "python": {
+            "group": 0,
+            "info": "python"
+        },
+        "rider": {
+            "group": 1,
+            "info": "jetbrains"
+        },
+        "sdl": {
+            "group": 2,
+            "info": "sdl"
+        },
+        "slack": {
+            "group": 1,
+            "info": "slack"
+        },
+        "sqlite": {
+            "group": 0,
+            "info": "sql"
+        },
+        "php": {
+            "group": 0,
+            "info": "php"
+        },
+        "stackoverflow": {
+            "group": 1,
+            "info": "stackoverflow"
+        },
+        "threejs": {
+            "group": 2,
+            "info": "threejs"
+        },
+        "tkinter": {
+            "group": 2,
+            "info": "tkinter"
+        },
+        "trello": {
+            "group": 1,
+            "info": "trello"
+        },
+        "unity": {
+            "group": 1,
+            "info": "unity"
+        },
+        "vercel": {
+            "group": 1,
+            "info": "vercel"
+        },
+        "vim": {
+            "group": 1,
+            "info": "vim"
+        },
+        "vscode": {
+            "group": 1,
+            "info": "vscode"
         }
     },
     "info": {
-        "python": {
-            "name": "Python",
-            "description": "Sample description",
+        "android": {
+            "name": "Android [studio]",
+            "description": "",
             "see_also": [
-                "numpy"
+                "java"
+            ]
+        },
+        "arduino": {
+            "name": "Arduino",
+            "description": "",
+            "see_also": [
+                "processing",
+                "c",
+                "cplusplus"
+            ]
+        },
+        "linux": {
+            "name": "Linux and the command line",
+            "description": "",
+            "see_also": [
+                "bash",
+                "linux"
             ]
         },
         "numpy": {
             "name": "NumPy",
-            "description": "Sample description",
+            "description": "",
             "see_also": [
                 "python"
+            ]
+        },
+        "python": {
+            "name": "Python",
+            "description": "",
+            "see_also": [
+                "numpy"
             ]
         }
     }
