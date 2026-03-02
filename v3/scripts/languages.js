@@ -201,9 +201,15 @@ class Graph {
         this.distance = d;
     }
 
-    onClick() {
+    onClick(forceActive) {
         let nodeEntry = null;
         this.nodes.forEach(node => {
+            if (forceActive != null) {
+                node.selected = node == forceActive;
+                nodeEntry = forceActive.id;
+                return;
+            }
+
             if (!node.active)
                 return;
 
@@ -250,9 +256,8 @@ class Graph {
             return;
 
         if (this.type != targetNode.type)
-            this.updateVisible(type);
+            this.updateVisible(targetNode.type);
 
-        targetNode.hover = true;
         this.onClick(targetNode);
     }
 
