@@ -234,38 +234,15 @@ a.image-repo-link span {
     gap: 50px 200px;
 }
 
-#about .rainbow-circle {
-    position: relative;
-    padding: 5px;
-
-    background: linear-gradient(360deg, #44325f, #145667);
-    border-radius: 50%;
-
+#about #big-logo {
     --animation: float-right;
-}
-
-body.low #about .rainbow-circle:before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    animation: 5s transparency ease-in-out infinite;
-
-    background: linear-gradient(317deg, #104155, #dee3e6);
-    border-radius: 50%;
-}
-
-#about .rainbow-circle div {
-    position: relative;
-    padding: 10px;
-
-    background-color: var(--bg-dark);
-    border-radius: 50%;
 }
 
 #about img {
     width: 200px;
     border-radius: 50%;
+
+    box-shadow: 0 0 30px #4c5cb950;
 }
 
 #about>div {
