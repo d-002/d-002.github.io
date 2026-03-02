@@ -246,7 +246,7 @@ a.image-repo-link span {
 }
 
 #about>div {
-    text-align: center;
+    text-align: justify;
     max-width: 700px;
 }
 
@@ -645,8 +645,12 @@ body:not(.low) .tile.active>* {
     color: #eaffec;
 }
 
+#tetrio p:not(.large) {
+    margin-top: 1em;
+}
+
 #tetrio p.large {
-    margin-top: .3em;
+    margin: 0;
 
     font-weight: 900;
     text-shadow: 0 .03em #8ebb93, 0 0 16px #fff4;

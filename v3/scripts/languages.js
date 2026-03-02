@@ -211,8 +211,8 @@ class Graph {
         if (nodeEntry == null)
             entry = {
                 "title": "",
-                "description": "Select an element in the graph to discover " +
-                "more about it"
+                "description": "Click any icon to know why I use the " +
+                "associated tool!",
             };
         else entry = this.data[nodeEntry];
 
