@@ -30,9 +30,11 @@ function onMouseMove(evt) {
 }
 
 const container = document.getElementById("languages");
-const titleElt = container.querySelector("h3");
-const descriptionElt = container.querySelector("p");
-const ul = container.querySelector("ul");
+const typeUl = container.querySelector("ul");
+const infoContainer = container.querySelector("#js-info");
+const titleElt = infoContainer.querySelector("h3");
+const seeAlsoElt = infoContainer.querySelector("ul");
+const descriptionElt = infoContainer.querySelector("p");
 
 class Node {
     constructor(master, delay, id, image, type) {
@@ -157,8 +159,11 @@ class Graph {
         this.fov = new SmoothValue(fov.normal, fovChangeDelay);
 
         let delay = 0;
-        Object.entries(this.data).forEach(([key, value]) => {
-            const node = new Node(this, delay, key, value.image, value.type);
+        Object.entries(this.data.elements).forEach(([name, data]) => {
+            const image = "https://cdn.jsdelivr.net/gh/devicons/" +
+                "devicon@latest/icons/NAME/NAME-original.svg"
+                .replaceAll("NAME", name);
+            const node = new Node(this, delay, name, image, data.group);
             this.group.add(node.sprite);
             this.nodes.push(node);
             delay += innerDelay.spawn;
@@ -210,22 +215,53 @@ class Graph {
         let entry;
         if (nodeEntry == null)
             entry = {
-                "title": "",
-                "description": "Click any icon to know why I use the " +
+                name: "Interactive graph",
+                description: "Click any icon to know why I use the " +
                 "associated tool!",
+                see_also: []
             };
-        else entry = this.data[nodeEntry];
+        else entry = this.data.info[nodeEntry];
 
-        titleElt.textContent = entry.title;
-        descriptionElt.textContent = entry.description;
+        titleElt.textContent = entry.name;
+        descriptionElt.innerHTML = entry.description;
+
+        seeAlsoElt.innerHTML = "";
+        if (entry.see_also.length == 0)
+            return;
+
+        descriptionElt.innerHTML += "<br>See also:";
+        entry.see_also.forEach(name => {
+            const li = document.createElement("LI");
+            li.textContent = this.data.info[name].name;
+            li.setAttribute("name", name);
+            li.addEventListener("click",
+                evt => this.goTo(evt.target.getAttribute("name")));
+            seeAlsoElt.appendChild(li);
+        });
+    }
+
+    goTo(name) {
+        let targetNode;
+        this.nodes.forEach(node => {
+            if (node.id == name)
+                targetNode = node;
+        });
+        if (targetNode == null)
+            return;
+
+        if (this.type != targetNode.type)
+            this.updateVisible(type);
+
+        targetNode.hover = true;
+        this.onClick(targetNode);
     }
 
     updateVisible(type) {
         let delay = 0;
 
-        // update ul
+        // update type ul
         let i = -1;
-        Array.from(ul.children).forEach(
+        Array.from(typeUl.children).forEach(
             li => li.className = i++ == type ? "selected" : "");
 
         // update nodes
@@ -244,6 +280,7 @@ class Graph {
 
         // deselect everything
         this.onClick();
+        this.type = type;
     }
 
     getHovered() {
@@ -318,9 +355,9 @@ function onUlClick(evt) {
         .indexOf(evt.target) - 1;
     graph.updateVisible(type);
 
-    // update ul
+    // update type ul
     let i = -1;
-    Array.from(ul.children).forEach(
+    Array.from(typeUl.children).forEach(
         li => li.className = i++ == type ? "selected" : "");
 }
 
@@ -334,5 +371,5 @@ fetch("/v3/languages.json")
         self.addEventListener("resize", () => graph.onResize());
         graph.elt.addEventListener("click", () => graph.onClick());
         graph.elt.addEventListener("mousemove", onMouseMove);
-        ul.addEventListener("click", onUlClick);
+        typeUl.addEventListener("click", onUlClick);
     });
