@@ -17,7 +17,7 @@ class Typer {
     }
 
     wait_short() {
-        this.next_action = Date.now() + Math.random()*80 + 20;
+        this.next_action = Date.now() + Math.random()*100 + 30;
     }
 
     wait_mid() {

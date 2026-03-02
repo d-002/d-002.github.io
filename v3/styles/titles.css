@@ -64,11 +64,13 @@
     color: transparent;
     background-color: var(--subtitle-color);
     mix-blend-mode: screen;
+    transform: translateY(.2em);
 }
 
 #subtitle.insert:after {
     display: inline-block;
     content: "|";
+
     transform: translate(-.25em, -.05em);
 }
 

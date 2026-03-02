@@ -235,7 +235,7 @@ class Graph {
         if (entry.see_also.length == 0)
             return;
 
-        descriptionElt.innerHTML += "<br>See also:";
+        descriptionElt.innerHTML += "<br>Related:";
         entry.see_also.forEach(name => {
             const li = document.createElement("LI");
             li.textContent = this.data.info[name].name;
