@@ -16,7 +16,7 @@ const fov = { normal: 50, selected: 80 };
 // force strength when selecting a node
 const frontForce = 30;
 // radius of the sphere
-const sphereRadius = 5;
+const sphereRadius = 4;
 // margin around the sphere, in units
 const margin = 1;
 
@@ -29,6 +29,8 @@ function onMouseMove(evt) {
     mouse.y = -(evt.clientY - rect.top) / rect.height * 2 + 1;
 }
 
+const loader = new THREE.TextureLoader();
+
 const container = document.getElementById("languages");
 const typeUl = container.querySelector("ul");
 const infoContainer = container.querySelector("#js-info");
@@ -38,7 +40,7 @@ const descriptionElt = infoContainer.querySelector("p");
 
 class Node {
     constructor(master, delay, id, image, type) {
-        this.texture = new THREE.TextureLoader().load(image);
+        this.texture = loader.load(image);
         this.texture.colorSpace = THREE.SRGBColorSpace;
         this.material = new THREE.SpriteMaterial({map: this.texture});
         this.sprite = new THREE.Sprite(this.material);
@@ -160,9 +162,7 @@ class Graph {
 
         let delay = 0;
         Object.entries(this.data.elements).forEach(([name, data]) => {
-            const image = "https://cdn.jsdelivr.net/gh/devicons/" +
-                "devicon@latest/icons/NAME/NAME-original.svg"
-                .replaceAll("NAME", name);
+            const image = "/v3/images/languages/" + name + ".svg";
             const node = new Node(this, delay, name, image, data.group);
             this.group.add(node.sprite);
             this.nodes.push(node);
@@ -187,14 +187,12 @@ class Graph {
     }
 
     onResize() {
-        // update resolution
-        const rect = this.elt.getBoundingClientRect();
-        this.w = rect.width;
-        this.h = rect.height;
+        this.w = this.elt.clientWidth;
+        this.h = this.elt.clientHeight;
 
+        this.renderer.setSize(this.w, this.h, false);
         this.camera.aspect = this.w / this.h;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.w, this.h);
 
         const fovRad = (this.camera.fov * Math.PI) / 180;
         const d = (sphereRadius + margin) / Math.sin(fovRad / 2);

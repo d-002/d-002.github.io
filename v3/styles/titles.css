@@ -64,7 +64,6 @@
     color: transparent;
     background-color: var(--subtitle-color);
     mix-blend-mode: screen;
-    transform: translateY(.2em);
 }
 
 #subtitle.insert:after {

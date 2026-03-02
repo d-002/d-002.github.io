@@ -281,6 +281,8 @@ a.image-repo-link span {
     align-items: center;
     gap: 10px;
 
+    min-width: 300px;
+
     flex: 1;
 }
 

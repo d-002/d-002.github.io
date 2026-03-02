@@ -7,6 +7,46 @@
         "numpy": {
             "group": 2,
             "info": "numpy"
+        },
+        "html5": {
+            "group": 0,
+            "info": "html_css"
+        },
+        "css3": {
+            "group": 0,
+            "info": "html_css"
+        },
+        "js": {
+            "group": 0,
+            "info": "js"
+        },
+        "php": {
+            "group": 0,
+            "info": "php"
+        },
+        "arduino": {
+            "group": 2,
+            "info": "arduino"
+        },
+        "processing": {
+            "group": 2,
+            "info": "processing"
+        },
+        "php": {
+            "group": 0,
+            "info": "php"
+        },
+        "c": {
+            "group": 0,
+            "info": "c"
+        },
+        "cplusplus": {
+            "group": 0,
+            "info": "cplusplus"
+        },
+        "csharp": {
+            "group": 0,
+            "info": "csharp"
         }
     },
     "info": {
