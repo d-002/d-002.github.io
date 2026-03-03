@@ -9,7 +9,7 @@
             "info": "jetbrains"
         },
         "arduino": {
-            "group": 1,
+            "group": 0,
             "info": "arduino"
         },
         "autotools": {
@@ -180,9 +180,9 @@
             "group": 1,
             "info": "stackoverflow"
         },
-        "threejs": {
+        "three": {
             "group": 2,
-            "info": "threejs"
+            "info": "three"
         },
         "tkinter": {
             "group": 2,
@@ -360,7 +360,7 @@
                 "express",
                 "nodejs",
                 "jquery",
-                "threejs"
+                "three"
             ]
         },
         "jupyter": {
@@ -495,7 +495,7 @@
             "description": "I used Stack Overflow a lot in my first years of coding, gathering more than 1.5k reputation, answering numerous questions that made me peek out of my comfort zone, solve algorithmic problems, and generally improve.<br>I strongly believe that solving other's questions helped me get an objective outlook on the code I produce, so that it is readable and explainable. Answering questions also trained my understanding of code to better integrate mine inside an existing codebase.",
             "see_also": []
         },
-        "threejs": {
+        "three": {
             "name": "Three.js",
             "description": "This very interactive graph was first done with vanilla Javascript, until I realized that for the sake of efficiency and portability this needed to be rewritten into a GPU-accelerated code.<br>I also used Three.js to render my procedurally-generated LinkedIn banner, to facilitate integration of shader code in a webpage.",
             "see_also": [
