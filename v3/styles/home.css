@@ -292,6 +292,9 @@ a.image-repo-link span {
 
 #languages>div>div:not(.caption) {
     width: 100%;
+    max-height: 400px;
+    overflow: hidden auto;
+
     padding: 10px;
 
     background-color: var(--bg-lighter);

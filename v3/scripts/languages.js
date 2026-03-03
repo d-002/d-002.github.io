@@ -8,13 +8,13 @@ const maxDt = .1;
 // node animation times (ms)
 const animDuration = { spawn: 1500, showHide: 500 };
 // lag in between nodes animations (ms)
-const innerDelay = { spawn: 150, showHide: 30 };
+const innerDelay = { spawn: 80, showHide: 30 };
 // ms
 const rotationChangeDelay = 400;
 const fovChangeDelay = 500;
 const fov = { normal: 50, selected: 80 };
 // force strength when selecting a node
-const frontForce = 30;
+const frontForce = 50;
 // radius of the sphere
 const sphereRadius = 4;
 // margin around the sphere, in units
@@ -204,6 +204,10 @@ class Graph {
         this.nodes.forEach(node => {
             if (forceActive != null) {
                 node.selected = node == forceActive;
+                if (node == forceActive)
+                    node.scale.transitionTo(1.5);
+                else if (node.selected && node != forceActive)
+                    node.scale.transitionTo(1);
                 nodeEntry = forceActive.id;
                 return;
             }
@@ -211,9 +215,13 @@ class Graph {
             if (!node.active)
                 return;
 
-            node.selected = node.hover;
-            if (node.selected)
-                nodeEntry = node.id;
+            const newSelected = node.hover;
+            if (node.selected != newSelected) {
+                node.scale.transitionTo(newSelected ? 1.5 : 1);
+                node.selected = newSelected;
+                if (newSelected)
+                    nodeEntry = node.id;
+            }
         });
 
         let entry;
@@ -221,13 +229,14 @@ class Graph {
             entry = {
                 name: "Interactive graph",
                 description: "Click any icon to know why I use the " +
-                "associated tool!",
+                "associated technology!",
                 see_also: []
             };
         else entry = this.data.info[this.data.elements[nodeEntry].info];
 
         titleElt.textContent = entry.name;
         descriptionElt.innerHTML = entry.description;
+        descriptionElt.scrollTop = 0;
 
         seeAlsoElt.innerHTML = "";
         if (entry.see_also.length == 0)
@@ -262,6 +271,9 @@ class Graph {
     updateVisible(type) {
         let delay = 0;
 
+        // deselect everything
+        this.onClick();
+
         // update type ul
         let i = -1;
         Array.from(typeUl.children).forEach(
@@ -281,8 +293,6 @@ class Graph {
             node.hover = false;
         });
 
-        // deselect everything
-        this.onClick();
         this.type = type;
     }
 
