@@ -5,7 +5,7 @@ if (!apply_profile()) document.location.href = "/v3/benchmark";
 
 function scroll_handler() {
     const rect = flares_container.getBoundingClientRect();
-    const target = rect.bottom > 0 && rect.top < window.innerHeight;
+    const target = rect.bottom > 0 && rect.top < self.innerHeight;
 
     if (visible != target) {
         visible = target;
@@ -43,7 +43,7 @@ const from_benchmark = new URL(document.location.href).searchParams.get("from-be
 set_profile_visual();
 
 if (from_benchmark)
-    window.setTimeout(() => { perf_popup.className = "focus"; }, 1000);
+    self.setTimeout(() => { perf_popup.className = "focus"; }, 1000);
 
 // ----- fix popup hover animation
 function set_popup_size() {

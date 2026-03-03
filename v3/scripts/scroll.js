@@ -38,9 +38,9 @@ class ScrollElt {
     update() {
         const rect = this.elt.getBoundingClientRect();
 
-        const target = 
-            rect.bottom > tolerance * window.innerHeight &&
-            rect.top < (1-tolerance) * window.innerHeight;
+        const target =
+            rect.bottom > tolerance * self.innerHeight &&
+            rect.top < (1-tolerance) * self.innerHeight;
 
         if (target != this.visible) {
             if (target) this.show_elt();
@@ -53,9 +53,9 @@ function scroll_handler() {
     elts.forEach(elt => elt.update(scrollY));
 
     // special behavior for the Scroll to top button
-    if (window.scrollY > 10 && !to_top.visible)
+    if (self.scrollY > 10 && !to_top.visible)
         to_top.show_elt();
-    else if (window.scrollY <= 10 && to_top.visible)
+    else if (self.scrollY <= 10 && to_top.visible)
         to_top.hide_elt();
 }
 
@@ -63,5 +63,5 @@ const elts = Array.from(document.querySelectorAll(".animate-on-scroll")).map(elt
 const to_top = new ScrollElt(document.getElementById("to-top"));
 to_top.prevent_hiding = false;
 
-window.addEventListener("scroll", scroll_handler);
+self.addEventListener("scroll", scroll_handler);
 scroll_handler(); // force update on load to make sure the already visible elements are animated

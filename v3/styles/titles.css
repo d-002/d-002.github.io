@@ -69,6 +69,7 @@
 #subtitle.insert:after {
     display: inline-block;
     content: "|";
+
     transform: translate(-.25em, -.05em);
 }
 

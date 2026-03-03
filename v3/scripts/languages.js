@@ -1,348 +1,388 @@
-import vec3 from "/v3/scripts/vector3.js";
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+import SmoothValue from "/v3/scripts/smooth.js";
 import is_active from "/v3/scripts/sleep.js";
-import get_dtime from "/v3/scripts/fps.js";
 
-// in seconds
-const delta_time = get_dtime();
-// speed at which the points react
-const rotation_speed = .2;
-// node animation times (ms): show/hide, spawn
-const anim_duration = [1500, 500];
-// sphere radius with respect to the size of the screen
-const sphere_radius = .45;
-// degrees
-const fov_deg = 60;
-// distance to consider a node hovered
-const hover_dist = 50;
+const rotationSpeed = .15;
+let prevTime = -1;
+const maxDt = .1;
+// node animation times (ms)
+const animDuration = { spawn: 1500, showHide: 500 };
+// lag in between nodes animations (ms)
+const innerDelay = { spawn: 80, showHide: 30 };
+// ms
+const rotationChangeDelay = 400;
+const fovChangeDelay = 500;
+const fov = { normal: 50, selected: 80 };
 // force strength when selecting a node
-const front_force = 100;
+const frontForce = 50;
+// radius of the sphere
+const sphereRadius = 4;
+// margin around the sphere, in units
+const margin = 1;
 
-const smoothstep = x => (3 - 2*x) * x * x;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2(-1, -1);
 
-class Camera {
-    constructor() {
-        this.pos = new vec3(0, 0, 0); // dummy, will be changed later
-        this.d = 0;
-        this.rotation = 0;
-
-        this.fov = fov_deg * Math.PI / 180;
-    }
-
-    set_d(screen_size) {
-        this.d = -screen_size * .5 / Math.tan(this.fov/2);
-        this.pos.z = Math.cos(this.fov/2) / Math.tan(this.fov/2) * .5 / sphere_radius + Math.sin(this.fov/2);
-    }
+function onMouseMove(evt) {
+    const rect = graph.elt.getBoundingClientRect();
+    mouse.x = (evt.clientX - rect.left) / rect.width * 2 - 1;
+    mouse.y = -(evt.clientY - rect.top) / rect.height * 2 + 1;
 }
 
+const loader = new THREE.TextureLoader();
+
+const container = document.getElementById("languages");
+const typeUl = container.querySelector("ul");
+const infoContainer = container.querySelector("#js-info");
+const titleElt = infoContainer.querySelector("h3");
+const seeAlsoElt = infoContainer.querySelector("ul");
+const descriptionElt = infoContainer.querySelector("p");
+
 class Node {
-    constructor(master, anim_time, entry, image, type) {
+    constructor(master, delay, id, image, type) {
+        this.texture = loader.load(image);
+        this.texture.colorSpace = THREE.SRGBColorSpace;
+        this.material = new THREE.SpriteMaterial({map: this.texture});
+        this.sprite = new THREE.Sprite(this.material);
+        this.pos = new THREE.Vector3(
+            Math.random() * 2 - 1,
+            Math.random() * 2 - 1,
+            Math.random() * 2 - 1).normalize().multiplyScalar(sphereRadius);
+
+        this.sprite.userData = {node: this};
+
         this.master = master;
-        this.entry = entry;
-        this.image = image;
+        this.id = id;
         this.type = type;
-
-        this.anim_time = anim_time;
-        this.next_state = true;
-        this.animation_index = 0;
-
-        this.pos = new vec3(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
-        this.projected = [0, 0];
+        this.scale = new SmoothValue(0)
+            .transitionTo(1, animDuration[this.animationName], delay);
+        this.targetActive = true;
+        this.animationName = "spawn";
 
         this.active = false;
-
         this.hover = false;
-        this.clicked = false;
+        this.selected = false;
+    }
 
-        this.z = 0; // for sorting later
+    // get the node's sprite scale depending on the animation as well as update
+    // its active state when the animation is done playing
+    getScale() {
+        const res = this.scale.get();
+
+        if (this.active != this.targetActive && res.done)
+            this.active = this.targetActive;
+
+        return res.value;
     }
 
     // returns true if an action was made, false otherwise
-    show(anim_time) {
-        if (this.next_state) return false;
+    show(delay) {
+        if (this.targetActive)
+            return false;
 
-        this.anim_time = anim_time;
-        this.next_state = true;
-
-        return true;
-    }
-
-    hide(anim_time) {
-        if (!this.next_state) return false;
-
-        this.anim_time = anim_time;
-        this.next_state = false;
-
-        this.animation_index = 1; // from now on, use the faster animation
+        this.scale.transitionTo(1, null, delay);
+        this.targetActive = true;
 
         return true;
     }
 
-    update(trig) {
-        // show/hide animation
-        if (this.active != this.next_state) {
-            // hide the nodes after their hiding animation to prevent them from freezing
-            const delay = this.next_state ? 0 : anim_duration[this.animation_index];
+    hide(delay) {
+        if (!this.targetActive)
+            return false;
 
-            if (Date.now() > this.anim_time + delay) this.active = this.next_state;
-        }
-        if (!this.active) return;
+        // from now on, use the faster animation
+        this.animationName = "showHide";
+        this.scale.transitionTo(0, animDuration[this.animationName], delay);
+        this.targetActive = false;
+
+        return true;
+    }
+
+    update(dt) {
+        // animations
+        const s = this.getScale();
+        this.sprite.scale.set(s, s, 1);
+        this.material.color.setScalar(this.hover || this.selected ? 2 : 1);
 
         // movement
-        let movement = new vec3(0, 0, 0);
+        const movement = new THREE.Vector3(0, 0, 0);
         this.master.nodes.forEach(node => {
-            if (node === this || !node.active) return;
+            if (node === this) return;
 
-            const diff = this.pos.sub(node.pos);
-            const dist2 = diff.dot(diff);
+            const diff = new THREE.Vector3().subVectors(this.pos, node.pos);
+            let dist2 = diff.dot(diff);
+            if (dist2 == 0)
+                dist2 = 1;
 
-            movement = movement.add(diff.mul(1/dist2));
+            const mul = node.getScale() / dist2;
+            movement.add(diff.multiplyScalar(mul));
         });
 
-        if (this.clicked) {
-            movement = movement.add(new vec3(
-                -front_force * Math.sin(-this.master.camera.rotation),
-                0,
-                front_force * Math.cos(-this.master.camera.rotation)
-            ));
-        }
+        if (this.selected)
+            movement.add(this.master.camera.position.clone()
+                .sub(this.pos)
+                .multiplyScalar(frontForce * dt));
 
-        this.pos = (this.pos.add(movement.mul(.1 * delta_time))).normalize();
-
-        // rotation
-        let rotated = new vec3(
-            this.pos.x*trig[0] - this.pos.z*trig[1],
-            this.pos.y,
-            this.pos.x*trig[1] + this.pos.z*trig[0]
-        );
-        this.z = rotated.z;
-        rotated = rotated.sub(this.master.camera.pos);
-
-        // projection
-        const m = this.master.camera.d / rotated.z;
-
-        this.projected = [
-            rotated.x*m + this.master.w*.5,
-            -rotated.y*m + this.master.h*.5
-        ];
-
+        // update position
+        this.pos = this.pos.add(movement.multiplyScalar(sphereRadius * dt));
+        this.pos = this.pos.normalize().multiplyScalar(sphereRadius);
+        this.sprite.position.set(this.pos.x, this.pos.y, this.pos.z);
     }
-
-    draw() {
-        if (!this.active) return;
-
-        let scale = this.master.image_scale;
-        // animation scale
-        const now = Date.now();
-        const duration = anim_duration[this.animation_index];
-        if (now <= this.anim_time+duration) {
-            let t = (now-this.anim_time) / duration;
-            if (t < 0) t = 0; // avoid weird scaling for planned hide animations
-            if (!this.next_state) t = 1-t;
-
-            scale *= smoothstep(t);
-        }
-        // 3d scale
-        const cam_z = this.master.camera.pos.z;
-        scale *= 1 / (1 - this.z/cam_z);
-        // hover scale
-        if (this.hover || this.clicked) scale *= 1.05;
-
-        // draw image
-        const brightness = this.clicked ? 1.5 : this.hover ? 1.2 : 1;
-        this.master.ctx.filter = "brightness(" + brightness + ")";
-
-        try {
-            this.master.ctx.drawImage(
-                this.image,
-                this.projected[0]-scale, this.projected[1]-scale,
-                scale*2, scale*2
-            );
-        } catch {}
-    }
-}
-
-function compare_nodes(a, b) {
-    a = a.z;
-    b = b.z;
-    return a < b ? -1 : a > b ? 1 : 0;
 }
 
 class Graph {
-    constructor(canvas, data) {
+    constructor(data) {
+        this.scene = new THREE.Scene();
+        // missing parameters will be set in this.init
+        this.camera = new THREE.PerspectiveCamera(fov.normal, null, 0.1, 1000);
+        this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+
+        this.elt = this.renderer.domElement;
+        this.elt.id = "three";
+        this.elt.className = "light-container animate-on-scroll";
+        container.insertBefore(this.elt, container.firstChild);
+
         this.is_init = false;
-        this.canvas = canvas;
-        this.ctx = canvas.getContext("2d");
         this.data = data;
 
         this.nodes = [];
+        this.group = new THREE.Group();
+        this.scene.add(this.group);
 
-        this.camera = new Camera();
+        // base position, before rotation and shift
+        this.pos = new THREE.Vector3(0, 0, 0);
+        this.distance = 0;
+        this.rotation = 0;
+
+        // updated when hovering to change the speed
+        this.speedMultiplier = new SmoothValue(1, rotationChangeDelay);
+
+        // updated when something is selected
+        this.fov = new SmoothValue(fov.normal, fovChangeDelay);
+
+        let delay = 0;
+        Object.entries(this.data.elements).forEach(([name, data]) => {
+            const image = "/v3/images/languages/" + name + ".svg";
+            const node = new Node(this, delay, name, image, data.group);
+            this.group.add(node.sprite);
+            this.nodes.push(node);
+            delay += innerDelay.spawn;
+        });
+
+        // shuffle the nodes to break any type patterns
+        this.nodes = this.nodes.map(
+            node => ({ value: node, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(o => o.value);
+
+        // this will trigger invisible animations for things that are hidden,
+        // which shouldn't matter, and the animations for nodes to be shown will
+        // be ignored
+        this.updateVisible(0);
     }
 
     init() {
         this.is_init = true;
-        this.on_resize();
-
-        let delay = Date.now();
-        Object.entries(this.data).forEach(([key, value]) => {
-            this.nodes.push(new Node(this, delay, key, value.image, value.type));
-            delay += 300;
-        });
-
-        // this will trigger invisible animations for things that are hidden, which shouldn't matter
-        // and the animations for nodes to be shown will be ignored
-        this.update_visible(0);
+        this.onResize();
     }
 
-    on_resize() {
-        const rect = this.canvas.getBoundingClientRect();
-        this.w = rect.width;
-        this.h = rect.height;
-        this.canvas.width = this.w;
-        this.canvas.height = this.h;
+    onResize() {
+        this.w = this.elt.clientWidth;
+        this.h = this.elt.clientHeight;
 
-        const min_size = Math.min(this.w, this.h)
-        this.image_scale = min_size * .05;
-        this.camera.set_d(min_size);
+        this.renderer.setSize(this.w, this.h, false);
+        this.camera.aspect = this.w / this.h;
+        this.camera.updateProjectionMatrix();
+
+        const fovRad = (this.camera.fov * Math.PI) / 180;
+        const d = (sphereRadius + margin) / Math.sin(fovRad / 2);
+        this.distance = d;
     }
 
-    on_click() {
-        let node_entry = null;
+    onClick(forceActive) {
+        let nodeEntry = null;
         this.nodes.forEach(node => {
-            if (!node.active) return;
+            if (forceActive != null) {
+                node.selected = node == forceActive;
+                if (node == forceActive)
+                    node.scale.transitionTo(1.5);
+                else if (node.selected && node != forceActive)
+                    node.scale.transitionTo(1);
+                nodeEntry = forceActive.id;
+                return;
+            }
 
-            node.clicked = node.hover;
-            if (node.clicked) node_entry = node.entry;
+            if (!node.active)
+                return;
+
+            const newSelected = node.hover;
+            if (node.selected != newSelected) {
+                node.scale.transitionTo(newSelected ? 1.5 : 1);
+                node.selected = newSelected;
+                if (newSelected)
+                    nodeEntry = node.id;
+            }
         });
 
         let entry;
-        if (node_entry == null)
+        if (nodeEntry == null)
             entry = {
-                "title": "",
-                "description": "Select an element in the graph to discover more about it"
+                name: "Interactive graph",
+                description: "Click any icon to know why I use the " +
+                "associated technology!",
+                see_also: []
             };
-        else entry = this.data[node_entry];
+        else entry = this.data.info[this.data.elements[nodeEntry].info];
 
-        title_elt.textContent = entry.title;
-        description_elt.textContent = entry.description;
+        titleElt.textContent = entry.name;
+        descriptionElt.innerHTML = entry.description;
+        descriptionElt.scrollTop = 0;
+
+        seeAlsoElt.innerHTML = "";
+        if (entry.see_also.length == 0)
+            return;
+
+        descriptionElt.innerHTML += "<br>Related:";
+        entry.see_also.forEach(name => {
+            const li = document.createElement("LI");
+            li.textContent = this.data.info[name].name;
+            li.setAttribute("name", name);
+            li.addEventListener("click",
+                evt => this.goTo(evt.target.getAttribute("name")));
+            seeAlsoElt.appendChild(li);
+        });
     }
 
-    update_visible(type) {
-        let delay = Date.now();
+    goTo(name) {
+        let targetNode;
+        this.nodes.forEach(node => {
+            if (node.id == name)
+                targetNode = node;
+        });
+        if (targetNode == null)
+            return;
 
-        // update ul
+        if (this.type != targetNode.type)
+            this.updateVisible(targetNode.type);
+
+        this.onClick(targetNode);
+    }
+
+    updateVisible(type) {
+        let delay = 0;
+
+        // deselect everything
+        this.onClick();
+
+        // update type ul
         let i = -1;
-        Array.from(ul.children).forEach(li => li.className = i++ == type ? "selected" : "");
+        Array.from(typeUl.children).forEach(
+            li => li.className = i++ == type ? "selected" : "");
 
         // update nodes
         this.nodes.forEach(node => {
-            let action;
-            if (type === -1 || type == node.type) action = node.show(delay);
-            else action = node.hide(delay);
-            
-            // only show a delay for affected nodes, don't delay because of hidden ones
-            if (action) delay += 30;
+            const action = type === -1 || type == node.type
+                ? node.show(delay)
+                : node.hide(delay);
+
+            // only show a delay for affected nodes,
+            // don't delay because of hidden ones
+            if (action)
+                delay += innerDelay.showHide;
 
             node.hover = false;
         });
 
-        // deselect everything
-        this.on_click();
+        this.type = type;
+    }
+
+    getHovered() {
+        raycaster.setFromCamera(mouse, this.camera);
+        const intersects = raycaster.intersectObjects(this.scene.children);
+        return intersects.length > 0
+            ? intersects[0].object.userData.node
+            : null;
     }
 
     update() {
-        if (!is_active(this.canvas)) return;
+        requestAnimationFrame(() => this.update());
 
-        if (!this.is_init)
-            this.init();
+        const now = Date.now();
+        if (prevTime === -1)
+            prevTime = now;
+        let dt = (now - prevTime) / 1000;
+        if (dt > maxDt)
+            dt = maxDt;
 
-        // move and project nodes
-        const trig = [Math.cos(this.camera.rotation), Math.sin(this.camera.rotation)];
-        this.nodes.forEach(node => node.update(trig));
-        this.nodes.sort(compare_nodes);
+        if (is_active(this.elt)) {
+            if (!this.is_init)
+                this.init();
 
-        // get if a node is being hovered
-        let closest = null;
-        let closest_dist = 0;
-        if (mouse_pos[0] >= 0 && mouse_pos[0] < this.w &&
-            mouse_pos[1] >= 0 && mouse_pos[1] < this.h)
-            this.nodes.forEach(node => {
-                const dx = mouse_pos[0] - node.projected[0];
-                const dy = mouse_pos[1] - node.projected[1];
-                const dist = Math.sqrt(dx*dx + dy*dy);
+            const hovered = this.getHovered();
 
-                // hover the node closest to the mouse,
-                // first in projected coords then in depth
-                if (closest != null && (dist > closest_dist ||
-                    (dist == closest_dist && node.z <= closest.z)))
-                    return;
+            // update fov when selecting something
+            const selected = this.nodes.filter(node => node.selected).length
+                != 0;
+            this.fov.transitionTo(selected ? fov.selected : fov.normal);
+            const myFov = this.fov.get();
+            if (myFov.changed) {
+                this.camera.fov = myFov.value;
+                this.onResize();
+            }
 
-                closest = node;
-                closest_dist = dist;
-            });
+            this.nodes.forEach(node => { node.hover = node === hovered });
 
-        if (closest != null && closest_dist > hover_dist) closest = null;
+            // compute final camera variables after revolution
+            const trig = [
+                Math.cos(-this.camera.rotation.y),
+                Math.sin(-this.camera.rotation.y)];
+            const pos = new THREE.Vector3(
+                this.pos.x,
+                this.pos.y,
+                this.pos.z + this.distance);
+            pos.set(
+                pos.x*trig[0] - pos.z*trig[1],
+                pos.y,
+                pos.x*trig[1] + pos.z*trig[0]
+            );
 
-        this.nodes.forEach(node => { node.hover = node === closest });
+            // camera rotation: slower if hovering a node
+            this.speedMultiplier.transitionTo(hovered == null ? 1 : 0);
+            this.camera.rotation.y += rotationSpeed
+                * this.speedMultiplier.get().value * dt;
+            this.camera.position.set(pos.x, pos.y, pos.z);
 
-        // camera rotation: slower if hovering a node
-        let speed = rotation_speed;
-        if (closest != null) speed *= Math.pow(closest_dist/hover_dist, 1.5);
-        this.camera.rotation += speed * delta_time;
+            // update and render
+            this.nodes.forEach(node => node.update(dt));
+            this.renderer.render(this.scene, this.camera);
+        }
 
-        // display section
-        this.ctx.clearRect(0, 0, this.w, this.h);
-
-        this.nodes.forEach(node => node.draw());
+        prevTime = now;
     }
 }
 
-// don't resize every frame, wait a little to prevent lag from multiple resizes
-let target_time;
-function resizer(time) {
-    if (target_time == time) graph.on_resize();
+function onUlClick(evt) {
+    if (evt.target.tagName.toUpperCase() != "LI") return;
+
+    const type = Array.from(evt.target.parentNode.children)
+        .indexOf(evt.target) - 1;
+    graph.updateVisible(type);
+
+    // update type ul
+    let i = -1;
+    Array.from(typeUl.children).forEach(
+        li => li.className = i++ == type ? "selected" : "");
 }
 
-function resize_handler() {
-    const time = Date.now();
-    target_time = time;
-    window.setTimeout(resizer, 100, time);
-}
-
-function get_mouse_pos(evt) {
-    const rect = graph.canvas.getBoundingClientRect();
-    mouse_pos = [evt.x-rect.x, evt.y-rect.top];
-}
-
-function on_ul_click(evt) {
-    if (evt.target.tagName.toUpperCase() != 'LI') return;
-
-    graph.update_visible(Array.from(evt.target.parentNode.children).indexOf(evt.target) - 1);
-}
-
-let mouse_pos = [-1, -1];
 let graph;
-const container = document.getElementById("languages");
-const canvas = container.querySelector("canvas");
-const title_elt = container.querySelector("h3");
-const description_elt = container.querySelector("p");
-const ul = container.querySelector("ul");
-
-fetch('/v3/languages.json')
+fetch("/v3/languages.json")
     .then(response => response.json())
-    .then(data => {
-        Object.values(data).forEach(value => {
-            const image = new Image("img");
-            image.src = value.image;
-            value.image = image;
-        });
+    .then(response => {
+        graph = new Graph(response);
+        graph.update();
 
-        graph = new Graph(canvas, data);
-
-        window.addEventListener("resize", resize_handler);
-        canvas.addEventListener("click", () => graph.on_click());
-        canvas.addEventListener("mousemove", get_mouse_pos);
-        ul.addEventListener("click", on_ul_click);
-
-        window.setInterval(() => graph.update(), 1000 * delta_time);
+        self.addEventListener("resize", () => graph.onResize());
+        graph.elt.addEventListener("click", () => graph.onClick());
+        graph.elt.addEventListener("mousemove", onMouseMove);
+        typeUl.addEventListener("click", onUlClick);
     });

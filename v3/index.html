@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>d-002 - GitHub homepage</title>
 
-    <link rel="stylesheet" href="/v3/styles/main.css?v=1.0.2">
-    <link rel="stylesheet" href="/v3/styles/home.css?v=1.0.2">
-    <link rel="stylesheet" href="/v3/styles/flare.css?v=1.0.2">
-    <link rel="stylesheet" href="/v3/styles/titles.css?v=1.0.2">
-    <link rel="stylesheet" href="/v3/styles/repos.css?v=1.0.2">
+    <link rel="stylesheet" href="/v3/styles/main.css?v=1.1">
+    <link rel="stylesheet" href="/v3/styles/home.css?v=1.1">
+    <link rel="stylesheet" href="/v3/styles/flare.css?v=1.1">
+    <link rel="stylesheet" href="/v3/styles/titles.css?v=1.1">
+    <link rel="stylesheet" href="/v3/styles/repos.css?v=1.1">
 </head>
 
 <body>
@@ -52,7 +52,7 @@
                 <img src="/v3/images/repos/featured/fast-voronoi.png" class="highlight hover-scale" alt="fast-voronoi">
                 <span>fast-voronoi</span>
             </a>
-            <p>Very fast weighted <a href="https://en.wikipedia.org/wiki/Voronoi_diagram" target="_blank">Voronoi diagram</a> display. Finds the polygons that define the cells to allow for CPU-side actions on them.</p>
+            <p>Very fast weighted <a href="https://en.wikipedia.org/wiki/Voronoi_diagram" target="_blank">Voronoi diagram</a> display. Analytically define boundaries for Voronoi cells in multiplicative Euclidean geometry.</p>
         </div>
 
         <div class="repos-list">
@@ -64,11 +64,9 @@
             </div>
             <br>
             <div class="right light-container grainy animate-on-scroll">
-                <p>
-                Progression graph tool for games and other things that have a strong emphasis on progression. Create and export progression trees to organize.
-                </p>
-                <a href="https://github.com/d-002/progression-graph" target="_blank" class="external-open hover-scale">
-                    <img src="/v3/images/repos/featured/progression-graph.png" class="highlight" alt="progression-graph">
+                <p>Image indexing and retrieval with AI search using sentence-transformers.</p>
+                <a href="https://github.com/d-002/media-db" target="_blank" class="external-open hover-scale">
+                    <img src="/v3/images/repos/featured/media-db.png" class="highlight" alt="fast-voronoi">
                 </a>
             </div>
         </div>
@@ -77,31 +75,35 @@
     </div>
 
     <div id="about" class="main-dark">
-            <div class="rainbow-circle animate-on-scroll">
-                <div><img src="/v3/images/logo.png"></div>
+            <div id="big-logo" class="animate-on-scroll">
+                <img src="/v3/images/logo.png">
             </div>
             <div>
                 <h2>About me</h2>
-                <p>Hi, I'm Léo, or D_00 online. I am currently enrolled in a five-year computer science engineering degree at <a href="https://www.epita.fr" target="_blank">EPITA Lyon</a>, France, with an expected graduation date of 2028. I enjoy math, programming, both low and high-level, with an emphasis on AI, web development and image processing.<br>I also appreciate both playing and composing music a lot.</p>
+                <p>Hi, I'm Léo, or D_00 online. Computer Science student at <strong><a href="https://www.epita.fr" target="_blank">EPITA</a>, Lyon</strong>, France, I have great interest in <strong>machine learning</strong>, <strong>image processing</strong>, as well as <strong>computer architecture</strong>. I also take part in many <strong>web development</strong> personal projects from time to time, such as this very homepage.
+                I highly appreciate playing, composing music and rock climbing.</p>
             </div>
     </div>
 
     <div class="main grainy">
         <h2>Tools and languages</h2>
         <div id="languages">
-            <canvas class="light-container animate-on-scroll"></canvas>
             <div class="animate-on-scroll">
                 <div>
                     <ul>
                         <li>All</li>
                         <li class="selected">Languages</li>
                         <li>Tools</li>
-                        <li>Frameworks</li>
+                        <li>Frameworks, libraries</li>
                     </ul>
                 </div>
-                <div>
+                <div id="js-info">
                     <h3></h3>
                     <p>Loading...</p>
+                    <ul></ul>
+                </div>
+                <div class="caption">
+                    Icons adapted mostly from <a href="https://devicon-website.vercel.app" target="_blank">DEVICON</a>
                 </div>
             </div>
         </div>
@@ -117,8 +119,8 @@
             <div class="tiles-container">
                 <div class="tile animate-on-scroll">
                     <h3>EPITA</h3>
-                    <p class="subtitle">Engineer's Degree in Computer Science</p>
-                    <span>Currently in 2nd year | 2023 - 2028</span>
+                    <p class="subtitle">Master's Degree in Computer Science</p>
+                    <span>Currently in 3rd year | 2023 - 2028</span>
                 </div>
                 <div class="tile animate-on-scroll">
                     <h3>University of Limerick</h3>
@@ -152,7 +154,7 @@
                 <div class="tile animate-on-scroll">
                     <h3>Bi1</h3>
                     <p class="subtitle">Seasonal job</p>
-                    <p>Commercial employee</p>
+                    <p>Seasonal employee: fruits and vegetables, fresh products, liquids, inventory management</p>
                     <span>Summers 2024, 2025</span>
                 </div>
                 <div class="tile animate-on-scroll">
@@ -241,7 +243,7 @@
     </div>
 
     <div id="footer">
-        <p>© D_00 2025 - <a href="https://github.com/d-002/d-002.github.io/blob/main/LICENSE">MIT license</a></p>
+        <p>© D_00 2026 - <a href="https://github.com/d-002/d-002.github.io/blob/main/LICENSE">MIT license</a></p>
     </div>
 </body>
 
@@ -249,6 +251,6 @@
 <script src="/v3/scripts/flare.js?v=1.0.1.1" type="module"></script>
 <script src="/v3/scripts/titles.js?v=1.0.1.1" type="module"></script>
 <script src="/v3/scripts/scroll.js?v=1.0.1.1" type="module"></script>
-<script src="/v3/scripts/languages.js?v=1.0.1.1" type="module"></script>
+<script src="/v3/scripts/languages.js?v=1.0.1.1" type="module" crossorigin="anonymous"></script>
 <script src="/v3/scripts/tiles-manager.js?v=1.0.1.1" type="module"></script>
 </html>

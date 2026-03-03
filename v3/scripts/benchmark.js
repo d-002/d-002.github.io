@@ -81,12 +81,12 @@ function update() {
 
         // check again next frame if needed
         if (state < 2)
-            window.setTimeout(update, 0);
+            self.setTimeout(update, 0);
     });
 }
 
-let prev_fps = Array(50);
-let final_framerate = [null, null];
+const prev_fps = Array(50);
+const final_framerate = [null, null];
 let state = 0; // 0: testing normal framerate, 1: with gradient background, 2: done
 
 const start = Date.now();
@@ -94,8 +94,6 @@ const timeout = 10000;
 
 let logs = ["Waiting..."];
 show_logs();
-const lag_elt = document.getElementById("lag");
-const info_elt = document.getElementById("info");
 document.getElementById("skip").addEventListener("click", skip);
 
-window.setTimeout(update, 1000);
+self.setTimeout(update, 1000);
