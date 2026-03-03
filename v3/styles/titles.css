@@ -38,6 +38,7 @@
     display: inline-block;
     position: relative;
     margin: 0;
+    line-height: 1;
 
     height: 1em;
     min-width: 1ch;
