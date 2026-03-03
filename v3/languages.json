@@ -1,8 +1,12 @@
 {
     "elements": {
-        "androidstudio": {
+        "android": {
             "group": 1,
             "info": "android"
+        },
+        "androidstudio": {
+            "group": 1,
+            "info": "jetbrains"
         },
         "arduino": {
             "group": 1,
@@ -10,15 +14,11 @@
         },
         "autotools": {
             "group": 1,
-            "info": "build_systems"
+            "info": "cmake"
         },
         "bash": {
             "group": 1,
             "info": "linux"
-        },
-        "bootstrap": {
-            "group": 2,
-            "info": "bootstrap"
         },
         "c": {
             "group": 0,
@@ -26,7 +26,7 @@
         },
         "cmake": {
             "group": 1,
-            "info": "build_systems"
+            "info": "cmake"
         },
         "cplusplus": {
             "group": 0,
@@ -38,7 +38,7 @@
         },
         "css3": {
             "group": 0,
-            "info": "html_css"
+            "info": "html"
         },
         "dotnet": {
             "group": 2,
@@ -60,25 +60,21 @@
             "group": 1,
             "info": "filezilla"
         },
-        "gcc": {
-            "group": 1,
-            "info": "gcc"
-        },
         "git": {
             "group": 1,
-            "info": "git_hub_lab"
+            "info": "git"
         },
         "github": {
             "group": 1,
-            "info": "git_hub_lab"
+            "info": "git"
         },
         "gitlab": {
             "group": 1,
-            "info": "git_hub_lab"
+            "info": "git"
         },
         "html5": {
             "group": 0,
-            "info": "html_css"
+            "info": "html"
         },
         "intellij": {
             "group": 1,
@@ -144,17 +140,13 @@
             "group": 2,
             "info": "opengl"
         },
-        "php": {
-            "group": 0,
-            "info": "php"
-        },
         "postgresql": {
             "group": 0,
             "info": "sql"
         },
         "processing": {
             "group": 2,
-            "info": "processing"
+            "info": "arduino"
         },
         "pygame": {
             "group": 2,
@@ -175,10 +167,6 @@
         "sdl": {
             "group": 2,
             "info": "sdl"
-        },
-        "slack": {
-            "group": 1,
-            "info": "slack"
         },
         "sqlite": {
             "group": 0,
@@ -204,6 +192,10 @@
             "group": 1,
             "info": "trello"
         },
+        "typst": {
+            "group": 0,
+            "info": "latex"
+        },
         "unity": {
             "group": 1,
             "info": "unity"
@@ -219,45 +211,341 @@
         "vscode": {
             "group": 1,
             "info": "vscode"
+        },
+        "shadertoy": {
+            "group": 1,
+            "info": "shadertoy"
         }
     },
     "info": {
         "android": {
-            "name": "Android [studio]",
-            "description": "",
+            "name": "Android",
+            "description": "During my semester at the University of Limerick, I helped develop a mobile application in Java, using Android Studio, in a group of 4 people.",
             "see_also": [
+                "jetbrains",
                 "java"
             ]
         },
         "arduino": {
             "name": "Arduino",
-            "description": "",
+            "description": "I started my coding adventure with Arduino, somewhere around 2018 if I remember correctly.<br>I coded multiple projects, that were the ones that made me fall in love with programming, problem-solving and reasoning to solve practical problems. I used many libraries along the way, like Processing, that I also briefly used separately from Arduino.",
             "see_also": [
                 "processing",
                 "c",
                 "cplusplus"
             ]
         },
+        "cmake": {
+            "name": "Build systems",
+            "description": "During my third year at EPITA (2025-2026), I took part in several projects, including 42sh (POSIX shell), which used GNU Autotools as the build system.<br>Later the same year, during a C++ bootcamp, I was introduced to the CMake build system as well.",
+            "see_also": [
+                "c",
+                "cplusplus"
+            ]
+        },
         "linux": {
             "name": "Linux and the command line",
-            "description": "",
+            "description": "I use Linux daily, mostly through the command line with (Neo)Vim, for daily tasks ranging from connecting with people to coding.",
             "see_also": [
-                "bash",
+                "vim"
+            ]
+        },
+        "c": {
+            "name": "C",
+            "description": "C was my introduction to statically typed programming languages. I discovered some form of it by coding with Arduino many years ago, but I learnt it formally at EPITA, for example during 6 months in 2024, creating an OCR word search program with SDL2.<br>I gained stronger knowledge on the subject through bootcamps and subsequent projects the following year, still at EPITA, for example through the 42sh (POSIX shell) project, or personal projects like <a href='https://github.com/d-002/my_remote' target='_blank'>my_remote</a> or a homemade assembler.",
+            "see_also": [
+                "arduino",
+                "cplusplus",
+                "csharp",
                 "linux"
+            ]
+        },
+        "cplusplus": {
+            "name": "C++",
+            "description": "Although I would say I coded much more in C than in C++ during my studies, the transition to C++ was not too difficult during a bootcamp at EPITA.<br>This is because I had done projects using it in the past (small ones with Arduino, or a software rasterizer), and that I was proficient with object-oriented paradigms through a Java bootcamp and projects.",
+            "see_also": [
+                "arduino",
+                "c",
+                "csharp",
+                "java"
+            ]
+        },
+        "csharp": {
+            "name": "C#",
+            "description": "I spent a year, in 2023-2024, learning C# as part of my studies, to create a videogame that was later commercialized on Steam by a member of the group.<br>I also used it on side projects, like for Celeste modding, making Unity games or renders (see <a href='https://github.com/d-002/raymarch-fractal' target='_blank'>raymarch-fractal</a>).",
+            "see_also": [
+                "c",
+                "cplusplus",
+                "java"
+            ]
+        },
+        "html": {
+            "name": "HTML/CSS",
+            "description": "I have only had formal lessons on HTML/CSS in my studies during my semester at the University of Limerick. However, I had gathered consequently more knowledge before that, on my own, and have expanded my toolbox since then.<br>I coded many personal web projects, allowing me to discover these languages in detail, such as this very webpage.",
+            "see_also": [
+                "js",
+                "figma"
+            ]
+        },
+        "express": {
+            "name": "Express.js",
+            "description": "I used this Javascript framework during a personal project called powe-r/place. This was used for the backend of a r/place - style web application.",
+            "see_also": [
+                "html",
+                "js"
+            ]
+        },
+        "fastapi": {
+            "name": "FastAPI",
+            "description": "FastAPI is a Python library used to create REST APIs in Python.<br>I discovered this library when I created an AI-powered image indexing system in Python called <a href='https://github.com/d-002/media-db' target='_blank'>media-db</a>.",
+            "see_also": [
+                "python"
+            ]
+        },
+        "figma": {
+            "name": "Figma",
+            "description": "I used Figma collaboratively during a web project at the University of Limerick. It helped me understand the need for tools to unify a product's development cycle, providing a middle ground between designers and developers.",
+            "see_also": [
+                "css",
+                "php",
+                "js"
+            ]
+        },
+        "filezilla": {
+            "name": "FileZilla",
+            "description": "FileZilla is an easy-to-use FTP client, which was very handy for me during many web projects where I needed to quickly upload files manually. For example, <a href='https://github.com/d-002/media-db' target='_blank'>media-db</a> or the <a href='https://github.com/d-002/my_remote' target='_blank'>my_remote</a> PHP server.",
+            "see_also": [
+                "html",
+                "js",
+                "php"
+            ]
+        },
+        "git": {
+            "name": "Git",
+            "description": "I use version control systems almost on a daily basis, and I understand how they are fundamentally useful when managing projects of any size. I often use many of Git's features and would say I am proficient and confident with the tool.<br>Most of the time, I will use GitHub to host a project, but I also used GitLab, namely during my EPITA research program.<br>To me, both are valid choices as their pull/merge requests, issues etc. help a lot with managing a project.",
+            "see_also": [
+                "linux"
+            ]
+        },
+        "jetbrains": {
+            "name": "Jetbrains suite",
+            "description": "Although I prefer using (Neo)Vim, I used many of the Jetbrains IDEs like IntelliJ, Android Studio, CLion and Rider during projects, mainly at EPITA. I am familiar with their basics, interface, debugging and testing features.",
+            "see_also": [
+                "android",
+                "vscode",
+                "vim"
+            ]
+        },
+        "java": {
+            "name": "Java",
+            "description": "My first exposure to Java was during my semester at the University of Limerick, where I followed classes related to GUI applications with JavaFX as well as Android apps.<br>The next year, I took part in a Java bootcamp at EPITA which formalized my knowledge even more. Although I am able to code with this language, I cannot say I really enjoy the process.",
+            "see_also": [
+                "android",
+                "csharp",
+                "python"
+            ]
+        },
+        "jquery": {
+            "name": "JQuery",
+            "description": "I used JQuery in 2021 during a web project, to help provide QOL features that were not available in vanilla Javascript.",
+            "see_also": [
+                "js"
+            ]
+        },
+        "js": {
+            "name": "Javascript",
+            "description": "Up until this point, I have used Javascript in virtually every web frontend to provide dynamic client-side functionality. I also touched on using it as backend during a few projects, mainly with node.js.",
+            "see_also": [
+                "html",
+                "express",
+                "nodejs",
+                "jquery",
+                "threejs"
+            ]
+        },
+        "jupyter": {
+            "name": "Jupyter Notebook",
+            "description": "I was introduced to this simple way of packaging Python code interactively during my third year at EPITA, where a teacher published practicals through this format.<br>Although I prefer using formal packaging libraries like Hatch, or simply creating a classical file tree, I find Jupyter notebooks very usable when it comes to sharing and explaining code.",
+            "see_also": [
+                "python"
+            ]
+        },
+        "latex": {
+            "name": "Latex, Typst",
+            "description": "Before switching to typst for most of my classes, I used to use LaTeX very often, from project defenses to presentations with Beamer, but also taking class notes to easily format mathematical formulas.<br>I really enjoy the syntactic sugar provided by Typst though, and I feel like this in-between of LaTeX and Markdown can easily grow an audience in the near future.",
+            "see_also": [
+                "markdown"
+            ]
+        },
+        "lua": {
+            "name": "Lua",
+            "description": "I used the Lua programming language mainly to configure NeoVim, for example when creating a NeoVim package: <a href='https://github.com/d-002/vim-qbuild' target='_blank'>vim-qbuild</a>.",
+            "see_also": [
+                "vim"
+            ]
+        },
+        "markdown": {
+            "name": "Markdown",
+            "description": "Before using LaTex and then Typst for class notetaking, I used Markdown extensively.<br>I still use it anywhere I need to take notes in text format, which is very often as I mainly use the terminal and (Neo)Vim as my editor. For example, when writing temporary to do lists, or READMEs.",
+            "see_also": [
+                "latex",
+                "vim"
+            ]
+        },
+        "vim": {
+            "name": "Vim, NeoVim",
+            "description": "Okay, I have to be honest here, I absolutely love modal text editors. I remember thinking one day, that Vim was the only program that did not feel like it was throttling me in some way. Using this very powerful editor, with incremental learning and so many shortcuts and features, I feel like every day I use it I can edit text and code faster.<br>I know I have to limit the amount of text here, so I will end by saying that I use modal editors on a daily basis, and find this paradigm missing in every piece of software that doesn't have Vim keybinds.",
+            "see_also": [
+                "jetbrains",
+                "vscode"
+            ]
+        },
+        "nodejs": {
+            "name": "Node.js",
+            "description": "Node and Express were among the first JavaScript frameworks I ever used, and they introduced me to the concept of front/back end model when creating my first dynamic websites that didn't use PHP.",
+            "see_also": [
+                "html",
+                "js",
+                "php"
             ]
         },
         "numpy": {
             "name": "NumPy",
-            "description": "",
+            "description": "NumPy is a powerful Python library that makes data manimulation faster and easier. It aligns with the Zen of Python, gives access to so much more compute, and this is why I love using it.<br>As the library has very extensive and powerful features, I do not know nearly all of them from the top of my head though.",
+            "see_also": [
+                "python"
+            ]
+        },
+        "obsidian": {
+            "name": "Obsidian",
+            "description": "From my experience, Obsidian is a great way to store and share notes of all kinds. I used it to take class notes before I discovered Vim. The markdown aspect of Obsidian was very eye-opening to me though, as I learned to use, for example, mermaid graphs thanks to it.",
+            "see_also": [
+                "markdown",
+                "latex",
+                "vim"
+            ]
+        },
+        "ocaml": {
+            "name": "OCaml",
+            "description": "I spent a year studying OCaml, mainly for formal algorithm classes in 2023-2024. This introduced me to the world of functional programming, which I had never quite understood before.",
+            "see_also": []
+        },
+        "opengl": {
+            "name": "OpenGl",
+            "description": "I used OpenGL in multiple places, whether that was in Python (PyOpenGL) or C (SDL2), during an OCR project at EPITA or a software rasterizer personal project.",
+            "see_also": [
+                "c",
+                "cplusplus"
+            ]
+        },
+        "php": {
+            "name": "PHP",
+            "description": "I coded several projects involving PHP, PDO and sqlite3 for example: during a semester-long projet at the University of Limerick in 2025, or in <a href='https://github.com/d-002/my_remote' target='_blank'>my_remote</a> for the server front and backend.",
+            "see_also": [
+                "html",
+                "sql",
+                "js"
+            ]
+        },
+        "sql": {
+            "name": "SQL",
+            "description": "I used sqlite during a semester-long project at the University of Limerick, but also for the backend of <a href='https://github.com/d-002/my_remote' target='_blank'>my_remote</a>, the backend of <a href='https://github.com/d-002/media-db' target='_blank'>media-db</a>.<br>Although these were not based off of formal knowledge, I learnt SQL more formally during a bootcamp at EPITA, using PostgreSQL.",
+            "see_also": [
+                "php",
+                "fastapi"
+            ]
+        },
+        "pygame": {
+            "name": "PyGame",
+        "description": "I created a lot of Python games in my first years of coding, and most of them were with PyGame.<br>Although not the go-to in terms of performance, I am very confident when creating Python games, or even utilities that use PyGame's many features, such as sound, image and video processing.",
+            "see_also": [
+                "python"
+            ]
+        },
+        "pytest": {
+            "name": "PyTest",
+            "description": "PyTest is a testing library for Python. I really relate to TDD (Test-Driven Development) and such a library is gold to me.<br>I used it mainly during my EPITA research program.",
             "see_also": [
                 "python"
             ]
         },
         "python": {
             "name": "Python",
-            "description": "",
+            "description": "Python is my main language, the one I know the most, by far. I started really coding and understanding what I was doing in Python in 2020 during lockdown, but I had learned the basics a few years before that.<br>I made a lot of projects in Python in highschool, taking most of my free time. Several of these projects I even typed fully on a calculator with very limited memory and processing power, which taught me to find optimizations everywhere and make my code compact and efficient.<br>I really enjoy the Zen of Python, as well as the fact that this language is everywhere and can do everything relatively well. I used it in many areas like game development, making APIs, helpers, testing utilities, research...",
             "see_also": [
+                "fastapi",
+                "pygame",
+                "pytest",
+                "tkinter",
                 "numpy"
+            ]
+        },
+        "sdl": {
+            "name": "SDL",
+            "description": "I used SDL2 during a semester-long OCR project in 2024, but I had used it before and after that for various graphical projects: a software rasterizer, 3D rendering using Python and Pygame...",
+            "see_also": [
+                "c",
+                "cplusplus",
+                "python",
+                "pygame"
+            ]
+        },
+        "stackoverflow": {
+            "name": "Stack Overflow",
+            "description": "I used Stack Overflow a lot in my first years of coding, gathering more than 1.5k reputation, answering numerous questions that made me peek out of my comfort zone, solve algorithmic problems, and generally improve.<br>I strongly believe that solving other's questions helped me get an objective outlook on the code I produce, so that it is readable and explainable. Answering questions also trained my understanding of code to better integrate mine inside an existing codebase.",
+            "see_also": []
+        },
+        "threejs": {
+            "name": "Three.js",
+            "description": "This very interactive graph was first done with vanilla Javascript, until I realized that for the sake of efficiency and portability this needed to be rewritten into a GPU-accelerated code.<br>I also used Three.js to render my procedurally-generated LinkedIn banner, to facilitate integration of shader code in a webpage.",
+            "see_also": [
+                "html",
+                "js"
+            ]
+        },
+        "tkinter": {
+            "name": "Tkinter",
+            "description": "The first projects I ever created in PYthon were small GUI applications or even small games, before I discovered PyGame. My first Stack Overflow contributions were Tkinter questions as well.<br>Later, I often came back to this library to design GUIs in Python very easily.",
+            "see_also": [
+                "python",
+                "pygame"
+            ]
+        },
+        "trello": {
+            "name": "Trello",
+            "description": "Trello is a very useful tool for managing teams and projects, making sure everyone is working in the right direction, keeping track of bugs and issues, balancing work and making sure every feature is underway.<br>I used this service multiple times, and always found it useful, alhough I transitioned to GitHub issues and Projects somewhere in 2025.",
+            "see_also": [
+                "git"
+            ]
+        },
+        "unity": {
+            "name": "Unity",
+            "description": "I created a Unity game as part of my studies in 2023-2024, where I proceeded to remake basically everything that was already there since I didn't want inferior performance for the sake of scalability or portability. Whether that was a mistake, I sure did learn a lot along the way.",
+            "see_also": [
+                "csharp"
+            ]
+        },
+        "vercel": {
+            "name": "Vercel",
+            "description": "I have used Vercel multiple times to deploy various websites, although I took most of them down or only kept utilities such as ones managing GitHub stats.<br>The deployment interface is very intuitive and I know I can go back to this service if needed, as is for Koyeb or Glitch.",
+            "see_also": [
+                "html",
+                "js",
+                "php"
+            ]
+        },
+        "shadertoy": {
+            "name": "Shadertoy",
+            "description": "I placed this in the Languages section even though this is not a language. My <a href='https://www.shadertoy.com/user/d_00' target='_blank'>Shadertoy profile</a> regroups many shaders that I made, as small experiments in the wonderful world of GPU programming.<br>I also used the Unity shader language for my <a href='https://github.com/d-002/raymarch-fractal' target='_blank'>raymarch-fractal</a> project.",
+            "see_also": [
+                "unity"
+            ]
+        },
+        "vscode": {
+            "name": "Visual Studio Code",
+            "description": "One of the first IDEs that I ever used was Visual Studio Code. I have not used it much since I started using Rider in 2023, and even less when I discovered Vim in 2024, however I think I would still be able to understand what is needed to code with it today.",
+            "see_also": [
+                "jetbrains"
             ]
         }
     }
