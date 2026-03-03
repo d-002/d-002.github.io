@@ -34,7 +34,11 @@ function cycle_profile() {
 
 const perf_popup = document.getElementById("perf-popup");
 const current_profile_elt = document.getElementById("current-profile");
-document.getElementById("dismiss-perf").addEventListener("click", () => { perf_popup.className = ""; });
+document.getElementById("dismiss-perf").addEventListener("click", () => {
+    perf_popup.className = "";
+    document.location.href = document.location.href.split("?")[0];
+});
+
 document.getElementById("cycle-profile").addEventListener("click", cycle_profile);
 
 // check if just came from the benchmark, in this case open a popup
