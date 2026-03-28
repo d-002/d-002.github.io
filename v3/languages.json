@@ -545,7 +545,8 @@
             "name": "Visual Studio Code",
             "description": "One of the first IDEs that I ever used was Visual Studio Code. I have not used it much since I started using Rider in 2023, and even less when I discovered Vim in 2024, however I think I would still be able to understand what is needed to code with it today.",
             "see_also": [
-                "jetbrains"
+                "jetbrains",
+                "vim"
             ]
         }
     }
