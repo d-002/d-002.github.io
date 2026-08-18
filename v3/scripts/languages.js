@@ -40,7 +40,13 @@ const descriptionElt = infoContainer.querySelector("p");
 
 class Node {
     constructor(master, delay, id, image, type) {
-        this.texture = loader.load(image);
+        this.loaded = false;
+        this.texture = loader.load(image, (tex) => {
+            if (tex.image && tex.image.width > 0 && tex.image.height > 0) {
+                this.loaded = true;
+            }
+        });
+
         this.texture.colorSpace = THREE.SRGBColorSpace;
         this.material = new THREE.SpriteMaterial({map: this.texture});
         this.sprite = new THREE.Sprite(this.material);
@@ -99,6 +105,10 @@ class Node {
     }
 
     update(dt) {
+        if (!this.loaded) {
+            return;
+        }
+
         // animations
         const s = this.getScale();
         this.sprite.scale.set(s, s, 1);
