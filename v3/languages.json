@@ -36,7 +36,7 @@
             "group": 0,
             "info": "csharp"
         },
-        "css3": {
+        "css": {
             "group": 0,
             "info": "html"
         },
@@ -72,7 +72,7 @@
             "group": 1,
             "info": "git"
         },
-        "html5": {
+        "html": {
             "group": 0,
             "info": "html"
         },
@@ -140,7 +140,7 @@
             "group": 2,
             "info": "opengl"
         },
-        "postgresql": {
+        "sql": {
             "group": 0,
             "info": "sql"
         },

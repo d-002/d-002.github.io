@@ -255,8 +255,9 @@ class Graph {
         descriptionElt.innerHTML += "<br>Related:";
         entry.see_also.forEach(name => {
             const li = document.createElement("LI");
-            li.textContent = this.data.info[name].name;
-            li.setAttribute("name", name);
+            const groupName = this.data.elements[name].info;
+            li.textContent = this.data.info[groupName].name;
+            li.setAttribute("name", groupName);
             li.addEventListener("click",
                 evt => this.goTo(evt.target.getAttribute("name")));
             seeAlsoElt.appendChild(li);
